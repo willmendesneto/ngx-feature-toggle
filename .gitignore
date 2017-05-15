@@ -1,0 +1,20 @@
+# Dependency directory
+# https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git
+/node_modules
+*.log
+
+# WebStorm
+.idea
+.vscode
+
+# ignore build and dist for now
+/demo/dist
+/dist
+/coverage
+temp
+
+# ignore inline compiling
+/logs
+
+# AoT generated files
+factories

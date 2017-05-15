@@ -1,0 +1,10 @@
+{
+  "nam": "Ngx-feature-toggle | Your module to handle with feature toggles in Angular apps easier",
+  "short_name": "Will Mendes",
+  "icon": [ ],
+  "start_url": "/?homescreen=1",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#009999",
+  "theme_color": "#009999"
+}

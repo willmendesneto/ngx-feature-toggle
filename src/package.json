@@ -1,0 +1,11 @@
+{
+  "name": "ngx-feature-toggle",
+  "version": "1.0.0",
+  "dependencies": {},
+  "peerDependencies": {
+    "@angular/common": "*",
+    "@angular/core": "*",
+    "@angular/compiler": "*",
+    "@angular/forms": "*"
+  }
+}
