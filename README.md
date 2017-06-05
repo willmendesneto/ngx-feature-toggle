@@ -82,12 +82,16 @@ import { FeatureToggleServiceProvider } from 'ngx-feature-toggle';
 <p>Feature Toggle Configuration Data: </p>
 <p><b>{{ featureToggleData | json }}</b></p>
 
-<div *featureToggle="'enableSecondText'">
+<feature-toggle [featureName]="'enableSecondText'">
   <p>condition is true and "featureToggle" is enabled.</p>
-  <div *featureToggle="'enableFirstText'">
-    <p>Condition is false and "featureToggle" is disabled. In that case this content should not be rendered</p>
-  </div>
-</div>
+  <feature-toggle [featureName]="'enableFirstText'">
+    <p>condition is false and "featureToggle" is disabled. In that case this content should not be rendered.</p>
+  </feature-toggle>
+  <feature-toggle [featureName]="'enableFirstText'" showWhenDisabled >
+    <p>condition is false and "featureToggle" is disabled and it has "showWhenDisabled" attribute.</p>
+    <p>In that case this content should be rendered.</p>
+  </feature-toggle>
+</feature-toggle>
 `
 })
 
@@ -96,33 +100,9 @@ export class ComponentDocsComponent {
     enableFirstText: false,
     enableSecondText: true
   };
-
-  public constructor(
-    private featureToggleServiceProvider: FeatureToggleServiceProvider
-  ) {
-    featureToggleServiceProvider.setConfigurationObject(this.featureToggleData);
-  }
 }
 
 ```
-
-
-## `FeatureToggleServiceProvider`
-
-This service exposes a few different methods with which you can interact with `featureToggle` directive.
-
-### `featureToggleServiceProvider.setConfigurationObject(obj)`
-
-Adds the  feature toggle configuration in your application. This information will be private and checked via `featureToggleServiceProvider.isOn(key)` and `featureToggleServiceProvider.isOff(key)` methods.
-
-### `featureToggleServiceProvider.isOn(key)`
-
-Checks if the `featureToggle` configuration has the string key value with `true` value.
-
-### `featureToggleServiceProvider.isOff(key)`
-
-Checks if the `featureToggle` configuration does not have the string key value with `true` value.
-
 
 
 ## Development
