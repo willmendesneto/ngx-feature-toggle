@@ -1,6 +1,6 @@
 {
   "name": "ngx-feature-toggle",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "dependencies": {},
   "peerDependencies": {
     "@angular/common": "*",
