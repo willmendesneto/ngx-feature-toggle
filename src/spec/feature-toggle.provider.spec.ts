@@ -18,7 +18,7 @@ describe('featureToggleServiceProvider', () => {
     featureToggleServiceProvider.setConfigurationObject({
       enableFirstText: false,
       enableSecondText: true
-    })
+    });
   });
 
   it('should be defined defined', () => {

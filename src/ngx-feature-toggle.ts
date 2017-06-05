@@ -1,5 +1,5 @@
 export {
-  FeatureToggleDirective,
   FeatureToggleServiceProvider,
-  FeatureToggleModule
+  FeatureToggleModule,
+  FeatureToggleProvider
 } from './index';

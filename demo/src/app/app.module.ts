@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
-import { FeatureToggleModule, FeatureToggleServiceProvider } from 'ngx-feature-toggle';
+import { FeatureToggleModule } from 'ngx-feature-toggle';
 
 import { EXAMPLES } from './examples';
 import { DemoComponent } from './app.component';
@@ -18,7 +18,6 @@ import { DemoComponent } from './app.component';
     FeatureToggleModule,
     CommonModule
   ],
-  providers: [FeatureToggleServiceProvider],
   bootstrap: [DemoComponent]
 })
 

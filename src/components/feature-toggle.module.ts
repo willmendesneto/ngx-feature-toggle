@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 
-import { FeatureToggleDirective } from './feature-toggle.directive';
+import { FeatureToggleProvider } from './feature-toggle-provider.component';
 import { FeatureToggleServiceProvider } from './feature-toggle.provider';
+import { FeatureToggleComponent } from './feature-toggle.component';
 
 const ANGULAR_FEATURE_TOGGLE_DIRECTIVES: any[] = [
-  FeatureToggleDirective
+  FeatureToggleProvider,
+  FeatureToggleComponent
 ];
 
 const ANGULAR_FEATURE_TOGGLE_PROVIDERS: any[] = [

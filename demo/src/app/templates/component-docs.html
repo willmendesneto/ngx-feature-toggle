@@ -1,4 +1,5 @@
-<div class="parent">
+<feature-toggle-provider [featureToggleService]="featureToggleData">
+  <div class="parent">
     <h3>Why Feature toggle?</h3>
 
     <blockquote cite="">
@@ -103,12 +104,15 @@ class AnotherExampleComponent &#123;
     <p>Feature Toggle Configuration Data: </p>
     <p><b>{{ featureToggleData | json }}</b></p>
 
-    <div *featureToggle="'enableSecondText'">
+    <feature-toggle [featureName]="'enableSecondText'">
       <p>condition is true and `featureToggle` is enabled.</p>
-      <div *featureToggle="'enableFirstText'">
+      <feature-toggle [featureName]="'enableFirstText'">
         <p>condition is false and `featureToggle` is disabled. In that case this content should not be rendered.</p>
-      </div>
-    </div>
+      </feature-toggle>
+      <feature-toggle [featureName]="'enableFirstText'" showWhenDisabled >
+        <p>condition is false and `featureToggle` is disabled and it has `showWhenDisabled` attribute. In that case this content should be rendered.</p>
+      </feature-toggle>
+    </feature-toggle>
 
     <h3>FeatureToggleServiceProvider</h3>
 
@@ -126,4 +130,6 @@ class AnotherExampleComponent &#123;
 
     <p>Checks if the featureToggle configuration does not have the string key value with true value.</p>
 
-</div>
+  </div>
+
+</feature-toggle-provider>
