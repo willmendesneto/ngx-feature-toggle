@@ -1,18 +1,19 @@
 import { Injectable } from '@angular/core';
 
+const FeatureToggleService = require('feature-toggle-service');
+const featureToggleService = new FeatureToggleService();
+
 @Injectable()
 export class FeatureToggleServiceProvider {
-  private settings: any = {};
-
   isOn(key: string): boolean {
-    return !!this.settings[key];
+    return featureToggleService.isOn(key);
   }
 
   isOff(key: string): boolean {
-    return !this.isOn(key);
+    return featureToggleService.isOff(key);
   }
 
   setConfigurationObject(obj: {}): void {
-    this.settings = obj;
+    return featureToggleService.setConfigurationObject(obj);
   }
 }
