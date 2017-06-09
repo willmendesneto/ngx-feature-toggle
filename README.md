@@ -1,5 +1,7 @@
 # NGX Feature Toggle
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/willmendesneto/ngx-feature-toggle.svg)](https://greenkeeper.io/)
+
 [![npm version](https://badge.fury.io/js/ngx-feature-toggle.svg)](http://badge.fury.io/js/ngx-feature-toggle) [![npm downloads](https://img.shields.io/npm/dm/ngx-feature-toggle.svg)](https://npmjs.org/ngx-feature-toggle)
 
 [![Build Status](https://travis-ci.org/willmendesneto/ngx-feature-toggle.svg?branch=master)](https://travis-ci.org/willmendesneto/ngx-feature-toggle)
