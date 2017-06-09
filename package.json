@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/willmendesneto/ngx-feature-toggle#readme",
   "scripts": {
+    "check-package-license-list": "licensee",
     "bundle-report": "npm run build-report && source-map-explorer dist/bundles/ngx-feature-toggle.umd.js",
     "lite-server": "lite-server -c demo/bs-config.json",
     "demo-serve": "npm run build-package-link && npm run demo-build && npm run lite-server",
@@ -93,6 +94,7 @@
     "karma-jasmine": "^1.0.2",
     "karma-remap-istanbul": "0.6.0",
     "karma-sauce-launcher": "1.1.0",
+    "licensee": "^4.0.1",
     "lite-server": "2.3.0",
     "lodash": "4.17.4",
     "ngm-cli": "0.5.0",
