@@ -4,7 +4,7 @@
   "description": "Your module to handle with feature toggles in Angular applications easier.",
   "author": "Will Mendes <willmendesneto@gmail.com>",
   "license": "MIT",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "keywords": [
