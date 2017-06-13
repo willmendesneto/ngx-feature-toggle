@@ -1,5 +1,5 @@
 export {
   FeatureToggleServiceProvider,
   FeatureToggleModule,
-  FeatureToggleProvider
+  FeatureToggleProviderComponent
 } from './index';

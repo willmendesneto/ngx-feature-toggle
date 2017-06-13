@@ -1,6 +1,6 @@
 import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { FeatureToggleProvider } from '../components/feature-toggle-provider.component';
+import { FeatureToggleProviderComponent } from '../components/feature-toggle-provider.component';
 import { FeatureToggleComponent } from '../components/feature-toggle.component';
 import { FeatureToggleServiceProvider } from '../components/feature-toggle.provider';
 
@@ -31,19 +31,26 @@ class ContainerComponent {
   };
 }
 
-describe('Component: FeatureToggleProvider', () => {
+const noop = () => null;
 
-  let stub: any = {};
+describe('Component: FeatureToggleProviderComponent', () => {
+
   let fixture: any;
+  let nativeElement: any;
+  const stub: any = {};
 
   beforeEach(() => {
     stub.FeatureToggleServiceProvider = {
-      setConfigurationObject: () => {},
+      setConfigurationObject: noop,
       isOn: (key: string) => key === 'enableFirstText'
     };
 
     fixture = TestBed.configureTestingModule({
-      declarations: [ ContainerComponent, FeatureToggleProvider, FeatureToggleComponent ],
+      declarations: [
+        ContainerComponent,
+        FeatureToggleProviderComponent,
+        FeatureToggleComponent
+      ],
       schemas: [ NO_ERRORS_SCHEMA ],
       providers: [{
         provide: FeatureToggleServiceProvider,
@@ -51,16 +58,21 @@ describe('Component: FeatureToggleProvider', () => {
       }]
     })
     .createComponent(ContainerComponent);
+    nativeElement = fixture.nativeElement;
     fixture.detectChanges();
   });
 
   it('should render the enabled children content', () => {
-    const elementText = fixture.nativeElement.querySelectorAll('.feature-toggle-component')[0].innerText;
+    const elementText = fixture
+                          .nativeElement
+                          .querySelectorAll('.feature-toggle-component')[0].innerText;
     expect(elementText).toContain('Enabled content');
   });
 
   it('should NOT render the disabled content', () => {
-    const elementText = fixture.nativeElement.querySelectorAll('.feature-toggle-component')[0].innerText;
+    const elementText = fixture
+                          .nativeElement
+                          .querySelectorAll('.feature-toggle-component')[0].innerText;
     expect(elementText).not.toContain('Disabled content');
   });
 

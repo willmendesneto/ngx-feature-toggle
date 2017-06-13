@@ -16,7 +16,7 @@ export class FeatureToggleComponent implements OnInit {
 
   @Input() featureName: string;
 
-  private isEnabled: boolean = false;
+  private isEnabled = false;
 
   constructor(
     private el: ElementRef,

@@ -12,7 +12,7 @@ import { FeatureToggleServiceProvider } from './feature-toggle.provider';
   template: `<ng-content></ng-content>`
 })
 
-export class FeatureToggleProvider implements OnInit {
+export class FeatureToggleProviderComponent implements OnInit {
 
   @Input() featureToggleService: any = {};
 

@@ -1,7 +1,7 @@
 import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { FeatureToggleComponent } from '../components/feature-toggle.component';
-import { FeatureToggleProvider } from '../components/feature-toggle-provider.component';
+import { FeatureToggleProviderComponent } from '../components/feature-toggle-provider.component';
 import { FeatureToggleServiceProvider } from '../components/feature-toggle.provider';
 
 @Component({
@@ -26,7 +26,7 @@ class ContainerComponent {
 
 describe('Component: FeatureToggle', () => {
 
-  let stub: any = {};
+  const stub: any = {};
   let fixture: any;
 
   beforeEach(() => {
@@ -35,7 +35,7 @@ describe('Component: FeatureToggle', () => {
     };
 
     fixture = TestBed.configureTestingModule({
-      declarations: [ ContainerComponent, FeatureToggleComponent, FeatureToggleProvider ],
+      declarations: [ ContainerComponent, FeatureToggleComponent, FeatureToggleProviderComponent ],
       schemas: [ NO_ERRORS_SCHEMA ],
       providers: [{
         provide: FeatureToggleServiceProvider,
@@ -60,7 +60,8 @@ describe('Component: FeatureToggle', () => {
 
   describe('When featureToggle is enabled', () => {
     it('should render the component content', () => {
-      expect(fixture.nativeElement.querySelector('.third').innerText).toContain('Feature toggle rendered when disabled');
+      const textContent = fixture.nativeElement.querySelector('.third').innerText;
+      expect(textContent).toContain('Feature toggle rendered when disabled');
     });
   });
 });
