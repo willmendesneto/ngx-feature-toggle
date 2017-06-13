@@ -43,7 +43,7 @@ npm install ngx-feature-toggle --save
 
 # Setup
 
-You'll need to add `FeatureToggleModule` to your application module. So that, the `featureToggle` directive will be accessible in your application.
+You'll need to add `FeatureToggleModule` to your application module. So that, the `featureToggle` components will be accessible in your application.
 
 ```typescript
 @NgModule({
@@ -70,30 +70,29 @@ Now you just need to add a configuration in your application root component. You
 - File information;
 - etc;
 
-After that, you can use the `featureToggle` directive in your templates, passing the string based on the feature toggle configuration data.
+After that, you can use the `featureToggle` components in your templates, passing the string based on the feature toggle configuration data.
+
+- `feature-toggle-provider`: Handle with feature toggle configuration in your application. It adds the default values of your enabled/disabled features;
+- `feature-toggle`: Handle with feature toggle check. So that, the component will be rendered/removed based on the feature toggle provider configuration;
 
 ```typescript
 import { Component } from '@angular/core';
-import { FeatureToggleServiceProvider } from 'ngx-feature-toggle';
 
 @Component({
   selector: 'component-docs',
   template: `
-<h3>Live code</h3>
-
-<p>Feature Toggle Configuration Data: </p>
-<p><b>{{ featureToggleData | json }}</b></p>
-
-<feature-toggle [featureName]="'enableSecondText'">
-  <p>condition is true and "featureToggle" is enabled.</p>
-  <feature-toggle [featureName]="'enableFirstText'">
-    <p>condition is false and "featureToggle" is disabled. In that case this content should not be rendered.</p>
+<feature-toggle-provider [featureToggleService]="featureToggleData">
+  <feature-toggle [featureName]="'enableSecondText'">
+    <p>condition is true and "featureToggle" is enabled.</p>
+    <feature-toggle [featureName]="'enableFirstText'">
+      <p>condition is false and "featureToggle" is disabled. In that case this content should not be rendered.</p>
+    </feature-toggle>
+    <feature-toggle [featureName]="'enableFirstText'" showWhenDisabled >
+      <p>condition is false and "featureToggle" is disabled and it has "showWhenDisabled" attribute.</p>
+      <p>In that case this content should be rendered.</p>
+    </feature-toggle>
   </feature-toggle>
-  <feature-toggle [featureName]="'enableFirstText'" showWhenDisabled >
-    <p>condition is false and "featureToggle" is disabled and it has "showWhenDisabled" attribute.</p>
-    <p>In that case this content should be rendered.</p>
-  </feature-toggle>
-</feature-toggle>
+</feature-toggle-provider>
 `
 })
 
