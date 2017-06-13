@@ -6,12 +6,12 @@ before_install:
   - sh -e /etc/init.d/xvfb start
 
 script:
-  - npm run check-package-license-list
   - npm run pretest
-  - npm run test-coverage
+  - npm test -- -cc
 
 after_success:
-  - ./node_modules/.bin/codecov
+  - npm run coveralls
+  - npm run check-package-license-list
 
 addons:
   firefox: "latest"
