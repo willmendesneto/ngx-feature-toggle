@@ -2,6 +2,9 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
+import { MdToolbarModule, MdCardModule, MdTabsModule } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { FeatureToggleModule } from 'ngx-feature-toggle';
 
 import { EXAMPLES } from './examples';
@@ -16,7 +19,11 @@ import { DemoComponent } from './app.component';
     BrowserModule,
     FormsModule,
     FeatureToggleModule,
-    CommonModule
+    CommonModule,
+    MdToolbarModule,
+    MdCardModule,
+    MdTabsModule,
+    BrowserAnimationsModule
   ],
   bootstrap: [DemoComponent]
 })
