@@ -2,11 +2,43 @@
   "extends": "tslint-config-valorsoft",
   "rulesDirectory": "./node_modules/codelyzer",
   "rules": {
+    "no-any": false,
+    "no-var-requires": false,
     "no-forward-ref": false,
     "no-null-keyword": false,
     "only-arrow-functions": false,
     "no-access-missing-member": false,
     "directive-selector": false,
-    "component-selector": false
+    "component-selector": false,
+    "max-line-length": {
+      "options": [120]
+    },
+    "variable-name": [
+      true,
+      "ban-keywords",
+      "check-format",
+      "allow-pascal-case",
+      "allow-leading-underscore"
+    ],
+    "new-parens": true,
+    "no-arg": true,
+    "no-bitwise": true,
+    "no-conditional-assignment": true,
+    "no-consecutive-blank-lines": false,
+    "no-console": {
+      "options": [
+        "debug",
+        "info",
+        "log",
+        "time",
+        "timeEnd",
+        "trace"
+      ]
+    }
+  },
+  "jsRules": {
+    "max-line-length": {
+      "options": [120]
+    }
   }
 }
