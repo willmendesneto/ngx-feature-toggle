@@ -1,6 +1,10 @@
 {
   "license": "(MIT OR Apache-2.0 OR BSD-2-Clause OR BSD-3-Clause OR ISC OR CC-BY-3.0)",
   "whitelist": {
+    "editorconfig": ">=0.12.0",
+    "lru-cache": ">=2.0.0",
+    "underscore.string": ">=2.4.0",
+    "commander": ">=1.1.0",
     "isobject": ">=1.0.2",
     "coa": ">=1.0.1",
     "jju": ">=1.3.0",
