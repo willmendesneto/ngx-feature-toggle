@@ -4,7 +4,7 @@
   "description": "Your module to handle with feature toggles in Angular applications easier.",
   "author": "Will Mendes <willmendesneto@gmail.com>",
   "license": "MIT",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "keywords": [
@@ -40,6 +40,7 @@
     "github-release": "conventional-github-releaser -p angular",
     "build-report": "ngm build -p src --clean --prod --aot --sm",
     "build": "ngm build -p src --clean",
+    "prepublish": "npm run build",
     "build-watch": "ngm build -p src --watch --skip-bundles",
     "start": "ng serve --aot",
     "commit": "git-cz",

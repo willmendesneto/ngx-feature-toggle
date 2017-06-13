@@ -31,7 +31,7 @@ node_modules
 #IntelliJ configuration files
 .idea
 
-dist
+demo
 dev
 docs
 lib
