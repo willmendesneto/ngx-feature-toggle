@@ -73,7 +73,7 @@
     "@types/hammerjs": "^2.0.34",
     "@types/jasmine": "2.5.51",
     "@types/marked": "0.0.28",
-    "@types/node": "7.0.28",
+    "@types/node": "7.0.31",
     "@types/webpack": "2.2.15",
     "angular-highlight-js": "^1.0.2",
     "chokidar-cli": "1.2.0",
