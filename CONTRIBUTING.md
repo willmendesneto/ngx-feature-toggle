@@ -25,6 +25,7 @@ npm test
  * `npm test`
 * If you've added new functionality, **please** include tests which validate its behaviour
 * Make reference to possible [issues](https://github.com/willmendesneto/ngx-feature-toggle/issues) on PR comment
+* This module follows Angular commit message standard, so please make sure that you are following this standard. You can run `npm run commit` and add the information related to your changes.
 
 ## Submitting bug reports
 
