@@ -25,15 +25,19 @@ The idea of this directive is make this process transparent and easier. So the m
 You can integrate with WebSockets or handling this in a EventSourcing architecture. It's totally transparent for you and you can integrate easier in your application.
 
 
-# Demo
+* [Demo](#demo)
+* [Install](#install)
+* [Setup](#setup)
+* [Development](#development)
+* [Contribute](#contribute)
+
+
+## Demo
 
 Try out the [demo](https://willmendesneto.github.io/ngx-feature-toggle/index.html)!
 
-* [Install](#install)
-* [Setup](#setup)
-* [Usage](#usage)
 
-# Install
+## Install
 
 You can get it on NPM installing `ngx-feature-toggle` module as a project dependency.
 
@@ -41,7 +45,7 @@ You can get it on NPM installing `ngx-feature-toggle` module as a project depend
 npm install ngx-feature-toggle --save
 ```
 
-# Setup
+## Setup
 
 You'll need to add `FeatureToggleModule` to your application module. So that, the `featureToggle` components will be accessible in your application.
 
@@ -109,16 +113,30 @@ export class ComponentDocsComponent {
 ## Development
 
 Run demo locally:
-1. build lib `npm run build` (`npm run build-watch` to run build in watch mode)
-2. link lib `npm run link`
-3. run demo `npm start`
 
-Publish
-1. ./node_modules/.bin/ngm -p src version patch
-2. ./node_modules/.bin/ngm -p src publish
+1. build lib `npm run demo-server` (`npm run demo-dev-server` to run `dem`/src` content in watch mode)
 
-Update demo (gh-pages)
+### Publish
+
+1. `npm run publish`
+
+### Update `gh-pages` demo content
+
 1. npm run demo-gh-pages
+
+### Analizing src bundle
+
+1. npm run bundle-report
+
+### Analizing demo bundle
+
+1. npm run demo-build-report
+2. npm run analyze -- demo/dist/<name-of-the-file>.js
+
+
+## Contribute
+
+For contributions, please follow the instructions in [CONTRIBUTING.md](https://github.com/willmendesneto/ngx-feature-toggle/blob/master/CONTRIBUTING.md) file.
 
 
 ## Author
