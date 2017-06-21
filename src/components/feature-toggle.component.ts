@@ -5,7 +5,7 @@ import {
   ElementRef
 } from '@angular/core';
 
-import { FeatureToggleServiceProvider } from './feature-toggle.provider';
+import { isOn } from 'feature-toggle-service';
 
 @Component({
   selector: 'feature-toggle',
@@ -19,8 +19,7 @@ export class FeatureToggleComponent implements OnInit {
   private isEnabled = false;
 
   constructor(
-    private el: ElementRef,
-    private featureToggleServiceProvider: FeatureToggleServiceProvider
+    private el: ElementRef
   ) {}
 
   ngOnInit() {
@@ -29,9 +28,8 @@ export class FeatureToggleComponent implements OnInit {
     }
 
     const showWhenDisabled = this.el.nativeElement.getAttribute('showWhenDisabled') !== null;
-    this.isEnabled = this.featureToggleServiceProvider.isOn(this.featureName);
 
-    const toggleState = this.featureToggleServiceProvider.isOn(this.featureName);
+    const toggleState = isOn(this.featureName);
     this.isEnabled = toggleState === !showWhenDisabled;
     if (!this.isEnabled) {
       this.el.nativeElement.remove();

@@ -2,7 +2,8 @@ import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { FeatureToggleComponent } from '../components/feature-toggle.component';
 import { FeatureToggleProviderComponent } from '../components/feature-toggle-provider.component';
-import { FeatureToggleServiceProvider } from '../components/feature-toggle.provider';
+
+import { setConfigurationObject } from 'feature-toggle-service';
 
 @Component({
   selector: 'kp-container',
@@ -30,17 +31,12 @@ describe('Component: FeatureToggle', () => {
   let fixture: any;
 
   beforeEach(() => {
-    stub.FeatureToggleServiceProvider = {
-       isOn: (key: string) => key === 'enableFirstText'
-    };
+
+    setConfigurationObject({ enableFirstText: true });
 
     fixture = TestBed.configureTestingModule({
       declarations: [ ContainerComponent, FeatureToggleComponent, FeatureToggleProviderComponent ],
-      schemas: [ NO_ERRORS_SCHEMA ],
-      providers: [{
-        provide: FeatureToggleServiceProvider,
-        useValue: stub.FeatureToggleServiceProvider
-      }]
+      schemas: [ NO_ERRORS_SCHEMA ]
     })
     .createComponent(ContainerComponent);
     fixture.detectChanges();

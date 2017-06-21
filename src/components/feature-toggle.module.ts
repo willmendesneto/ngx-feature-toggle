@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 
 import { FeatureToggleProviderComponent } from './feature-toggle-provider.component';
-import { FeatureToggleServiceProvider } from './feature-toggle.provider';
 import { FeatureToggleComponent } from './feature-toggle.component';
 
 const ANGULAR_FEATURE_TOGGLE_DIRECTIVES: any[] = [
@@ -10,7 +9,6 @@ const ANGULAR_FEATURE_TOGGLE_DIRECTIVES: any[] = [
 ];
 
 const ANGULAR_FEATURE_TOGGLE_PROVIDERS: any[] = [
-  FeatureToggleServiceProvider
 ];
 
 @NgModule({
