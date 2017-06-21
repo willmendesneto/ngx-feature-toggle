@@ -10,6 +10,7 @@
 # ignore build and dist for now
 /demo/dist
 /dist
+/lib
 /coverage
 temp
 
