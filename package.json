@@ -127,7 +127,7 @@
     "tslint": "5.4.3",
     "tslint-config-valorsoft": "2.0.1",
     "typedoc": "0.7.1",
-    "typescript": "2.3.4",
+    "typescript": "2.4.1",
     "wallaby-webpack": "0.0.38",
     "webdriver-manager": "12.0.6",
     "webpack-bundle-analyzer": "^2.8.1",
