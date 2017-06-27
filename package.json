@@ -93,7 +93,7 @@
     "cpy": "5.0.0",
     "cpy-cli": "1.0.1",
     "cz-conventional-changelog": "^2.0.0",
-    "del-cli": "1.0.0",
+    "del-cli": "1.1.0",
     "editorconfig-tools": "^0.1.1",
     "gh-pages": "1.0.0",
     "hammerjs": "^2.0.8",
