@@ -68,7 +68,7 @@
     "@angular/compiler-cli": "4.2.3",
     "@angular/core": "4.2.3",
     "@angular/forms": "4.2.3",
-    "@angular/http": "4.2.3",
+    "@angular/http": "4.2.5",
     "@angular/language-service": "4.2.3",
     "@angular/material": "^2.0.0-beta.6",
     "@angular/platform-browser": "4.2.3",
