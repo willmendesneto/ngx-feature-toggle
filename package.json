@@ -65,7 +65,7 @@
     "@angular/cli": "1.1.2",
     "@angular/common": "4.2.3",
     "@angular/compiler": "4.2.3",
-    "@angular/compiler-cli": "4.2.3",
+    "@angular/compiler-cli": "4.2.5",
     "@angular/core": "4.2.3",
     "@angular/forms": "4.2.5",
     "@angular/http": "4.2.3",
