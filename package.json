@@ -57,7 +57,7 @@
     "version": "npm run changelog && git add -A"
   },
   "peerDependencies": {
-    "@angular/core": "^2.3.1 || >=4.0.0",
+    "@angular/core": "^4.2.5",
     "@angular/common": "^2.3.1 || >=4.0.0"
   },
   "devDependencies": {
