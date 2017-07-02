@@ -57,21 +57,21 @@
     "version": "npm run changelog && git add -A"
   },
   "peerDependencies": {
-    "@angular/core": "^2.3.1 || >=4.0.0",
+    "@angular/core": "^4.2.5",
     "@angular/common": "^2.3.1 || >=4.0.0"
   },
   "devDependencies": {
-    "@angular/animations": "4.2.3",
+    "@angular/animations": "4.2.5",
     "@angular/cli": "1.1.2",
     "@angular/common": "4.2.3",
     "@angular/compiler": "4.2.3",
-    "@angular/compiler-cli": "4.2.3",
+    "@angular/compiler-cli": "4.2.5",
     "@angular/core": "4.2.3",
-    "@angular/forms": "4.2.3",
+    "@angular/forms": "4.2.5",
     "@angular/http": "4.2.3",
-    "@angular/language-service": "4.2.3",
+    "@angular/language-service": "4.2.5",
     "@angular/material": "^2.0.0-beta.6",
-    "@angular/platform-browser": "4.2.3",
+    "@angular/platform-browser": "4.2.5",
     "@angular/platform-browser-dynamic": "4.2.5",
     "@angular/router": "4.2.5",
     "@angular/service-worker": "^1.0.0-beta.16",
