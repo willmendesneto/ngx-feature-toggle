@@ -1,17 +1,22 @@
 language: node_js
-
+cache: yarn
 before_install:
   - export CHROME_BIN=chromium-browser
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
+  - npm install -g --no-progress npm@latest yarn
+
+before_script:
+  - yarn install --no-progress
+  - yarn test -- -R dot --check-leaks
 
 script:
-  - npm run pretest
-  - npm test -- -cc
+  - yarn run pretest
+  - yarn test -- -cc
 
 after_success:
-  - npm run coveralls
-  - npm run check-package-license-list
+  - yarn run coveralls
+  - yarn run check-package-license-list
 
 addons:
   firefox: "latest"
