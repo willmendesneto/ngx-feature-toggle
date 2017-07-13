@@ -5,14 +5,14 @@
 ```bash
 git clone https://github.com/willmendesneto/ngx-feature-toggle.git
 cd ngx-feature-toggle
-npm install       # or `npm run reinstall` if you get an error
-npm start
+yarn install       # or `yarn run reinstall` if you get an error
+yarn start
 ```
 
 # Running test
 
 ```bash
-npm test
+yarn test
 ```
 
 ## Submitting Pull Requests
