@@ -128,7 +128,7 @@
     "typescript": "2.3.4",
     "wallaby-webpack": "0.0.38",
     "webdriver-manager": "12.0.6",
-    "zone.js": "0.8.13"
+    "zone.js": "0.8.14"
   },
   "config": {
     "commitizen": {
