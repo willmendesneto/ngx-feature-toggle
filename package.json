@@ -91,7 +91,7 @@
     "conventional-github-releaser": "1.1.12",
     "core-js": "^2.4.1",
     "coveralls": "^2.13.1",
-    "cpy": "5.0.0",
+    "cpy": "5.1.0",
     "cpy-cli": "1.0.1",
     "cz-conventional-changelog": "^2.0.0",
     "del-cli": "1.1.0",
