@@ -82,7 +82,7 @@
     "@types/marked": "0.0.28",
     "@types/node": "8.0.6",
     "@types/webpack": "3.0.1",
-    "angular-highlight-js": "^1.0.2",
+    "angular-highlight-js": "^2.0.0",
     "chokidar-cli": "1.2.0",
     "classlist-polyfill": "1.2.0",
     "codelyzer": "~3.1.1",
