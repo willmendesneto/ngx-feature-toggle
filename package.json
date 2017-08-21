@@ -119,7 +119,7 @@
     "rxjs": "5.4.3",
     "semantic-release": "^7.0.1",
     "source-map-explorer": "^1.3.3",
-    "systemjs-builder": "0.16.9",
+    "systemjs-builder": "0.16.10",
     "ts-helpers": "^1.1.1",
     "ts-node": "3.3.0",
     "tslint": "5.5.0",
