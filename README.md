@@ -20,7 +20,7 @@ Your module to handle with [feature toggles](http://martinfowler.com/bliki/Featu
 The idea of this directive is make this process transparent and easier. So the main point is integrate this directive with other tooling process, such as:
 - Server-side rendering;
 - Progressive rendering;
-- Any other that yoy like :)
+- Any other that you like :)
 
 You can integrate with WebSockets or handling this in a EventSourcing architecture. It's totally transparent for you and you can integrate easier in your application.
 
