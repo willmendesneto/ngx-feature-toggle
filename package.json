@@ -112,7 +112,7 @@
     "karma-sauce-launcher": "1.1.0",
     "licensee": "^4.0.1",
     "lite-server": "2.3.0",
-    "ngm-cli": "0.5.2",
+    "ngm-cli": "0.6.0",
     "protractor": "5.1.2",
     "reflect-metadata": "0.1.10",
     "require-dir": "0.3.2",
