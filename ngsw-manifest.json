@@ -1,13 +1,13 @@
 {
   "static": {
     "urls": {
-      "/main.5216d8e9d945cbbcda19.bundle.js": "fe873353c7ad7e9b44f2728e998561a0f2fa226b",
-      "/sw-register.b48ba44511642396d3ce.bundle.js": "91e19cbc225e33562dab7b8b205bdfb00ac6234f",
-      "/vendor.ebfb882b01a08ab26057.bundle.js": "cdc7f7d252a86a48cad621003df85d87f5c237d4",
-      "/inline.0e3fd577b0070c502861.bundle.js": "f6cbc43fb1c8b589ec20af806e74d627363acdc5",
+      "/main.da89ba022340bd828eaa.bundle.js": "ce044e19f68a20596bf6c04b600080ff4ff1b4a7",
+      "/sw-register.17bdf09cdc8a07113e27.bundle.js": "4f75dbcf5f7ec771beea25dc6e41f468a4c535a8",
+      "/vendor.9a4f0d6839f6f73cb73f.bundle.js": "9859f60c2eb6171b4cf79561e728529ccbf38fe9",
+      "/inline.b78984760e31a5c59d7d.bundle.js": "ae2f12b1e5e77a0bb92b4403c127b4878a5b2fca",
       "/assets/css/example.css": "0053f050632bfc375210ba8c98c52c422fbff6af",
       "/assets/css/material-indigo-pink.css": "f164b9f2c5ca9df1e886d9012adae6a614cb33df",
-      "/index.html": "ed949043e44b56e30da90ea279f0682205e62efc"
+      "/index.html": "8228c68cea399e77208b3ab8cc3fac32d7bfde11"
     },
     "_generatedFromWebpack": true
   }
