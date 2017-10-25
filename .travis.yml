@@ -11,7 +11,6 @@ before_install:
 install:
   - yarn install --no-progress
 script:
-  - yarn run pretest
   - yarn test -- -cc
 
 after_success:

@@ -6,16 +6,16 @@ import { Component, Input } from '@angular/core';
   template: `
 <section>
   <br>
-  <md-card class="code-example-tab-container">
+  <mat-card class="code-example-tab-container">
     <h2>Example</h2>
-    <md-tab-group>
-      <md-tab label="Typescript">
+    <mat-tab-group>
+      <mat-tab label="Typescript">
         <code-example [source]="ts"></code-example>
-      </md-tab>
-      <md-tab label="HTML">
+      </mat-tab>
+      <mat-tab label="HTML">
         <code-example [source]="html"></code-example>
-      </md-tab>
-      <md-tab label="Live code">
+      </mat-tab>
+      <mat-tab label="Live code">
         <br>
         <p>Feature Toggle Configuration Data: </p>
         <p><b>{{ featureToggleData | json }}</b></p>
@@ -29,9 +29,9 @@ import { Component, Input } from '@angular/core';
             <p>condition is false and \`featureToggle\` is disabled and it has \`showWhenDisabled\` attribute. In that case this content should be rendered.</p>
           </feature-toggle>
         </feature-toggle>
-      </md-tab>
-    </md-tab-group>
-  </md-card>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-card>
 </section>
   `
 })

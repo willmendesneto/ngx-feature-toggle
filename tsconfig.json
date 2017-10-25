@@ -23,5 +23,8 @@
   "files": [
     "./demo/src/custom-typings.d.ts", "./src/ngx-feature-toggle.ts"
   ],
+  "angularCompilerOptions": {
+    "strictMetadataEmit": true
+  },
   "atom": { "rewriteTsconfig": false }
 }

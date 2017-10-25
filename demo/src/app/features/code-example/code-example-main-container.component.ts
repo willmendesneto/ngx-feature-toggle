@@ -5,7 +5,7 @@ import { Component, Input } from '@angular/core';
   selector: 'code-example-main-container',
   template: `
 <main>
-  <md-card class="container">
+  <mat-card class="container">
     <feature-toggle-provider [featureToggleService]="featureToggleData">
       <code-example-about-container></code-example-about-container>
       <code-example-usage-container
@@ -20,7 +20,7 @@ import { Component, Input } from '@angular/core';
         >
       </code-example-live-container>
     </feature-toggle-provider>
-  </md-card>
+  </mat-card>
 </main>
   `
 })
