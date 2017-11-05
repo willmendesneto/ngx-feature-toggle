@@ -48,9 +48,24 @@ describe('Component: FeatureToggle', () => {
     });
   });
 
-  describe('When featureToggle is enabled', () => {
+  describe('When featureToggle is disabled', () => {
     it('should NOT render the component content', () => {
-      expect(fixture.nativeElement.querySelector('.second')).toBe(null);
+      expect(fixture.nativeElement.querySelector('.second').innerText).toEqual('');
+    });
+
+    it('should update when feature toggle data change', () => {
+      expect(fixture.nativeElement.querySelector('.first').innerText).not.toEqual('');
+
+      setConfigurationObject({ enableFirstText: false });
+      fixture.detectChanges();
+
+      expect(fixture.nativeElement.querySelector('.first').innerText).toEqual('');
+
+    });
+
+    it('should render the component content if it has `showWhenDisabled` attribute', () => {
+      const textContent = fixture.nativeElement.querySelector('.third').innerText;
+      expect(textContent).toContain('Feature toggle rendered when disabled');
     });
   });
 

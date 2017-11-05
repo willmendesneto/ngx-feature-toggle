@@ -20,12 +20,12 @@ import { Component, Input } from '@angular/core';
         <p>Feature Toggle Configuration Data: </p>
         <p><b>{{ featureToggleData | json }}</b></p>
         <hr>
-        <feature-toggle [featureName]="'enableFirstText'">
+        <feature-toggle [featureName]="'enableSecondText'">
           <p>condition is true and \`featureToggle\` is enabled.</p>
-          <feature-toggle [featureName]="'enableSecondText'">
-            <p>condition is true and \`featureToggle\` is enabled. In that case this content should be rendered.</p>
+          <feature-toggle [featureName]="'enableFirstText'">
+            <p>condition is false and \`featureToggle\` is disabled. In that case this content should not be rendered.</p>
           </feature-toggle>
-          <feature-toggle [featureName]="'enableSecondText'" showWhenDisabled >
+          <feature-toggle [featureName]="'enableFirstText'" showWhenDisabled >
             <p>condition is false and \`featureToggle\` is disabled and it has \`showWhenDisabled\` attribute. In that case this content should be rendered.</p>
           </feature-toggle>
         </feature-toggle>

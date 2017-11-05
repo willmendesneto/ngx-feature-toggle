@@ -18,7 +18,7 @@ import { Component } from '@angular/core';
 
 export class ComponentDocsComponent {
   public featureToggleData: any = {
-    enableFirstText: false,
+    enableFirstText: true,
     enableSecondText: true
   };
 
