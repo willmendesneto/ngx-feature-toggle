@@ -5,7 +5,7 @@ import { CodeExampleSetupContainerComponent } from './features/code-example/code
 import { CodeExampleHeaderContainerComponent } from './features/code-example/code-example-header-container.component';
 import { CodeExampleUsageContainerComponent } from './features/code-example/code-example-usage-container.component';
 import { CodeExampleAboutContainerComponent } from './features/code-example/code-example-about-container.component';
-import { CodeExampleLiveContainerComponent } from './features/code-example/code-example-live-containe.component';
+import { CodeExampleLiveContainerComponent } from './features/code-example/code-example-live-container.component';
 import { CodeExampleMainContainerComponent } from './features/code-example/code-example-main-container.component';
 import { CodeExampleFooterContainerComponent } from './features/code-example/code-example-footer-container.component';
 
