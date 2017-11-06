@@ -17,10 +17,11 @@ jobs:
             - ~/.cache/yarn
             - ./node_modules
       - run:
-          name: Running unit tests
+          name: Running tests
           command: |
             sudo yarn test -- --single-run --no-progress -cc
             sudo yarn run coveralls
+            sudo yarn bundlesize
       - run:
           name: Checking package licenses
           command: |

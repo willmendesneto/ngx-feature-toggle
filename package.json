@@ -54,7 +54,8 @@
     "pretest": "npm run lint && npm run build-package-link",
     "test": "ng test -sr",
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls && rm -rf coverage",
-    "version": "npm run changelog && git add -A"
+    "version": "npm run changelog && git add -A",
+    "bundlesize": "bundlesize"
   },
   "peerDependencies": {
     "@angular/common": "^2.3.1 || >=4.0.0",
@@ -82,6 +83,7 @@
     "@types/marked": "0.3.0",
     "@types/node": "8.0.18",
     "@types/webpack": "3.0.1",
+    "bundlesize": "^0.15.3",
     "classlist-polyfill": "1.2.0",
     "codelyzer": "~3.2.0",
     "commitizen": "^2.9.6",
@@ -132,5 +134,11 @@
   },
   "dependencies": {
     "feature-toggle-service": "^2.0.1"
-  }
+  },
+  "bundlesize": [
+    {
+      "path": "./dist/bundles/ngx-feature-toggle.umd.min.js",
+      "threshold": "1.45 KB"
+    }
+  ]
 }
