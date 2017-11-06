@@ -1,0 +1,27 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/app-name
+    docker:
+      - image: circleci/node:7.10.0-browsers
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependency-cache-{{ .Branch }}-{{ checksum "yarn.lock" }}
+      - run:
+          name: Installing dependencies
+          command: yarn install --no-progress
+      - save_cache:
+          key: dependency-cache-{{ .Branch }}-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
+            - ./node_modules
+      - run:
+          name: Running unit tests
+          command: |
+            sudo yarn test -- --single-run --no-progress -cc
+            sudo yarn run coveralls
+      - run:
+          name: Checking package licenses
+          command: |
+            sudo yarn run check-package-license-list
