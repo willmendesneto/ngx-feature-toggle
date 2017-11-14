@@ -81,7 +81,7 @@
     "@types/hammerjs": "^2.0.34",
     "@types/jasmine": "2.6.3",
     "@types/marked": "0.3.0",
-    "@types/node": "8.0.18",
+    "@types/node": "8.0.52",
     "@types/webpack": "3.8.0",
     "bundlesize": "^0.15.3",
     "classlist-polyfill": "1.2.0",
