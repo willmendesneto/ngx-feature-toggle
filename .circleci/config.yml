@@ -7,22 +7,21 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: dependency-cache-{{ .Branch }}-{{ checksum "yarn.lock" }}
+          key: dependency-cache-{{ .Branch }}-{{ checksum "package.json" }}
       - run:
           name: Installing dependencies
-          command: yarn install --no-progress
+          command: npm install --no-progress
       - save_cache:
-          key: dependency-cache-{{ .Branch }}-{{ checksum "yarn.lock" }}
+          key: dependency-cache-{{ .Branch }}-{{ checksum "package.json" }}
           paths:
-            - ~/.cache/yarn
             - ./node_modules
       - run:
           name: Running tests
           command: |
-            sudo yarn test -- --single-run --no-progress -cc
-            sudo yarn run coveralls
-            sudo yarn bundlesize
+            sudo npm test -- --single-run --no-progress -cc
+            sudo npm run coveralls
+            sudo npm run bundlesize
       - run:
           name: Checking package licenses
           command: |
-            sudo yarn run check-package-license-list
+            sudo npm run check-package-license-list
