@@ -95,7 +95,7 @@
     "cpy-cli": "1.0.1",
     "cz-conventional-changelog": "^2.0.0",
     "editorconfig-tools": "^0.1.1",
-    "gh-pages": "1.0.0",
+    "gh-pages": "1.1.0",
     "hammerjs": "^2.0.8",
     "jasmine": "2.7.0",
     "jasmine-core": "2.8.0",
