@@ -83,7 +83,7 @@
     "@types/marked": "0.3.0",
     "@types/node": "8.0.58",
     "@types/webpack": "3.8.2",
-    "bundlesize": "^0.15.3",
+    "bundlesize": "^0.16.0",
     "classlist-polyfill": "1.2.0",
     "codelyzer": "~4.0.0",
     "commitizen": "^2.9.6",
