@@ -21,7 +21,3 @@ jobs:
             sudo npm test -- --single-run --no-progress -cc
             sudo npm run coveralls
             sudo npm run bundlesize
-      - run:
-          name: Checking package licenses
-          command: |
-            sudo npm run check-package-license-list

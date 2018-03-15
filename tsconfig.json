@@ -1,30 +1,19 @@
 {
+  "compileOnSave": false,
   "compilerOptions": {
-    "target": "es5",
-    "module": "commonjs",
+    "outDir": "./dist/out-tsc",
+    "sourceMap": true,
+    "declaration": false,
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "sourceMap": true,
-    "noEmitHelpers": true,
-    "noImplicitAny": true,
-    "declaration": false,
-    "skipLibCheck": true,
-    "stripInternal": true,
-    "lib": ["dom", "es6"],
-    "types": [
-      "jasmine",
-      "webpack"
+    "target": "es5",
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "lib": [
+      "es2017",
+      "dom"
     ]
-  },
-  "exclude": [
-    "node_modules", "bundles", "dist"
-  ],
-  "files": [
-    "./demo/src/custom-typings.d.ts", "./src/ngx-feature-toggle.ts"
-  ],
-  "angularCompilerOptions": {
-    "strictMetadataEmit": true
-  },
-  "atom": { "rewriteTsconfig": false }
+  }
 }

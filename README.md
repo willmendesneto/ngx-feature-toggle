@@ -86,16 +86,15 @@ import { Component } from '@angular/core';
   selector: 'component-docs',
   template: `
 <feature-toggle-provider [featureToggleService]="featureToggleData">
-  <feature-toggle [featureName]="'enableSecondText'">
-    <p>condition is true and "featureToggle" is enabled.</p>
+    <feature-toggle [featureName]="'enableSecondText'">
+      <p>condition is true and "featureToggle" is enabled.</p>
+    </feature-toggle>
     <feature-toggle [featureName]="'enableFirstText'">
       <p>condition is false and "featureToggle" is disabled. In that case this content should not be rendered.</p>
     </feature-toggle>
     <feature-toggle [featureName]="'enableFirstText'" showWhenDisabled >
-      <p>condition is false and "featureToggle" is disabled and it has "showWhenDisabled" attribute.</p>
-      <p>In that case this content should be rendered.</p>
+      <p>condition is false and "featureToggle" is disabled <b>and it has "showWhenDisabled" attribute.</b> In that case this content should be rendered.</p>
     </feature-toggle>
-  </feature-toggle>
 </feature-toggle-provider>
 `
 })
