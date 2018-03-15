@@ -34,7 +34,7 @@ You can integrate with WebSockets or handling this in a EventSourcing architectu
 
 ## Demo
 
-Try out the [demo](https://willmendesneto.github.io/ngx-feature-toggle/index.html)!
+Take a look on the [docs](https://willmendesneto.github.io/ngx-feature-toggle/index.html) or try out our [demo on Stackblitz](https://stackblitz.com/edit/ngx-feature-toggle-sample)!
 
 
 ## Install
