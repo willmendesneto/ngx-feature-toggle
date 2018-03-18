@@ -85,7 +85,7 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'component-docs',
   template: `
-<feature-toggle-provider [featureToggleService]="featureToggleData">
+<feature-toggle-provider [features]="featureToggleData">
     <feature-toggle [featureName]="'enableSecondText'">
       <p>condition is true and "featureToggle" is enabled.</p>
     </feature-toggle>
