@@ -4,7 +4,7 @@
 
 [![npm version](https://badge.fury.io/js/ngx-feature-toggle.svg)](http://badge.fury.io/js/ngx-feature-toggle) [![npm downloads](https://img.shields.io/npm/dm/ngx-feature-toggle.svg)](https://npmjs.org/ngx-feature-toggle)
 
-[![Build Status](https://travis-ci.org/willmendesneto/ngx-feature-toggle.svg?branch=master)](https://travis-ci.org/willmendesneto/ngx-feature-toggle)
+[![Build Status](https://circleci.com/gh/willmendesneto/ngx-feature-toggle.svg?style=shield)](https://circleci.com/gh/willmendesneto/ngx-feature-toggle)
 [![Coverage Status](https://coveralls.io/repos/willmendesneto/ngx-feature-toggle/badge.svg?branch=master)](https://coveralls.io/r/willmendesneto/ngx-feature-toggle?branch=master)
 [![Dependency Status](https://david-dm.org/willmendesneto/ngx-feature-toggle.svg)](https://david-dm.org/willmendesneto/ngx-feature-toggle)
 
