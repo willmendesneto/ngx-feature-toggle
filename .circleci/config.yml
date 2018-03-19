@@ -20,4 +20,8 @@ jobs:
           command: |
             sudo npm test -- --single-run --no-progress -cc
             sudo npm run coveralls
+      - run:
+          name: Checking bundle size
+          command: |
+            sudo npm run build
             sudo npm run bundlesize
