@@ -7,8 +7,18 @@ import { Component } from '@angular/core';
 })
 
 export class AppComponent {
-  public featureToggleData: any = {
+  featureToggleData: any = {
     enableFirstText: false,
     enableSecondText: true
   };
+
+  constructor() {
+    setInterval(() => {
+      Object.keys(this.featureToggleData).map(key => (
+        this.featureToggleData[key] = !this.featureToggleData[key]
+      ));
+      // increase/decrease this number to see the
+      // current feature toggle component behavior
+    }, 5000);
+  }
 }
