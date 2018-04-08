@@ -23,3 +23,6 @@ max_line_length = 120
 
 [./.github/*.md]
 trim_trailing_whitespace = false
+
+[.circleci/config.yml]
+indent_size = 4

@@ -1,27 +1,79 @@
 version: 2
-jobs:
-  build:
-    working_directory: ~/app-name
+
+docker_defaults: &docker_defaults
     docker:
-      - image: circleci/node:7.10.0-browsers
+        - image: circleci/node:8.11.1-browsers
+    working_directory: ~/project/repo
+
+attach_workspace: &attach_workspace
+    attach_workspace:
+        at: ~/project
+
+install_steps: &install_steps
     steps:
-      - checkout
-      - restore_cache:
-          key: dependency-cache-{{ .Branch }}-{{ checksum "package.json" }}
-      - run:
-          name: Installing dependencies
-          command: npm install --no-progress
-      - save_cache:
-          key: dependency-cache-{{ .Branch }}-{{ checksum "package.json" }}
-          paths:
-            - ./node_modules
-      - run:
-          name: Running tests
-          command: |
-            sudo npm test -- --single-run --no-progress -cc
-            sudo npm run coveralls
-      - run:
-          name: Checking bundle size
-          command: |
-            sudo npm run build
-            sudo npm run bundlesize
+        - checkout
+        - restore_cache:
+            name: Restore node_modules cache
+            keys:
+                - dependency-cache-{{ .Branch }}-{{ checksum "package.json" }}
+        - run:
+            name: Installing Dependencies
+            command: ./.circleci/install-deps.sh
+        - save_cache:
+            name: Save node_modules cache
+            key: dependency-cache-{{ .Branch }}-{{ checksum "package.json" }}
+            paths:
+                - node_modules/
+        - persist_to_workspace:
+            root: ~/project
+            paths:
+                - repo
+
+workflows:
+    version: 2
+    fe-server-nhms:
+        jobs:
+            - build:
+                context: org-global
+                filters:
+                    branches:
+                        ignore:
+                            - master
+            - unit_test:
+                context: org-global
+                filters:
+                    branches:
+                        ignore:
+                            - master
+                requires:
+                    - build
+            - bundle_size:
+                context: org-global
+                filters:
+                    branches:
+                        ignore:
+                            - master
+                requires:
+                    - build
+jobs:
+    build:
+        <<: *docker_defaults
+        <<: *install_steps
+    unit_test:
+        <<: *docker_defaults
+        steps:
+            - *attach_workspace
+            - run:
+                name: Running tests
+                command: |
+                  sudo npm test -- --single-run --no-progress -cc
+                  sudo npm run coveralls
+    bundle_size:
+        <<: *docker_defaults
+        steps:
+            - *attach_workspace
+            - run:
+                name: Checking bundle size
+                command: |
+                  sudo npm run build
+                  sudo npm run bundlesize
