@@ -34,13 +34,11 @@ workflows:
     fe-server-nhms:
         jobs:
             - build:
-                context: org-global
                 filters:
                     branches:
                         ignore:
                             - master
             - unit_test:
-                context: org-global
                 filters:
                     branches:
                         ignore:
@@ -48,7 +46,6 @@ workflows:
                 requires:
                     - build
             - bundle_size:
-                context: org-global
                 filters:
                     branches:
                         ignore:
@@ -56,7 +53,6 @@ workflows:
                 requires:
                     - build
             - end_to_end:
-                context: org-global
                 filters:
                     branches:
                         ignore:
