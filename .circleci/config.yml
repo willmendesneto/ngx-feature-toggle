@@ -18,7 +18,7 @@ install_steps: &install_steps
                 - dependency-cache-{{ .Branch }}-{{ checksum "package.json" }}
         - run:
             name: Installing Dependencies
-            command: ./.circleci/install-deps.sh
+            command: npm install --silent
         - save_cache:
             name: Save node_modules cache
             key: dependency-cache-{{ .Branch }}-{{ checksum "package.json" }}
@@ -55,6 +55,14 @@ workflows:
                             - master
                 requires:
                     - build
+            - end_to_end:
+                context: org-global
+                filters:
+                    branches:
+                        ignore:
+                            - master
+                requires:
+                    - build
 jobs:
     build:
         <<: *docker_defaults
@@ -77,3 +85,11 @@ jobs:
                 command: |
                   sudo npm run build
                   sudo npm run bundlesize
+    end_to_end:
+        <<: *docker_defaults
+        steps:
+            - *attach_workspace
+            - run:
+                name: Checking bundle size
+                command: |
+                  sudo npm run e2e
