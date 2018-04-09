@@ -18,7 +18,13 @@ install_steps: &install_steps
                 - dependency-cache-{{ .Branch }}-{{ checksum "package.json" }}
         - run:
             name: Installing Dependencies
-            command: npm install --silent
+            command: |
+                if [ ! -d "./node_modules" ]; then
+                    echo ">>> Installing Node packages using Yarn"
+                    npm install --silent
+                else
+                    echo ">>> Using cached 'node_modules'"
+                fi
         - save_cache:
             name: Save node_modules cache
             key: dependency-cache-{{ .Branch }}-{{ checksum "package.json" }}
