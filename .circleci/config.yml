@@ -33,30 +33,14 @@ workflows:
     version: 2
     fe-server-nhms:
         jobs:
-            - build:
-                filters:
-                    branches:
-                        ignore:
-                            - master
+            - build
             - unit_test:
-                filters:
-                    branches:
-                        ignore:
-                            - master
                 requires:
                     - build
             - bundle_size:
-                filters:
-                    branches:
-                        ignore:
-                            - master
                 requires:
                     - build
             - end_to_end:
-                filters:
-                    branches:
-                        ignore:
-                            - master
                 requires:
                     - build
 jobs:
