@@ -19,7 +19,7 @@ export class FeatureToggleProviderComponent implements DoCheck, OnInit {
 
   ngOnInit() {
     if (typeof this.features !== 'object') {
-      throw new Error('Attribute `featureToggleService` should not be null or empty');
+      throw new Error('Attribute `features` should not be null or empty');
     }
     this.setFeatureToggles();
   }
