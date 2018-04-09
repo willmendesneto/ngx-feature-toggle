@@ -20,7 +20,7 @@ install_steps: &install_steps
             name: Installing Dependencies
             command: |
                 if [ ! -d "./node_modules" ]; then
-                    echo ">>> Installing Node packages using Yarn"
+                    echo ">>> Installing Node packages using NPM"
                     npm install --silent
                 else
                     echo ">>> Using cached 'node_modules'"
