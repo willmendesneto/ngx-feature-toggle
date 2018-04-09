@@ -111,26 +111,19 @@ export class ComponentDocsComponent {
 
 ## Development
 
-Run demo locally:
+### Run demo locally
 
-1. build lib `npm run demo-server` (`npm run demo-dev-server` to run `dem`/src` content in watch mode)
+1. This project uses [Angular CLI]() as base. That means you just need to run `npm start` and access the link `http://localhost:4200` in your browser
+
+
+### Run tests
+
+1. Run `npm test` for run tests. In case you want to test using watch, please use `npm run tdd`
+
 
 ### Publish
 
 1. `npm run publish`
-
-### Update `gh-pages` demo content
-
-1. npm run demo-gh-pages
-
-### Analizing src bundle
-
-1. npm run bundle-report
-
-### Analizing demo bundle
-
-1. npm run demo-build-report
-2. npm run analyze -- demo/dist/<name-of-the-file>.js
 
 
 ## Contribute
