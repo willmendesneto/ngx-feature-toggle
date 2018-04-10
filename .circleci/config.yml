@@ -39,7 +39,7 @@ install_steps: &install_steps
 
 workflows:
     version: 2
-    fe-server-nhms:
+    build_pipeline:
         jobs:
             - build
             - unit_test:
