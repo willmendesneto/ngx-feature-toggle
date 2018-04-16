@@ -21,12 +21,7 @@ install_steps: &install_steps
         - run:
             name: Installing Dependencies
             command: |
-                if [ ! -d "./node_modules" ]; then
-                    echo ">>> Installing Node packages using NPM"
-                    npm install --silent
-                else
-                    echo ">>> Using cached 'node_modules'"
-                fi
+                npm install --silent
         - save_cache:
             name: Save node_modules cache
             key: dependency-cache-{{ .Branch }}-{{ checksum "package.json" }}

@@ -7,8 +7,6 @@
   "version": "5.1.1",
   "keywords": [
     "angular",
-    "angular2",
-    "ng2",
     "ngx",
     "feature-toggle",
     "ngx-feature-toggle"
