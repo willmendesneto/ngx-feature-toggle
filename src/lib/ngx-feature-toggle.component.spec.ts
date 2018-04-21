@@ -1,5 +1,5 @@
 import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { TestBed } from '@angular/core/testing';
+import { TestBed, async } from '@angular/core/testing';
 import { FeatureToggleComponent } from './ngx-feature-toggle.component';
 import { FeatureToggleProviderComponent } from './ngx-feature-toggle-provider.component';
 import { setConfigurationObject } from 'feature-toggle-service';
@@ -29,7 +29,7 @@ describe('Component: FeatureToggle', () => {
   const stub: any = {};
   let fixture: any;
 
-  beforeEach(() => {
+  beforeEach(async () => {
 
     setConfigurationObject({ enableFirstText: true });
 

@@ -1,9 +1,9 @@
-import { TestBed, async } from '@angular/core/testing';
+import { TestBed, async, tick, fakeAsync, discardPeriodicTasks } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { AppComponent } from './app.component';
 describe('AppComponent', () => {
-  beforeEach(async(() => {
+  beforeEach(async (() => {
     TestBed.configureTestingModule({
       declarations: [
         AppComponent
@@ -12,24 +12,28 @@ describe('AppComponent', () => {
     }).compileComponents();
   }));
 
-  it('should create the app', async(() => {
+  it('should change the feature toggle data every 5 seconds', fakeAsync(() => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
-    expect(app).toBeTruthy();
-  }));
 
-  it(`should have as title 'app'`, async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
+    discardPeriodicTasks();
+
     expect(app.featureToggleData).toEqual({
       enableFirstText: false,
       enableSecondText: true,
     });
+
+    tick(5000);
+
+    expect(app.featureToggleData).toEqual({
+      enableFirstText: true,
+      enableSecondText: false,
+    });
   }));
 
-  it('should render title in a h1 tag', async(() => {
+  it('should render title in a h1 tag', fakeAsync(() => {
     const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
+    discardPeriodicTasks();
     const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('h1').textContent).toContain('ngx-feature-toggle');
   }));
