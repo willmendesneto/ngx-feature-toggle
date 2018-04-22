@@ -43,9 +43,9 @@ workflows:
             - bundle_size:
                 requires:
                     - build
-            - end_to_end:
-                requires:
-                    - build
+            # - end_to_end:
+            #     requires:
+            #         - build
 jobs:
     build:
         <<: *docker_defaults
@@ -68,11 +68,11 @@ jobs:
                 command: |
                   sudo npm run build
                   sudo npm run bundlesize
-    end_to_end:
-        <<: *docker_defaults
-        steps:
-            - *attach_workspace
-            - run:
-                name: Running E2E tests
-                command: |
-                  sudo npm run e2e
+    # end_to_end:
+    #     <<: *docker_defaults
+    #     steps:
+    #         - *attach_workspace
+    #         - run:
+    #             name: Running E2E tests
+    #             command: |
+    #               sudo npm run e2e
