@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][]
+
+## [5.1.5][] - 2018-04-24
 ### Updated
 - Decreasing the bundle to `839B`
 - Updating NPM tasks
@@ -22,6 +24,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Removed
 - Changing `featureToggleService` to `features` prop on `<feature-toggle-provider />` component
 
-[Unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v5.1.0...HEAD
+[Unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v5.1.5...HEAD
+[5.1.5]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v5.1.0...v5.1.5
 [5.1.1]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v5.1.1
 [5.0.0]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v5.0.0
