@@ -4,7 +4,7 @@
   "description": "Your module to handle with feature toggles in Angular applications easier.",
   "author": "Will Mendes <willmendesneto@gmail.com>",
   "license": "MIT",
-  "version": "5.1.8",
+  "version": "5.2.0",
   "keywords": [
     "angular",
     "ngx",
@@ -27,12 +27,13 @@
     "tdd": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "build": "ng-packagr -p src/lib/ng-package.js && cp -f README.md dist && node build.js",
-    "publish": "npm run changelog-version && npm run test && npm run build && npm run bundlesize && npm publish dist",
+    "build": "ng-packagr -p src/lib/ng-package.js && cp -f README.md dist && node ./scripts/build.js",
+    "publish": "npm publish dist",
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls && rm -rf coverage",
     "bundlesize": "bundlesize",
     "editorconfig-tools-check": "editorconfig-tools check ./src/** ./e2e/** ./.circleci/**",
-    "changelog-version": "version-changelog CHANGELOG.md && changelog-verify CHANGELOG.md && git add CHANGELOG.md"
+    "postversion": "git push && git push --tags",
+    "version": "version-changelog CHANGELOG.md && changelog-verify CHANGELOG.md && git add CHANGELOG.md"
   },
   "dependencies": {
     "@angular/animations": "^5.2.0",
@@ -69,8 +70,8 @@
     "karma-jasmine": "~1.1.0",
     "karma-jasmine-html-reporter": "^0.2.2",
     "ng-packagr": "^2.2.0",
-    "np": "^2.20.1",
     "protractor": "^5.3.1",
+    "semver": "^5.5.0",
     "ts-node": "~4.1.0",
     "tslint": "~5.9.1",
     "typescript": "~2.5.3",

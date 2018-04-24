@@ -123,8 +123,7 @@ export class ComponentDocsComponent {
 
 ### Publish
 
-1. `npm version <major | minor | patch> -m "v%s"`
-2. `npm publish dist`
+1. `PKG_VERSION=<patch|minor|major> ./scripts/publish.sh`
 
 
 ## Contribute
