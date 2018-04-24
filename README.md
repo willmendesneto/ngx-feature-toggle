@@ -113,7 +113,7 @@ export class ComponentDocsComponent {
 
 ### Run demo locally
 
-1. This project uses [Angular CLI]() as base. That means you just need to run `npm start` and access the link `http://localhost:4200` in your browser
+1. This project uses [Angular CLI](https://cli.angular.io/) as base. That means you just need to run `npm start` and access the link `http://localhost:4200` in your browser
 
 
 ### Run tests
