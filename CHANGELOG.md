@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][]
+### Fixed
+- Fixing NPM publish task to v5.2.0
 
 ## [5.1.11][] - 2018-04-24
 ### Fixed
