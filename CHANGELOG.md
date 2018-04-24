@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][]
+
+## [5.2.1][] - 2018-04-25
 ### Fixed
 - Fixing NPM publish task to v5.2.0
 
@@ -41,7 +43,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Removed
 - Changing `featureToggleService` to `features` prop on `<feature-toggle-provider />` component
 
-[Unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v5.1.11...HEAD
+[Unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v5.2.1...HEAD
+[5.2.1]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v5.1.11...v5.2.1
 [5.1.11]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v5.1.8...v5.1.11
 [5.1.8]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v5.1.7...v5.1.8
 [5.1.7]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v5.1.6...v5.1.7
