@@ -27,7 +27,7 @@
     "tdd": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "build": "ng-packagr -p src/lib/ng-package.js && cp -f README.md dist && node ./scripts/build.js",
+    "build": "ng-packagr -p src/lib/ng-package.js && cp -f README.md dist",
     "publish": "npm publish dist",
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls && rm -rf coverage",
     "bundlesize": "bundlesize",
