@@ -123,7 +123,7 @@ export class ComponentDocsComponent {
 
 ### Publish
 
-1. `npm run build`
+1. `npm version <major | minor | patch> -m "v%s"`
 2. `npm publish dist`
 
 
