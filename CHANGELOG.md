@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased][]
 ### Updated
 - Decreasing the bundle to `839B`
+- Updating NPM tasks
 
 ## [5.1.1][] - 2018-03-19
 - Fixing published bundle 

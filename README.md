@@ -123,7 +123,8 @@ export class ComponentDocsComponent {
 
 ### Publish
 
-1. `npm run publish`
+1. `npm run build`
+2. `npm publish dist`
 
 
 ## Contribute
