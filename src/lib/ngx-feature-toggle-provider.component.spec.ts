@@ -31,8 +31,6 @@ class ContainerComponent {
   };
 }
 
-const noop = () => null;
-
 describe('Component: FeatureToggleProviderComponent', () => {
 
   let fixture: any;

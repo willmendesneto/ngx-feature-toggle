@@ -9,7 +9,6 @@ import {
 
 import { isOn } from 'feature-toggle-service';
 
-
 @Component({
   selector: 'feature-toggle',
   template: '<ng-content *ngIf="isEnabled"></ng-content>'
