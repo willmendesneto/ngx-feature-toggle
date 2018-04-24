@@ -25,8 +25,7 @@ export class FeatureToggleProviderComponent implements DoCheck, OnInit {
   }
 
   ngDoCheck() {
-    const shouldUpdateFeatureToggles = this.currentConfig !== this.features;
-    if (shouldUpdateFeatureToggles) {
+    if (this.currentConfig !== this.features) {
       this.setFeatureToggles();
     }
   }

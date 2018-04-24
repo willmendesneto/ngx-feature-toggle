@@ -20,8 +20,6 @@ export class FeatureToggleComponent implements DoCheck, OnInit {
 
   isEnabled = false;
 
-  private featureIsEnabled = false;
-
   constructor(
     private _el: ElementRef,
     private _zone: NgZone
@@ -44,10 +42,6 @@ export class FeatureToggleComponent implements DoCheck, OnInit {
     const showWhenDisabled = this._el.nativeElement.getAttribute('showWhenDisabled') !== null;
     const toggleState = isOn(this.featureName);
 
-    this.featureIsEnabled = toggleState === !showWhenDisabled;
-    if (this.isEnabled !== this.featureIsEnabled) {
-      this.isEnabled = this.featureIsEnabled;
-    }
-
+    this.isEnabled = toggleState === !showWhenDisabled;
   }
 }
