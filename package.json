@@ -4,7 +4,7 @@
   "description": "Your module to handle with feature toggles in Angular applications easier.",
   "author": "Will Mendes <willmendesneto@gmail.com>",
   "license": "MIT",
-  "version": "5.2.3",
+  "version": "5.2.4",
   "keywords": [
     "angular",
     "ngx",
