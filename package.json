@@ -28,12 +28,13 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "build": "ng-packagr -p src/lib/ng-package.js && cp -f README.md dist",
-    "publish": "npm publish dist",
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls && rm -rf coverage",
     "bundlesize": "bundlesize",
+    "update-library-version": "node ./scripts/build.js",
+    "prepublish": "npm run build && npm run update-library-version",
     "editorconfig-tools-check": "editorconfig-tools check ./src/** ./e2e/** ./.circleci/**",
     "postversion": "git push && git push --tags",
-    "version": "version-changelog CHANGELOG.md && changelog-verify CHANGELOG.md && git add CHANGELOG.md"
+    "version": "version-changelog CHANGELOG.md && changelog-verify CHANGELOG.md && git add CHANGELOG.md && npm run build && npm run update-library-version"
   },
   "dependencies": {
     "@angular/animations": "^5.2.0",
