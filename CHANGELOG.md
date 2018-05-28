@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][]
+
+## [5.2.5][] - 2018-05-28
 ### Updated
 - Adding publish steps on `README.md`
 
@@ -61,7 +63,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Removed
 - Changing `featureToggleService` to `features` prop on `<feature-toggle-provider />` component
 
-[Unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v5.2.4...HEAD
+[Unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v5.2.5...HEAD
+[5.2.5]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v5.2.4...v5.2.5
 [5.2.4]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v5.2.3...v5.2.4
 [5.2.3]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v5.2.3...v5.2.3
 [5.2.3]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v5.2.2...v5.2.3
