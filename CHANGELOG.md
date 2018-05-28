@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][]
+### Updated
+- Updating the npm scripts to add support for `np`
+
 
 ## [5.2.2][] - 2018-04-25
 ### Fixed
