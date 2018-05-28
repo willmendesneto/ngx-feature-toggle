@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][]
+### Updated
+- Adding publish steps on `README.md`
+
 
 ## [5.2.4][] - 2018-05-28
 ### Updated

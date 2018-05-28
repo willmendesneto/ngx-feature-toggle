@@ -123,7 +123,9 @@ export class ComponentDocsComponent {
 
 ### Publish
 
-1. `PKG_VERSION=<patch|minor|major> ./scripts/publish.sh`
+this project is using `np` package to publish, which makes things straightforward. EX: `np <patch|minor|major> --contents=dist`
+
+> For more details, [please check np package on npmjs.com](https://www.npmjs.com/package/np)
 
 
 ## Contribute
