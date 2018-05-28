@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased][]
 ### Updated
 - Updating the npm scripts to add support for `np`
+- Updating scripts to publish package
 
 
 ## [5.2.2][] - 2018-04-25
@@ -50,7 +51,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Removed
 - Changing `featureToggleService` to `features` prop on `<feature-toggle-provider />` component
 
-[Unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v5.2.2...HEAD
+[Unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v5.2.3...HEAD
+[5.2.3]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v5.2.2...v5.2.3
 [5.2.2]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v5.2.1...v5.2.2
 [5.2.1]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v5.1.11...v5.2.1
 [5.1.11]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v5.1.8...v5.1.11
