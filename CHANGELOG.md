@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][]
 
+## [5.2.6][] - 2018-10-07
+
 ### Updated
 
 - Bumping `feature-toggle-service` to 4.0.0
@@ -105,3 +107,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 [5.1.5]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v5.1.0...v5.1.5
 [5.1.1]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v5.1.1
 [5.0.0]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v5.0.0
+
+
+[Unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v5.2.6...HEAD
+[5.2.6]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v5.2.6
