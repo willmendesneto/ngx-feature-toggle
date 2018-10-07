@@ -4,16 +4,10 @@ import { NgModule } from '@angular/core';
 import { FeatureToggleModule } from '../lib/ngx-feature-toggle.module';
 import { AppComponent } from './app.component';
 
-
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
-  imports: [
-    BrowserModule,
-    FeatureToggleModule
-  ],
+  declarations: [AppComponent],
+  imports: [BrowserModule, FeatureToggleModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

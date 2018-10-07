@@ -5,15 +5,8 @@ import { FeatureToggleProviderComponent } from './ngx-feature-toggle-provider.co
 import { FeatureToggleComponent } from './ngx-feature-toggle.component';
 
 @NgModule({
-  declarations: [
-    FeatureToggleProviderComponent,
-    FeatureToggleComponent
-  ],
-  exports: [
-    FeatureToggleProviderComponent,
-    FeatureToggleComponent
-  ],
-  imports: [ CommonModule ]
+  declarations: [FeatureToggleProviderComponent, FeatureToggleComponent],
+  exports: [FeatureToggleProviderComponent, FeatureToggleComponent],
+  imports: [CommonModule],
 })
-
-export class FeatureToggleModule { }
+export class FeatureToggleModule {}

@@ -1,4 +1,5 @@
 # Change Log
+
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
@@ -6,64 +7,91 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][]
 
-## [5.2.5][] - 2018-05-28
 ### Updated
+
+- Bumping `feature-toggle-service` to 4.0.0
+- Decreasing bundle size to `808B`
+
+## [5.2.5][] - 2018-05-28
+
+### Updated
+
 - Adding publish steps on `README.md`
 
-
 ## [5.2.4][] - 2018-05-28
+
 ### Updated
+
 - Updating the npm scripts to add support for `np`
 - Updating scripts to publish package
 
 ## [5.2.3][] - 2018-05-28
+
 ### Updated
+
 - Updating the npm scripts to add support for `np`
 - Updating scripts to publish package
 
-
 ## [5.2.2][] - 2018-04-25
+
 ### Fixed
+
 - Fixing NPM publish script
 
 ## [5.2.1][] - 2018-04-25
+
 ### Fixed
+
 - Fixing NPM publish task to v5.2.0
 
 ## [5.1.11][] - 2018-04-24
+
 ### Fixed
+
 - Fixing NPM publish task to v5.1.12
 
 ## [5.1.8][] - 2018-04-24
+
 ### Fixed
+
 - Fixing NPM publish task to v5.1.8
 
 ## [5.1.7][] - 2018-04-24
+
 ### Fixed
+
 - Fixing NPM publish task
 
 ## [5.1.6][] - 2018-04-24
+
 - Fixing NPM publish task
 
 ## [5.1.5][] - 2018-04-24
+
 ### Updated
+
 - Decreasing the bundle to `839B`
 - Updating NPM tasks
 
 ## [5.1.1][] - 2018-03-19
-- Fixing published bundle 
+
+- Fixing published bundle
 
 ## [5.0.0][] - 2018-03-19
+
 ### Changed
+
 - Using `ng-packagr` as package bundle
 
 ### Security
+
 - Updating NPM packages
 
 ### Removed
+
 - Changing `featureToggleService` to `features` prop on `<feature-toggle-provider />` component
 
-[Unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v5.2.5...HEAD
+[unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v5.2.5...HEAD
 [5.2.5]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v5.2.4...v5.2.5
 [5.2.4]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v5.2.3...v5.2.4
 [5.2.3]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v5.2.3...v5.2.3

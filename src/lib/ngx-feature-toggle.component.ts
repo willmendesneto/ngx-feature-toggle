@@ -1,46 +1,34 @@
-import {
-  Component,
-  Input,
-  OnInit,
-  ElementRef,
-  NgZone,
-  DoCheck
-} from '@angular/core';
+import { Component, Input, OnInit, ElementRef, NgZone, DoCheck } from '@angular/core';
 
 import { isOn } from 'feature-toggle-service';
 
 @Component({
   selector: 'feature-toggle',
-  template: '<ng-content *ngIf="isEnabled"></ng-content>'
+  template: '<ng-content *ngIf="shouldRender()"></ng-content>',
 })
-
 export class FeatureToggleComponent implements DoCheck, OnInit {
-  @Input() featureName: string;
+  @Input()
+  featureName: string;
 
-  isEnabled = false;
-
-  constructor(
-    private _el: ElementRef,
-    private _zone: NgZone
-  ) {}
+  constructor(private _el: ElementRef, private _zone: NgZone) {}
 
   ngOnInit() {
     if (!this.featureName) {
       throw new Error('Attribute `featureName` should not be null or empty');
     }
-    this.checkIfContentShouldBeRendered();
+    this.shouldRender();
   }
 
   ngDoCheck() {
     this._zone.runOutsideAngular(() => {
-      this.checkIfContentShouldBeRendered();
+      this.shouldRender();
     });
   }
 
-  private checkIfContentShouldBeRendered() {
+  shouldRender() {
     const showWhenDisabled = this._el.nativeElement.getAttribute('showWhenDisabled') !== null;
     const toggleState = isOn(this.featureName);
 
-    this.isEnabled = toggleState === !showWhenDisabled;
+    return toggleState === !showWhenDisabled;
   }
 }

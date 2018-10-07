@@ -47,7 +47,7 @@
     "@angular/platform-browser-dynamic": "^5.2.0",
     "@angular/router": "^5.2.0",
     "core-js": "^2.4.1",
-    "feature-toggle-service": "^3.0.0",
+    "feature-toggle-service": "^4.0.0",
     "rxjs": "^5.5.6",
     "zone.js": "^0.8.19"
   },
@@ -84,7 +84,7 @@
   "bundlesize": [
     {
       "path": "./dist/bundles/ngx-feature-toggle.umd.min.js",
-      "maxSize": "839B"
+      "maxSize": "808B"
     }
   ]
 }

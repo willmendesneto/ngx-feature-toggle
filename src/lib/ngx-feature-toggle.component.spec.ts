@@ -2,7 +2,7 @@ import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
 import { TestBed, async } from '@angular/core/testing';
 import { FeatureToggleComponent } from './ngx-feature-toggle.component';
 import { FeatureToggleProviderComponent } from './ngx-feature-toggle-provider.component';
-import { setConfigurationObject } from 'feature-toggle-service';
+import { set } from 'feature-toggle-service';
 
 @Component({
   selector: 'kp-container',
@@ -18,32 +18,29 @@ import { setConfigurationObject } from 'feature-toggle-service';
       </feature-toggle>
     </feature-toggle>
   </div>
-  `
+  `,
 })
-
-class ContainerComponent {
-}
+class ContainerComponent {}
 
 describe('Component: FeatureToggle', () => {
-
   const stub: any = {};
   let fixture: any;
 
   beforeEach(async () => {
-
-    setConfigurationObject({ enableFirstText: true });
+    set({ enableFirstText: true });
 
     fixture = TestBed.configureTestingModule({
-      declarations: [ ContainerComponent, FeatureToggleComponent, FeatureToggleProviderComponent ],
-      schemas: [ NO_ERRORS_SCHEMA ]
-    })
-    .createComponent(ContainerComponent);
+      declarations: [ContainerComponent, FeatureToggleComponent, FeatureToggleProviderComponent],
+      schemas: [NO_ERRORS_SCHEMA],
+    }).createComponent(ContainerComponent);
     fixture.detectChanges();
   });
 
   describe('When featureToggle is enabled', () => {
     it('should render the component content', () => {
-      expect(fixture.nativeElement.querySelector('.first').innerText).toContain('Feature toggle enabled');
+      expect(fixture.nativeElement.querySelector('.first').innerText).toContain(
+        'Feature toggle enabled'
+      );
     });
   });
 
@@ -55,11 +52,10 @@ describe('Component: FeatureToggle', () => {
     it('should update when feature toggle data change', () => {
       expect(fixture.nativeElement.querySelector('.first').innerText).not.toEqual('');
 
-      setConfigurationObject({ enableFirstText: false });
+      set({ enableFirstText: false });
       fixture.detectChanges();
 
       expect(fixture.nativeElement.querySelector('.first').innerText).toEqual('');
-
     });
 
     it('should render the component content if it has `showWhenDisabled` attribute', () => {

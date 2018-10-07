@@ -1,19 +1,13 @@
-import {
-  Component,
-  Input,
-  OnInit,
-  DoCheck
-} from '@angular/core';
-import { setConfigurationObject } from 'feature-toggle-service';
+import { Component, Input, OnInit, DoCheck } from '@angular/core';
+import { set } from 'feature-toggle-service';
 
 @Component({
   selector: 'feature-toggle-provider',
-  template: `<ng-content></ng-content>`
+  template: `<ng-content></ng-content>`,
 })
-
 export class FeatureToggleProviderComponent implements DoCheck, OnInit {
-
-  @Input() features: { [k: string]: any; } = {};
+  @Input()
+  features: { [k: string]: any } = {};
 
   private currentConfig: any = {};
 
@@ -25,15 +19,13 @@ export class FeatureToggleProviderComponent implements DoCheck, OnInit {
   }
 
   ngDoCheck() {
-    if (this.currentConfig !== this.features) {
-      this.setFeatureToggles();
-    }
+    this.setFeatureToggles();
   }
 
   private setFeatureToggles() {
-    this.currentConfig = this.features;
-    setConfigurationObject(
-      this.features
-    );
+    if (this.currentConfig !== this.features) {
+      this.currentConfig = this.features;
+      set(this.features);
+    }
   }
 }
