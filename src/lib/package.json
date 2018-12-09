@@ -28,6 +28,6 @@
     "node": ">=6.10.2"
   },
   "dependencies": {
-    "feature-toggle-service": "^2.0.1"
+    "feature-toggle-service": "^4.0.0"
   }
 }
