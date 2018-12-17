@@ -7,17 +7,17 @@ import { set } from 'feature-toggle-service';
 @Component({
   selector: 'kp-container',
   template: `
-  <div>
-    <feature-toggle class="first" [featureName]="'enableFirstText'">
-      <p>Feature toggle enabled</p>
-      <feature-toggle class="second" [featureName]="'enableSecondText'">
-        Feature toggle disabled
+    <div>
+      <feature-toggle class="first" [featureName]="'enableFirstText'">
+        <p>Feature toggle enabled</p>
+        <feature-toggle class="second" [featureName]="'enableSecondText'">
+          Feature toggle disabled
+        </feature-toggle>
+        <feature-toggle class="third" [featureName]="'enableSecondText'" showWhenDisabled>
+          Feature toggle rendered when disabled
+        </feature-toggle>
       </feature-toggle>
-      <feature-toggle class="third" [featureName]="'enableSecondText'" showWhenDisabled>
-        Feature toggle rendered when disabled
-      </feature-toggle>
-    </feature-toggle>
-  </div>
+    </div>
   `,
 })
 class ContainerComponent {}
@@ -39,7 +39,7 @@ describe('Component: FeatureToggle', () => {
   describe('When featureToggle is enabled', () => {
     it('should render the component content', () => {
       expect(fixture.nativeElement.querySelector('.first').innerText).toContain(
-        'Feature toggle enabled'
+        'Feature toggle enabled',
       );
     });
   });

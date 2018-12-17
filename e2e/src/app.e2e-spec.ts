@@ -9,6 +9,6 @@ describe('ngx-feature-toggle App', () => {
 
   it('should display `ngx-feature-toggle`', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('ngx-feature-toggle');
+    expect(page.getTitleText()).toEqual('ngx-feature-toggle');
   });
 });

@@ -1,7 +1,7 @@
 **Please check if the PR fulfills these requirements**
 
-- [ ] The commit messages follow our 
-[guidelines](https://docs.google.com/document/d/1QrDFcIiPjSLDn3EL15IJygNPiHORgU1_OOAqWjiDU5Y)
+- [ ] The commit messages follow these
+      [guidelines](https://docs.google.com/document/d/1QrDFcIiPjSLDn3EL15IJygNPiHORgU1_OOAqWjiDU5Y)
 - [ ] Tests for the changes have been added (for bug fixes / features)
 - [ ] Docs have been added / updated (for bug fixes / features)
 
@@ -30,7 +30,7 @@ If it is a Bugfix, please describe the root cause and what could have been done 
 [ ] No
 ```
 
-If this PR contains a breaking change, please describe the impact and migration 
+If this PR contains a breaking change, please describe the impact and migration
 path for existing applications: …
 
 **Other information (if applicable)**:

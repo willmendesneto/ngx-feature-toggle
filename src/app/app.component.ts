@@ -18,7 +18,7 @@ export class AppComponent {
       setInterval(() => {
         this._zone.run(() => {
           Object.keys(this.featureToggleData).map(
-            key => (this.featureToggleData[key] = !this.featureToggleData[key])
+            key => (this.featureToggleData[key] = !this.featureToggleData[key]),
           );
         });
         // increase/decrease this number to see the

@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][]
 
+### Updated
+
+- Using `@angular/cli` structure
+- Decreasing module bundle size
+- Updating `script/build.js` to bump library version at build time
+- Updating publish steps on `README.md` to use library `dist` folder
+
+### Added
+
+- Adding badges for Stackblitz and license
+- Adding `CODE_OF_CONDUCT.md` file
+
 ## [5.2.6][] - 2018-10-07
 
 ### Updated
@@ -107,7 +119,5 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 [5.1.5]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v5.1.0...v5.1.5
 [5.1.1]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v5.1.1
 [5.0.0]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v5.0.0
-
-
-[Unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v5.2.6...HEAD
+[unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v5.2.6...HEAD
 [5.2.6]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v5.2.6

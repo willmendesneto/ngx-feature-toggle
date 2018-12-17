@@ -7,20 +7,16 @@ import { set } from 'feature-toggle-service';
 @Component({
   selector: 'kp-container',
   template: `
-  <div>
-    <feature-toggle-provider [features]="featureToggleData">
-      <feature-toggle
-        class="feature-toggle-component"
-        [featureName]="'enableFirstText'">
-        <p>Enabled content</p>
-        <feature-toggle
-          class="feature-toggle-component"
-          [featureName]="'enableSecondText'">
-          Disabled content
+    <div>
+      <feature-toggle-provider [features]="featureToggleData">
+        <feature-toggle class="feature-toggle-component" [featureName]="'enableFirstText'">
+          <p>Enabled content</p>
+          <feature-toggle class="feature-toggle-component" [featureName]="'enableSecondText'">
+            Disabled content
+          </feature-toggle>
         </feature-toggle>
-      </feature-toggle>
-    </feature-toggle-provider>
-  </div>
+      </feature-toggle-provider>
+    </div>
   `,
 })
 class ContainerComponent {

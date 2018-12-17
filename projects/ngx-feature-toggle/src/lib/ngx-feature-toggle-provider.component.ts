@@ -3,7 +3,9 @@ import { set } from 'feature-toggle-service';
 
 @Component({
   selector: 'feature-toggle-provider',
-  template: `<ng-content></ng-content>`,
+  template: `
+    <ng-content></ng-content>
+  `,
 })
 export class FeatureToggleProviderComponent implements DoCheck, OnInit {
   @Input()
