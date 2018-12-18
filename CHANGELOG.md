@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][]
 
+### Updated
+
+- Adding more information in package.json for the library
+
 ## [6.0.0][] - 2018-12-18
 
 ### Updated
@@ -123,7 +127,5 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 [5.0.0]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v5.0.0
 [unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v5.2.6...HEAD
 [5.2.6]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v5.2.6
-
-
-[Unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v6.0.0...HEAD
+[unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v6.0.0...HEAD
 [6.0.0]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v6.0.0

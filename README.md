@@ -1,7 +1,5 @@
 # NGX Feature Toggle
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/willmendesneto/ngx-feature-toggle.svg)](https://greenkeeper.io/)
-
 [![Dependency Status](https://david-dm.org/willmendesneto/ngx-feature-toggle.svg)](https://david-dm.org/willmendesneto/ngx-feature-toggle)
 [![npm](https://img.shields.io/badge/stackblitz-online-orange.svg)](https://stackblitz.com/edit/ngx-feature-toggle-sample)
 
