@@ -82,7 +82,7 @@
   "bundlesize": [
     {
       "path": "./dist/ngx-feature-toggle/bundles/ngx-feature-toggle.umd.min.js",
-      "maxSize": "811B"
+      "maxSize": "801B"
     }
   ]
 }
