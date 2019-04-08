@@ -1,5 +1,6 @@
 <a href="https://github.com/willmendesneto/ngx-feature-toggle"> <h1>ngx-feature-toggle</h1> </a>
 
+{{ featureToggleData | json }}
 <feature-toggle-provider [features]="featureToggleData">
   <div *featureToggle="'enableSecondText'">
     <p>condition is true and "featureToggle" is enabled.</p>
@@ -13,7 +14,7 @@
   <div *featureToggleWhenDisabled="'enableFirstText'">
     <p>
       condition is false and "featureToggle" is disabled
-      <b>and it has "featureToggleWhenDisabled" attribute.</b> In that case this content should be
+      <b>and it has "featureToggleWhenDisabled" directive.</b> In that case this content should be
       rendered.
     </p>
   </div>

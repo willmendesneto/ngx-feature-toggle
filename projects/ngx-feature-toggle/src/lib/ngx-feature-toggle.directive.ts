@@ -17,6 +17,7 @@ import { isOn } from 'feature-toggle-service';
 export class FeatureToggleDirective implements OnInit, DoCheck {
 
   @Input() public featureToggle: string;
+  private isOn = false;
 
   constructor(
     private templateRef: TemplateRef<any>,
@@ -31,11 +32,14 @@ export class FeatureToggleDirective implements OnInit, DoCheck {
   }
 
   ngDoCheck() {
-    this.shouldRender();
+    if (this.isOn !== isOn(this.featureToggle)) {
+      this.shouldRender();
+    }
   }
 
-  shouldRender() {
-    if (isOn(this.featureToggle)) {
+  private shouldRender() {
+    this.isOn = isOn(this.featureToggle);
+    if (this.isOn) {
       this.viewContainer.createEmbeddedView(this.templateRef);
     } else {
       this.viewContainer.clear();

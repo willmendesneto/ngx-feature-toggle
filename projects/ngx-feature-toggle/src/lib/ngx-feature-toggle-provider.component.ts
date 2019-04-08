@@ -11,7 +11,7 @@ export class FeatureToggleProviderComponent implements DoCheck, OnInit {
   @Input()
   features: { [k: string]: any } = {};
 
-  private currentConfig: any = {};
+  private currentConfig: { [k: string]: any } = {};
 
   ngOnInit() {
     if (typeof this.features !== 'object') {
