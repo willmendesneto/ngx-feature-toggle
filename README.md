@@ -97,7 +97,7 @@ import { Component } from '@angular/core';
       <div *featureToggleWhenDisabled="'enableFirstText'">
         <p>
           condition is false and "featureToggle" is disabled
-          <b>and it has "featureToggleWhenDisabled" attribute.</b> In that case this content should
+          <b>and it has "featureToggleWhenDisabled" directive.</b> In that case this content should
           be rendered.
         </p>
       </div>
