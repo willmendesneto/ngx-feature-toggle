@@ -36,10 +36,13 @@ So that, the new flow will be:
 </feature-toggle-provider>
 ```
 
+- Avoiding add multiple components in first-page load. The components with enabled features were added thrice.
+
 ### Updated
 
 - Updated module docs for including new directives
 - Updating github templates for issues and pull requests
+- Updating NPM keywords for package
 
 ## [6.0.1][] - 2018-12-18
 
