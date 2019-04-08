@@ -72,10 +72,11 @@ Now you just need to add a configuration in your application root component. You
 - File information;
 - etc;
 
-After that, you can use the `featureToggle` components in your templates, passing the string based on the feature toggle configuration data.
+After that, you can use the `featureToggle` components and directives in your templates, passing the string based on the feature toggle configuration data.
 
 - `feature-toggle-provider`: Handle with feature toggle configuration in your application. It adds the default values of your enabled/disabled features;
-- `feature-toggle`: Handle with feature toggle check. So that, the component will be rendered/removed based on the feature toggle provider configuration;
+- `*featureToggle`: Directive that handles with feature toggle check. So that, the component will be rendered/removed based on the feature toggle configuration is enabled;
+- `*featureToggleWhenDisabled`: Directive that handles with feature toggle check. So that, the component will be rendered/removed when the feature toggle configuration is disabled;
 
 ```typescript
 import { Component } from '@angular/core';
@@ -84,22 +85,22 @@ import { Component } from '@angular/core';
   selector: 'component-docs',
   template: `
     <feature-toggle-provider [features]="featureToggleData">
-      <feature-toggle [featureName]="'enableSecondText'">
+      <div *featureToggle="'enableSecondText'">
         <p>condition is true and "featureToggle" is enabled.</p>
-      </feature-toggle>
-      <feature-toggle [featureName]="'enableFirstText'">
+      </div>
+      <div *featureToggle="'enableFirstText'">
         <p>
           condition is false and "featureToggle" is disabled. In that case this content should not
           be rendered.
         </p>
-      </feature-toggle>
-      <feature-toggle [featureName]="'enableFirstText'" showWhenDisabled>
+      </div>
+      <div *featureToggleWhenDisabled="'enableFirstText'">
         <p>
           condition is false and "featureToggle" is disabled
-          <b>and it has "showWhenDisabled" attribute.</b> In that case this content should be
-          rendered.
+          <b>and it has "featureToggleWhenDisabled" attribute.</b> In that case this content should
+          be rendered.
         </p>
-      </feature-toggle>
+      </div>
     </feature-toggle-provider>
   `,
 })
