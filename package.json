@@ -7,7 +7,13 @@
   "keywords": [
     "angular",
     "ngx",
+    "ng",
     "feature-toggle",
+    "feature",
+    "flag",
+    "on",
+    "off",
+    "toggle",
     "ngx-feature-toggle"
   ],
   "repository": {
