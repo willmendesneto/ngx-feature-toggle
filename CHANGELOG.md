@@ -7,6 +7,40 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][]
 
+### Fixed
+
+- Fixed component to trigger Angular Lifecycle of components inside
+
+If this PR contains a breaking change, please describe the impact and migration
+path for existing applications: …
+
+It removed `<feature-toggle>` component. Instead of it it will add 2 new directives:
+
+- `*featureToggle`: Directive that handles with feature toggle check. So that, the component will be rendered/removed based on the feature toggle configuration is enabled;
+- `*featureToggleWhenDisabled`: Directive that handles with feature toggle check. So that, the component will be rendered/removed when the feature toggle configuration is disabled;
+
+So that, the new flow will be:
+
+```html
+<feature-toggle-provider [features]="featureToggleData">
+  <div *featureToggle="'enableSecondText'">
+    <p>condition is true and "featureToggle" is enabled.</p>
+  </div>
+  <div *featureToggleWhenDisabled="'enableFirstText'">
+    <p>
+      condition is false and "featureToggle" is disabled
+      <b>and it has "featureToggleWhenDisabled" directive.</b> In that case this content should be
+      rendered.
+    </p>
+  </div>
+</feature-toggle-provider>
+```
+
+### Updated
+
+- Updated module docs for including new directives
+- Updating github templates for issues and pull requests
+
 ## [6.0.1][] - 2018-12-18
 
 ### Updated
@@ -131,7 +165,5 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 [5.2.6]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v5.2.6
 [unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v6.0.0...HEAD
 [6.0.0]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v6.0.0
-
-
-[Unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v6.0.1...HEAD
+[unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v6.0.1...HEAD
 [6.0.1]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v6.0.1
