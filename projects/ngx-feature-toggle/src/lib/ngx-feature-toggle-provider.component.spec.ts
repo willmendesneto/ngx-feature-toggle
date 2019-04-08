@@ -1,7 +1,7 @@
 import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { TestBed, async } from '@angular/core/testing';
+import { TestBed, async as asyncMethod } from '@angular/core/testing';
 import { FeatureToggleProviderComponent } from './ngx-feature-toggle-provider.component';
-import { FeatureToggleComponent } from './ngx-feature-toggle.component';
+import { FeatureToggleDirective } from './ngx-feature-toggle.directive';
 import { set } from 'feature-toggle-service';
 
 @Component({
@@ -9,12 +9,12 @@ import { set } from 'feature-toggle-service';
   template: `
     <div>
       <feature-toggle-provider [features]="featureToggleData">
-        <feature-toggle class="feature-toggle-component" [featureName]="'enableFirstText'">
+        <div class="feature-toggle-component" *featureToggle="'enableFirstText'">
           <p>Enabled content</p>
-          <feature-toggle class="feature-toggle-component" [featureName]="'enableSecondText'">
+          <div class="feature-toggle-component" *featureToggle="'enableSecondText'">
             Disabled content
-          </feature-toggle>
-        </feature-toggle>
+          </div>
+        </div>
       </feature-toggle-provider>
     </div>
   `,
@@ -31,16 +31,16 @@ describe('Component: FeatureToggleProviderComponent', () => {
   let nativeElement: any;
   const stub: any = {};
 
-  beforeEach(async () => {
+  beforeEach(asyncMethod(() => {
     set({ enableFirstText: true });
 
     fixture = TestBed.configureTestingModule({
-      declarations: [ContainerComponent, FeatureToggleProviderComponent, FeatureToggleComponent],
+      declarations: [ContainerComponent, FeatureToggleProviderComponent, FeatureToggleDirective],
       schemas: [NO_ERRORS_SCHEMA],
     }).createComponent(ContainerComponent);
     nativeElement = fixture.nativeElement;
     fixture.detectChanges();
-  });
+  }));
 
   it('should render the enabled children content', () => {
     const elementText = fixture.nativeElement.querySelectorAll('.feature-toggle-component')[0]

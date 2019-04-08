@@ -1,6 +1,7 @@
 import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
 import { TestBed, async } from '@angular/core/testing';
-import { FeatureToggleComponent } from './ngx-feature-toggle.component';
+import { FeatureToggleDirective } from './ngx-feature-toggle.directive';
+import { FeatureToggleWhenDisabledDirective } from './ngx-feature-toggle-when-disabled.directive';
 import { FeatureToggleProviderComponent } from './ngx-feature-toggle-provider.component';
 import { set } from 'feature-toggle-service';
 
@@ -8,19 +9,19 @@ import { set } from 'feature-toggle-service';
   selector: 'kp-container',
   template: `
     <div>
-      <feature-toggle class="first" [featureName]="'enableFirstText'">
+      <div class="first" *featureToggle="'enableFirstText'">
         <p>Feature toggle enabled</p>
-        <feature-toggle class="second" [featureName]="'enableSecondText'">
+        <div class="second" *featureToggle="'enableSecondText'">
           Feature toggle disabled
-        </feature-toggle>
-        <feature-toggle class="third" [featureName]="'enableSecondText'" showWhenDisabled>
+        </div>
+        <div class="third" *featureToggleWhenDisabled="'enableSecondText'">
           Feature toggle rendered when disabled
-        </feature-toggle>
-      </feature-toggle>
+        </div>
+      </div>
     </div>
   `,
 })
-class ContainerComponent {}
+class ContainerComponent { }
 
 describe('Component: FeatureToggle', () => {
   const stub: any = {};
@@ -30,7 +31,7 @@ describe('Component: FeatureToggle', () => {
     set({ enableFirstText: true });
 
     fixture = TestBed.configureTestingModule({
-      declarations: [ContainerComponent, FeatureToggleComponent, FeatureToggleProviderComponent],
+      declarations: [ContainerComponent, FeatureToggleDirective, FeatureToggleWhenDisabledDirective, FeatureToggleProviderComponent],
       schemas: [NO_ERRORS_SCHEMA],
     }).createComponent(ContainerComponent);
     fixture.detectChanges();
@@ -46,19 +47,19 @@ describe('Component: FeatureToggle', () => {
 
   describe('When featureToggle is disabled', () => {
     it('should NOT render the component content', () => {
-      expect(fixture.nativeElement.querySelector('.second').innerText).toEqual('');
+      expect(fixture.nativeElement.querySelector('.second')).toEqual(null);
     });
 
     it('should update when feature toggle data change', () => {
-      expect(fixture.nativeElement.querySelector('.first').innerText).not.toEqual('');
+      expect(fixture.nativeElement.querySelector('.first').innerText).not.toEqual(null);
 
       set({ enableFirstText: false });
       fixture.detectChanges();
 
-      expect(fixture.nativeElement.querySelector('.first').innerText).toEqual('');
+      expect(fixture.nativeElement.querySelector('.first')).toEqual(null);
     });
 
-    it('should render the component content if it has `showWhenDisabled` attribute', () => {
+    it('should render the component content if it has `featureToggleWhenDisabled` directive', () => {
       const textContent = fixture.nativeElement.querySelector('.third').innerText;
       expect(textContent).toContain('Feature toggle rendered when disabled');
     });
