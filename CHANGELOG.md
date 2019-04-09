@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][]
 
+## [7.0.0][] - 2019-04-09
+
 ### Fixed
 
 - Fixed component to trigger Angular Lifecycle of components inside
@@ -170,3 +172,7 @@ So that, the new flow will be:
 [6.0.0]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v6.0.0
 [unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v6.0.1...HEAD
 [6.0.1]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v6.0.1
+
+
+[Unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v7.0.0...HEAD
+[7.0.0]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v7.0.0
