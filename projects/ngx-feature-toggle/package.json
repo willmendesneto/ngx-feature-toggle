@@ -27,6 +27,6 @@
     "@angular/core": "^8.0.0"
   },
   "dependencies": {
-    "feature-toggle-service": "^4.0.0"
+    "feature-toggle-service": "^4.1.1"
   }
 }

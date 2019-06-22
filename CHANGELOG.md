@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][]
 
+### Updated
+
+- Updating `feature-toggle-service` to `v4.1.1` for better editor/ide integration and use package types 
+
+<img width="701" alt="Screen Shot 2019-06-22 at 6 04 52 pm" src="https://user-images.githubusercontent.com/1252570/59961226-53d91480-9518-11e9-8f3f-acbaf952e955.png">
+
 ## [7.0.1][] - 2019-06-09
 
 ### Updated

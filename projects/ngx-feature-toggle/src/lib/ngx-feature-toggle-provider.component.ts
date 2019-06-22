@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, DoCheck } from '@angular/core';
-import { set } from 'feature-toggle-service';
+import { set, FeatureToggleServiceConfig } from 'feature-toggle-service';
 
 @Component({
   selector: 'feature-toggle-provider',
@@ -9,9 +9,9 @@ import { set } from 'feature-toggle-service';
 })
 export class FeatureToggleProviderComponent implements DoCheck, OnInit {
   @Input()
-  features: { [k: string]: any } = {};
+  features: FeatureToggleServiceConfig = {};
 
-  private currentConfig: { [k: string]: any } = {};
+  private currentConfig: FeatureToggleServiceConfig = {};
 
   ngOnInit() {
     if (typeof this.features !== 'object') {

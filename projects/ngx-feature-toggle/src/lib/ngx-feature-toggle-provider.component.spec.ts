@@ -2,7 +2,7 @@ import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
 import { TestBed, async as asyncMethod } from '@angular/core/testing';
 import { FeatureToggleProviderComponent } from './ngx-feature-toggle-provider.component';
 import { FeatureToggleDirective } from './ngx-feature-toggle.directive';
-import { set } from 'feature-toggle-service';
+import { set, FeatureToggleServiceConfig } from 'feature-toggle-service';
 
 @Component({
   selector: 'kp-container',
@@ -20,7 +20,7 @@ import { set } from 'feature-toggle-service';
   `,
 })
 class ContainerComponent {
-  featureToggleData: any = {
+  featureToggleData: FeatureToggleServiceConfig = {
     enableFirstText: true,
     enableSecondText: false,
   };

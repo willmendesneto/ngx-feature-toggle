@@ -11,12 +11,12 @@ export class AppComponent {
     enableSecondText: true,
   };
 
-  constructor(private _zone: NgZone) {
+  constructor(private zone: NgZone) {
     // Required because Protractor current behavior
     // More details in https://github.com/angular/protractor/blob/master/docs/timeouts.md#waiting-for-angular
-    this._zone.runOutsideAngular(() => {
+    this.zone.runOutsideAngular(() => {
       setInterval(() => {
-        this._zone.run(() => {
+        this.zone.run(() => {
           Object.keys(this.featureToggleData).map(
             key => (this.featureToggleData[key] = !this.featureToggleData[key]),
           );
