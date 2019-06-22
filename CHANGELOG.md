@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][]
 
+## [7.0.2][] - 2019-06-22
+
 ### Updated
 
 - Updating `feature-toggle-service` to `v4.1.1` for better editor/ide integration and use package types 
@@ -186,6 +188,7 @@ So that, the new flow will be:
 [6.0.1]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v6.0.1
 
 
-[Unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v7.0.1...HEAD
+[Unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v7.0.2...HEAD
+[7.0.2]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v7.0.1...v7.0.2
 [7.0.1]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v7.0.0...v7.0.1
 [7.0.0]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v7.0.0
