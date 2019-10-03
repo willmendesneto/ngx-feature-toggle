@@ -48,11 +48,15 @@ npm install ngx-feature-toggle --save
 You'll need to add `FeatureToggleModule` to your application module. So that, the `featureToggle` components will be accessible in your application.
 
 ```typescript
+...
+import { FeatureToggleModule } from 'ngx-feature-toggle';
+...
 @NgModule({
   declarations: [
     YourAppComponent
   ],
   imports: [
+    ...
     FeatureToggleModule,
     ...
   ],
