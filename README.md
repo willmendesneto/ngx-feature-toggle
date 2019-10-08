@@ -116,6 +116,65 @@ export class ComponentDocsComponent {
 }
 ```
 
+In some scenarios when you need to prevent the route to be loaded, you can use `NgxFeatureToggleCanLoadGuard`, by passing the class and configuration of the feature toggle to be checked in your route data.
+
+```js
+...
+export const routes: Routes = [
+  {
+    path: 'home',
+    component: HomeComponent,
+    canLoad: [NgxFeatureToggleCanLoadGuard],
+    data: {
+      featureToggle: ['enableSecondText'],
+    },
+  },
+];
+...
+```
+
+Also, you can use `NgxFeatureToggleCanActivateGuard` to check if the route should be activated or not by passing the class and configuration of the feature toggle to be checked in your route data.
+
+```js
+...
+export const routes: Routes = [
+  {
+    path: 'home',
+    component: HomeComponent,
+    canActivate: [NgxFeatureToggleCanActivateGuard],
+    data: {
+      featureToggle: ['enableSecondText'],
+    },
+  },
+];
+...
+```
+
+In both route guards you can pass route data with feature toggle as an array. For scenarios when you need to check for feature toggles enabled and/or disabled you can easily configure it by passing `!` if the application should check if the feature toggle is disabled
+
+```js
+...
+export const routes: Routes = [
+  {
+    path: 'home',
+    component: HomeComponent,
+    canActivate: [NgxFeatureToggleCanActivateGuard],
+    data: {
+      featureToggle: [
+        // This configuration will check if feature toggle is enabled
+        'enableSecondText',
+        // This configuration will check if feature toggle is disabled
+        // since it has `!` prefix in the configuration
+        '!enableFirstText'
+      ],
+    },
+  },
+];
+...
+```
+
+In this case, we are combining the checks. So the component will be activated if `enableSecondText` is configured as `true` AND `enableFirstText` is configured as `false`. With that configuration you can have all the flexibility to cover different scenarios in your app.
+
 ## Development
 
 ### Run demo locally
