@@ -24,7 +24,8 @@
   "homepage": "https://github.com/willmendesneto/ngx-feature-toggle#readme",
   "peerDependencies": {
     "@angular/common": "^8.0.0",
-    "@angular/core": "^8.0.0"
+    "@angular/core": "^8.0.0",
+    "@angular/router": "~8.0.0"
   },
   "dependencies": {
     "feature-toggle-service": "^4.1.1"

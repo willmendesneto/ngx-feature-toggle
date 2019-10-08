@@ -7,11 +7,47 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][]
 
+### Added
+
+- Adding new `NgxFeatureToggleCanLoadGuard` to control when the component can be loaded via routing. It can be passed as an array of items.
+
+```js
+...
+export const routes: Routes = [
+  {
+    path: 'home',
+    component: HomeComponent,
+    canLoad: [NgxFeatureToggleCanLoadGuard],
+    data: {
+      featureToggle: ['enableSecondText'],
+    },
+  },
+];
+...
+```
+
+- Adding new `NgxFeatureToggleCanActivateGuard` to control when the component can be activate via routing. It can be passed as an array of items.
+
+```js
+...
+export const routes: Routes = [
+  {
+    path: 'home',
+    component: HomeComponent,
+    canActivate: [NgxFeatureToggleCanActivateGuard],
+    data: {
+      featureToggle: ['enableSecondText'],
+    },
+  },
+];
+...
+```
+
 ## [7.0.2][] - 2019-06-22
 
 ### Updated
 
-- Updating `feature-toggle-service` to `v4.1.1` for better editor/ide integration and use package types 
+- Updating `feature-toggle-service` to `v4.1.1` for better editor/ide integration and use package types
 
 <img width="701" alt="Added method description for Editor/IDE integration" src="https://user-images.githubusercontent.com/1252570/59961226-53d91480-9518-11e9-8f3f-acbaf952e955.png">
 
@@ -186,9 +222,7 @@ So that, the new flow will be:
 [6.0.0]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v6.0.0
 [unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v6.0.1...HEAD
 [6.0.1]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v6.0.1
-
-
-[Unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v7.0.2...HEAD
+[unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v7.0.2...HEAD
 [7.0.2]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v7.0.1...v7.0.2
 [7.0.1]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v7.0.0...v7.0.1
 [7.0.0]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v7.0.0

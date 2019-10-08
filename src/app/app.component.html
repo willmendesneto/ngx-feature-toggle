@@ -1,27 +1,2 @@
-<a href="https://github.com/willmendesneto/ngx-feature-toggle">
-  <h1>ngx-feature-toggle</h1>
-</a>
-
-{{ featureToggleData | json }}
-<feature-toggle-provider [features]="featureToggleData">
-  <div *featureToggle="'enableSecondText'">
-    <p>condition is true and "featureToggle" is enabled.</p>
-  </div>
-  <div *featureToggle="'enableFirstText'">
-    <p>
-      condition is false and "featureToggle" is disabled. In that case this content should not be
-      rendered.
-    </p>
-  </div>
-  <div *featureToggleWhenDisabled="'enableFirstText'">
-    <p>
-      condition is false and "featureToggle" is disabled
-      <b>and it has "featureToggleWhenDisabled" directive.</b> In that case this content should be
-      rendered.
-    </p>
-  </div>
-
-  <div *featureToggle="'enableFirstText'">
-    <app-hello name="Oops"></app-hello>
-  </div>
-</feature-toggle-provider>
+<!-- That's all you need! A single `<router-outlet>` and you can do whatever you want -->
+<router-outlet></router-outlet>

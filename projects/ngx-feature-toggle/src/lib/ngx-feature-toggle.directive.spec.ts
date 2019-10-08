@@ -21,7 +21,7 @@ import { set } from 'feature-toggle-service';
     </div>
   `,
 })
-class ContainerComponent { }
+class ContainerComponent {}
 
 describe('Component: FeatureToggle', () => {
   const stub: any = {};
@@ -31,10 +31,19 @@ describe('Component: FeatureToggle', () => {
     set({ enableFirstText: true });
 
     fixture = TestBed.configureTestingModule({
-      declarations: [ContainerComponent, FeatureToggleDirective, FeatureToggleWhenDisabledDirective, FeatureToggleProviderComponent],
+      declarations: [
+        ContainerComponent,
+        FeatureToggleDirective,
+        FeatureToggleWhenDisabledDirective,
+        FeatureToggleProviderComponent,
+      ],
       schemas: [NO_ERRORS_SCHEMA],
     }).createComponent(ContainerComponent);
     fixture.detectChanges();
+  });
+
+  afterEach(() => {
+    set({ enableFirstText: false });
   });
 
   describe('When featureToggle is enabled', () => {
