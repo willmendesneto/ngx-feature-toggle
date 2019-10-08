@@ -31,16 +31,22 @@ describe('Component: FeatureToggleProviderComponent', () => {
   let nativeElement: any;
   const stub: any = {};
 
-  beforeEach(asyncMethod(() => {
-    set({ enableFirstText: true });
+  beforeEach(
+    asyncMethod(() => {
+      set({ enableFirstText: true });
 
-    fixture = TestBed.configureTestingModule({
-      declarations: [ContainerComponent, FeatureToggleProviderComponent, FeatureToggleDirective],
-      schemas: [NO_ERRORS_SCHEMA],
-    }).createComponent(ContainerComponent);
-    nativeElement = fixture.nativeElement;
-    fixture.detectChanges();
-  }));
+      fixture = TestBed.configureTestingModule({
+        declarations: [ContainerComponent, FeatureToggleProviderComponent, FeatureToggleDirective],
+        schemas: [NO_ERRORS_SCHEMA],
+      }).createComponent(ContainerComponent);
+      nativeElement = fixture.nativeElement;
+      fixture.detectChanges();
+    }),
+  );
+
+  afterEach(() => {
+    set({ enableFirstText: false });
+  });
 
   it('should render the enabled children content', () => {
     const elementText = fixture.nativeElement.querySelectorAll('.feature-toggle-component')[0]
