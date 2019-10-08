@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 
+- Adding new docs for route guards configuration
 - Adding new `NgxFeatureToggleCanLoadGuard` to control when the component can be loaded via routing. It can be passed as an array of items.
 
 ```js
