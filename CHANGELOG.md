@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][]
 
+### Updated
+
+- Updating docs with Route Guards section, showing different usage for the components, directives and route guards
+
 ### Added
 
 - Adding new `NgxFeatureToggleCanActivateChildGuard` to control when the child component of a specific component can be activate via routing. It can be passed as an array of items.

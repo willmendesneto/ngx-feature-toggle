@@ -78,6 +78,10 @@ Now you just need to add a configuration in your application root component. You
 
 After that, you can use the `featureToggle` components and directives in your templates, passing the string based on the feature toggle configuration data.
 
+## Module
+
+### Components and Directives
+
 - `feature-toggle-provider`: Handle with feature toggle configuration in your application. It adds the default values of your enabled/disabled features;
 - `*featureToggle`: Directive that handles with feature toggle check. So that, the component will be rendered/removed based on the feature toggle configuration is enabled;
 - `*featureToggleWhenDisabled`: Directive that handles with feature toggle check. So that, the component will be rendered/removed when the feature toggle configuration is disabled;
@@ -115,6 +119,8 @@ export class ComponentDocsComponent {
   };
 }
 ```
+
+### Route Guards
 
 In some scenarios when you need to prevent the route to be loaded, you can use `NgxFeatureToggleCanLoadGuard`, by passing the class and configuration of the feature toggle to be checked in your route data.
 
@@ -174,6 +180,64 @@ export const routes: Routes = [
 ```
 
 In this case, we are combining the checks. So the component will be activated if `enableSecondText` is configured as `true` AND `enableFirstText` is configured as `false`. With that configuration you can have all the flexibility to cover different scenarios in your app.
+
+Use `NgxFeatureToggleCanActivateChildGuard` to control when the child component of a specific component can be activate via routing. It can be passed as an array of items.
+
+```js
+...
+export const routes: Routes = [
+  {
+    path: 'customer',
+    component: CustomerComponent,
+    canActivateChild: [NgxFeatureToggleCanActivateChildGuard],
+    children: [
+      {
+        path: ':id',
+        component: CustomerDetailComponent,
+        // This is the featureToggle configuration for
+        // the child component. It can also use
+        // a combination of feature toggles
+        data: {
+          featureToggle: ['enableCustomerPage', '!enableChildrenNavigation'],
+        },
+      },
+    ],
+  },
+];
+...
+```
+
+For advanced scenarios you can use a combination of route guards. E.G.
+
+```js
+...
+export const routes: Routes = [
+  {
+    path: 'customer',
+    component: CustomerComponent,
+    canActivate: [NgxFeatureToggleCanActivateGuard],
+    canActivateChild: [NgxFeatureToggleCanActivateChildGuard],
+    // This is the featureToggle configuration for
+    // the parent component
+    data: {
+      featureToggle: ['enableCustomerPage'],
+    },
+    children: [
+      {
+        path: ':id',
+        component: CustomerDetailComponent,
+        // This is the featureToggle configuration for
+        // the child component. It can also use
+        // a combination of feature toggles
+        data: {
+          featureToggle: ['enableCustomerPage', '!enableChildrenNavigation'],
+        },
+      },
+    ],
+  },
+];
+...
+```
 
 ## Development
 
