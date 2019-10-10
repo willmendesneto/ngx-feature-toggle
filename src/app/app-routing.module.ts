@@ -4,10 +4,15 @@ import { NgxFeatureToggleCanActivateGuard } from '../../projects/ngx-feature-tog
 import { ErrorComponent } from './error/error.component';
 import { HomeComponent } from './home/home.component';
 import { set } from 'feature-toggle-service';
+import { NgxFeatureToggleCanActivateChildGuard } from '../../projects/ngx-feature-toggle/src/lib/ngx-feature-toggle-can-activate-child-guard.router';
+import { CustomerComponent } from './customer/customer.component';
+import { CustomerDetailComponent } from './customer/customer-detail.component';
 
 set({
   enableFirstText: true,
   enableSecondText: true,
+  enableCustomerPage: true,
+  enableChildrenNavigation: false,
 });
 
 export const routes: Routes = [
@@ -26,6 +31,24 @@ export const routes: Routes = [
     data: {
       featureToggle: ['enableFirstText'],
     },
+  },
+  {
+    path: 'customer',
+    component: CustomerComponent,
+    canActivate: [NgxFeatureToggleCanActivateGuard],
+    canActivateChild: [NgxFeatureToggleCanActivateChildGuard],
+    data: {
+      featureToggle: ['enableCustomerPage'],
+    },
+    children: [
+      {
+        path: ':id',
+        component: CustomerDetailComponent,
+        data: {
+          featureToggle: ['enableCustomerPage', '!enableChildrenNavigation'],
+        },
+      },
+    ],
   },
   { path: '**', redirectTo: '/home' },
 ];

@@ -7,6 +7,40 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][]
 
+### Added
+
+- Adding new `NgxFeatureToggleCanActivateChildGuard` to control when the child component of a specific component can be activate via routing. It can be passed as an array of items.
+
+```js
+...
+export const routes: Routes = [
+  {
+    path: 'home',
+    component: HomeComponent,
+    canActivate: [NgxFeatureToggleCanActivateGuard],
+    canActivateChild: [NgxFeatureToggleCanActivateChildGuard],
+    // This is the featureToggle configuration for
+    // the parent component
+    data: {
+      featureToggle: ['enableCustomerPage'],
+    },
+    children: [
+      {
+        path: ':id',
+        component: CustomerDetailComponent,
+        // This is the featureToggle configuration for
+        // the child component. It can also use
+        // a combination of feature toggles
+        data: {
+          featureToggle: ['enableCustomerPage', '!enableChildrenNavigation'],
+        },
+      },
+    ],
+  },
+];
+...
+```
+
 ## [7.1.0][] - 2019-10-09
 
 ### Added
@@ -229,7 +263,5 @@ So that, the new flow will be:
 [7.0.2]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v7.0.1...v7.0.2
 [7.0.1]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v7.0.0...v7.0.1
 [7.0.0]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v7.0.0
-
-
-[Unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v7.1.0...HEAD
+[unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v7.1.0...HEAD
 [7.1.0]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v7.1.0
