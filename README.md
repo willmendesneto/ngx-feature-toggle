@@ -33,7 +33,10 @@ You can integrate with WebSockets or handling this in a EventSourcing architectu
 
 ## Demo
 
-Take a look on the [docs](https://willmendesneto.github.io/ngx-feature-toggle/index.html) or try out our [demo on Stackblitz](https://stackblitz.com/edit/ngx-feature-toggle-sample)!
+Try out the demos on Stackblitz:
+
+- [Components and directives example](https://stackblitz.com/edit/ngx-feature-toggle-sample)
+- [Routing Guards example](https://stackblitz.com/edit/ngx-feature-toggle-routing-guard-sample)
 
 ## Install
 
