@@ -8,8 +8,11 @@ import { FeatureToggleModule } from '../../projects/ngx-feature-toggle/src/lib/n
 import { ErrorComponent } from './error/error.component';
 import { HomeModule } from './home/home.module';
 
+import { CustomerComponent } from './customer/customer.component';
+import { CustomerDetailComponent } from './customer/customer-detail.component';
+
 @NgModule({
-  declarations: [AppComponent, ErrorComponent],
+  declarations: [AppComponent, ErrorComponent, CustomerComponent, CustomerDetailComponent],
   imports: [BrowserModule, FeatureToggleModule, AppRoutingModule, HomeModule],
   providers: [],
   bootstrap: [AppComponent],
