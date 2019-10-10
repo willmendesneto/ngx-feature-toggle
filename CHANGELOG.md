@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][]
 
+## [7.2.0][] - 2019-10-10
+
 ### Updated
 
 - Updating docs with Route Guards section, showing different usage for the components, directives and route guards
@@ -269,3 +271,7 @@ So that, the new flow will be:
 [7.0.0]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v7.0.0
 [unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v7.1.0...HEAD
 [7.1.0]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v7.1.0
+
+
+[Unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v7.2.0...HEAD
+[7.2.0]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v7.2.0
