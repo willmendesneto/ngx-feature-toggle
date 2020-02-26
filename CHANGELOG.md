@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][]
 
+### Updated
+
+- Updating to NodeJS v12.14.1
+
+### Fixed
+
+- Solving peerDependency warning when installing library in an Angular 9 project
+
 ## [7.2.0][] - 2019-10-10
 
 ### Updated
@@ -124,8 +132,8 @@ So that, the new flow will be:
   <div *featureToggleWhenDisabled="'enableFirstText'">
     <p>
       condition is false and "featureToggle" is disabled
-      <b>and it has "featureToggleWhenDisabled" directive.</b> In that case this content should be
-      rendered.
+      <b>and it has "featureToggleWhenDisabled" directive.</b> In that case this
+      content should be rendered.
     </p>
   </div>
 </feature-toggle-provider>
@@ -271,7 +279,5 @@ So that, the new flow will be:
 [7.0.0]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v7.0.0
 [unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v7.1.0...HEAD
 [7.1.0]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v7.1.0
-
-
-[Unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v7.2.0...HEAD
+[unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v7.2.0...HEAD
 [7.2.0]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v7.2.0
