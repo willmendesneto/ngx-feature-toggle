@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][]
 
+### Updated
+
+- Upgrading NodeJS to `v12.16.2`
+
 ## [7.2.1][] - 2020-02-26
 
 ### Updated
@@ -283,7 +287,5 @@ So that, the new flow will be:
 [7.1.0]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v7.1.0
 [unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v7.2.0...HEAD
 [7.2.0]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v7.2.0
-
-
-[Unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v7.2.1...HEAD
+[unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v7.2.1...HEAD
 [7.2.1]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v7.2.1
