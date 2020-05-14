@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Updated
 
 - Upgrading NodeJS to `v12.16.2`
+- Updating `feature-toggle-service` to `v5.0.1`
 
 ## [7.2.1][] - 2020-02-26
 
