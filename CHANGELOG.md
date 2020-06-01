@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][]
 
+## [7.4.0][] - 2020-06-01
+
 ### Updated
 
 - Upgrading @angular/cli to version 9
@@ -299,3 +301,7 @@ So that, the new flow will be:
 [7.2.1]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v7.2.1
 [unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v7.3.0...HEAD
 [7.3.0]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v7.3.0
+
+
+[Unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v7.4.0...HEAD
+[7.4.0]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v7.4.0
