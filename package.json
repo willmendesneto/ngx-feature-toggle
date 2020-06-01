@@ -3,7 +3,7 @@
   "description": "Your module to handle with feature toggles in Angular applications easier.",
   "author": "Will Mendes <willmendesneto@gmail.com>",
   "license": "MIT",
-  "version": "7.4.2",
+  "version": "7.4.3",
   "keywords": [
     "angular",
     "ngx",
@@ -33,7 +33,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "bundlesize": "bundlesize",
-    "build:pkg": "ng build ngx-feature-toggle",
+    "build:pkg": "ng build ngx-feature-toggle --prod",
     "update-library-version": "node ./scripts/build.js && cp -f *.md dist/ngx-feature-toggle",
     "postversion": "git push && git push --tags",
     "prepublish": "npm run build && npm run build:pkg && npm run update-library-version",
@@ -86,7 +86,7 @@
   "bundlesize": [
     {
       "path": "./dist/ngx-feature-toggle/bundles/ngx-feature-toggle.umd.min.js",
-      "maxSize": "1.24KB"
+      "maxSize": "1.77KB"
     }
   ],
   "engines": {
