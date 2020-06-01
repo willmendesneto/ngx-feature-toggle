@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][]
 
+### Updated
+
+- Upgrading @angular/cli to version 9
+- Fixing single quotes in `.editorconfig` file
+
 ## [7.3.0][] - 2020-05-14
 
 ### Updated
@@ -292,7 +297,5 @@ So that, the new flow will be:
 [7.2.0]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v7.2.0
 [unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v7.2.1...HEAD
 [7.2.1]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v7.2.1
-
-
-[Unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v7.3.0...HEAD
+[unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v7.3.0...HEAD
 [7.3.0]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v7.3.0

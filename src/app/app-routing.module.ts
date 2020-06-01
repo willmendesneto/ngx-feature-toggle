@@ -4,6 +4,7 @@ import { NgxFeatureToggleCanActivateGuard } from '../../projects/ngx-feature-tog
 import { ErrorComponent } from './error/error.component';
 import { HomeComponent } from './home/home.component';
 import { set } from 'feature-toggle-service';
+// tslint:disable-next-line: max-line-length
 import { NgxFeatureToggleCanActivateChildGuard } from '../../projects/ngx-feature-toggle/src/lib/ngx-feature-toggle-can-activate-child-guard.router';
 import { CustomerComponent } from './customer/customer.component';
 import { CustomerDetailComponent } from './customer/customer-detail.component';
