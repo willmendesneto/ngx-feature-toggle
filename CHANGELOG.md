@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][]
 
+## [7.4.4][] - 2020-06-01
+
 ### Fixed
 
 - Fixing README.md
@@ -333,3 +335,7 @@ So that, the new flow will be:
 [7.4.1]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v7.4.1
 [unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v7.4.3...HEAD
 [7.4.3]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v7.4.3
+
+
+[Unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v7.4.4...HEAD
+[7.4.4]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v7.4.4
