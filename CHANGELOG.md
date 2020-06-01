@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][]
 
+### Fixed
+
+- Fixing post install command
+- Fixing `npm audit` command
+- Fixing warning messages during `npm run build` command
+- Fixing issue with publish command when building package in ivy mode
+
 ## [7.4.0][] - 2020-06-01
 
 ### Updated
@@ -301,7 +308,5 @@ So that, the new flow will be:
 [7.2.1]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v7.2.1
 [unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v7.3.0...HEAD
 [7.3.0]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v7.3.0
-
-
-[Unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v7.4.0...HEAD
+[unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v7.4.0...HEAD
 [7.4.0]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v7.4.0

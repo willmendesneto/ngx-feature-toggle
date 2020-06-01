@@ -38,7 +38,8 @@
     "postversion": "git push && git push --tags",
     "prepublish": "npm run build && npm run build:pkg && npm run update-library-version",
     "version": "version-changelog CHANGELOG.md && changelog-verify CHANGELOG.md && npm run build:pkg && npm run update-library-version && git add .",
-    "coveralls": "cat ./coverage/ngx-feature-toggle/lcov.info | ./node_modules/.bin/coveralls && rm -rf coverage"
+    "coveralls": "cat ./coverage/ngx-feature-toggle/lcov.info | ./node_modules/.bin/coveralls && rm -rf coverage",
+    "postinstall": "ngcc"
   },
   "private": false,
   "dependencies": {
@@ -70,13 +71,13 @@
     "coveralls": "^3.0.2",
     "jasmine-core": "~3.4.0",
     "jasmine-spec-reporter": "~4.2.1",
-    "karma": "~4.1.0",
+    "karma": "^5.0.9",
     "karma-chrome-launcher": "~2.2.0",
     "karma-coverage-istanbul-reporter": "~2.0.1",
     "karma-jasmine": "~2.0.1",
     "karma-jasmine-html-reporter": "^1.4.0",
     "ng-packagr": "^9.0.0",
-    "protractor": "~5.4.0",
+    "protractor": "^7.0.0",
     "ts-node": "~7.0.0",
     "tslint": "~5.15.0",
     "typescript": "~3.8.3",
