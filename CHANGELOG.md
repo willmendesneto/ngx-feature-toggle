@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][]
 
+## [7.4.1][] - 2020-06-01
+
 ### Fixed
 
 - Fixing post install command
@@ -310,3 +312,7 @@ So that, the new flow will be:
 [7.3.0]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v7.3.0
 [unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v7.4.0...HEAD
 [7.4.0]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v7.4.0
+
+
+[Unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v7.4.1...HEAD
+[7.4.1]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v7.4.1
