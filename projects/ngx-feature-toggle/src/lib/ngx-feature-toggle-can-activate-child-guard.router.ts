@@ -1,5 +1,9 @@
 import { Injectable, isDevMode } from '@angular/core';
-import { ActivatedRouteSnapshot, Route, CanActivateChild } from '@angular/router';
+import {
+  ActivatedRouteSnapshot,
+  Route,
+  CanActivateChild,
+} from '@angular/router';
 
 import { isOn } from 'feature-toggle-service';
 
@@ -14,7 +18,7 @@ export class NgxFeatureToggleCanActivateChildGuard implements CanActivateChild {
     if (!route || !route.data || !route.data.featureToggle) {
       if (DEV_MODE) {
         console.error(
-          '`NgxFeatureToggleCanActivateChildGuard` need to receive `featureToggle` as data in your route configuration.',
+          '`NgxFeatureToggleCanActivateChildGuard` need to receive `featureToggle` as data in your route configuration.'
         );
       }
       return false;
@@ -23,14 +27,14 @@ export class NgxFeatureToggleCanActivateChildGuard implements CanActivateChild {
     if (!Array.isArray(route.data.featureToggle)) {
       if (DEV_MODE) {
         console.error(
-          '`NgxFeatureToggleCanActivateChildGuard` need to receive `featureToggle` as data as an array in your route configuration.',
+          '`NgxFeatureToggleCanActivateChildGuard` need to receive `featureToggle` as data as an array in your route configuration.'
         );
       }
       return false;
     }
 
-    const userCanAccess = route.data.featureToggle.every(toggle =>
-      toggle[0] === '!' ? !isOn(toggle.replace('!', '')) : isOn(toggle),
+    const userCanAccess = route.data.featureToggle.every((toggle) =>
+      toggle[0] === '!' ? !isOn(toggle.replace('!', '')) : isOn(toggle)
     );
 
     return userCanAccess;
