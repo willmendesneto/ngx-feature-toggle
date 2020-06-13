@@ -7,6 +7,52 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][]
 
+### Added
+
+- Adding support for accept array or string as feature toggle configuration of
+
+  - `NgxFeatureToggleCanLoadGuard`
+  - `NgxFeatureToggleCanActivateGuard`
+  - `NgxFeatureToggleCanActivateChildGuard`
+
+- `*featureToggle` now supports a string or an array of toggles to be checked
+
+```html
+<div
+  class="feature-toggle-enabled-with-exclamation-mark"
+  *featureToggle="'enableFirstText'"
+>
+  Feature toggle is enabled if `enableFirstText` is true
+</div>
+
+<div
+  class="feature-toggle-enabled-with-exclamation-mark"
+  *featureToggle="['enableFirstText', 'enableSecondText']"
+>
+  Feature toggle is enabled if both feature toggles are true
+</div>
+```
+
+### Updated
+
+- Breaking changes:
+  - `*featureToggleWhenDisabled` directive was removed since we can have the same behavior by using `*featureToggle` directive and passing `!` as a prefix for the feature toggle.
+
+```html
+<div
+  class="feature-toggle-enabled-with-exclamation-mark"
+  *featureToggle="'enableFirstText'"
+>
+  Feature toggle is enabled
+</div>
+<div
+  class="feature-toggle-enabled-with-exclamation-mark"
+  *featureToggle="'!enableFirstText'"
+>
+  Feature toggle disabled since it's enabled and it has <b>!</b> at front.
+</div>
+```
+
 ## [7.4.4][] - 2020-06-01
 
 ### Fixed
@@ -335,7 +381,5 @@ So that, the new flow will be:
 [7.4.1]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v7.4.1
 [unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v7.4.3...HEAD
 [7.4.3]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v7.4.3
-
-
-[Unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v7.4.4...HEAD
+[unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v7.4.4...HEAD
 [7.4.4]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v7.4.4

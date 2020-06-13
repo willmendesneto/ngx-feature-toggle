@@ -14,25 +14,26 @@ export class NgxFeatureToggleCanActivateGuard implements CanActivate {
     if (!route || !route.data || !route.data.featureToggle) {
       if (DEV_MODE) {
         console.error(
-          '`NgxFeatureToggleCanActivateGuard` need to receive `featureToggle` as data in your route configuration.',
+          '`NgxFeatureToggleCanActivateGuard` need to receive `featureToggle` as data in your route configuration.'
         );
       }
       return false;
     }
 
-    if (!Array.isArray(route.data.featureToggle)) {
-      if (DEV_MODE) {
-        console.error(
-          '`NgxFeatureToggleCanActivateGuard` need to receive `featureToggle` as data as an array in your route configuration.',
-        );
-      }
-      return false;
+    const isFeatureToggleOn = (toggle) =>
+      toggle[0] === '!' ? !isOn(toggle.replace('!', '')) : isOn(toggle);
+
+    if (typeof route.data.featureToggle === 'string') {
+      return isFeatureToggleOn(route.data.featureToggle as string);
+    } else if (Array.isArray(route.data.featureToggle)) {
+      return (route.data.featureToggle as string[]).every(isFeatureToggleOn);
     }
 
-    const userCanAccess = route.data.featureToggle.every(toggle =>
-      toggle[0] === '!' ? !isOn(toggle.replace('!', '')) : isOn(toggle),
-    );
-
-    return userCanAccess;
+    if (DEV_MODE) {
+      console.error(
+        '`NgxFeatureToggleCanActivateGuard` need to receive `featureToggle` as data as an array or string in your route configuration.'
+      );
+    }
+    return false;
   }
 }

@@ -90,10 +90,10 @@ After that, you can use the `featureToggle` components and directives in your te
 - `*featureToggleWhenDisabled`: Directive that handles with feature toggle check. So that, the component will be rendered/removed when the feature toggle configuration is disabled;
 
 ```typescript
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
 
 @Component({
-  selector: 'component-docs',
+  selector: "component-docs",
   template: `
     <feature-toggle-provider [features]="featureToggleData">
       <div *featureToggle="'enableSecondText'">
@@ -101,15 +101,26 @@ import { Component } from '@angular/core';
       </div>
       <div *featureToggle="'enableFirstText'">
         <p>
-          condition is false and "featureToggle" is disabled. In that case this content should not
-          be rendered.
+          condition is false and "featureToggle" is disabled. In that case this
+          content should not be rendered.
         </p>
       </div>
-      <div *featureToggleWhenDisabled="'enableFirstText'">
+      <div *featureToggle="'!enableFirstText'">
         <p>
           condition is false and "featureToggle" is disabled
-          <b>and it has "featureToggleWhenDisabled" directive.</b> In that case this content should
-          be rendered.
+          <b>but it has "!" as a prefix of the feature toggle to be checked.</b>
+          In that case this content should be rendered.
+        </p>
+      </div>
+      <div
+        class="combined-feature-toggles-with-truthly-option"
+        *featureToggle="['!enableFirstText', 'enableSecondText']"
+      >
+        <p>
+          This is a combined condition. It shows if <b>enableSecondText</b> is
+          true and <b>enableFirstText</b> is falsy, but it has "!" as a prefix.
+          If both cases are correct, then the "featureToggle" is enabled and
+          rendering this component.
         </p>
       </div>
     </feature-toggle-provider>
@@ -130,12 +141,29 @@ In some scenarios when you need to prevent the route to be loaded, you can use `
 ```js
 ...
 export const routes: Routes = [
+
   {
     path: 'home',
     component: HomeComponent,
-    canLoad: [NgxFeatureToggleCanLoadGuard],
+    canActivate: [NgxFeatureToggleCanLoadGuard],
     data: {
-      featureToggle: ['enableSecondText'],
+      // Using array as configuration
+      featureToggle: [
+        // This configuration will check if feature toggle is enabled
+        'enableSecondText',
+        // This configuration will check if feature toggle is disabled
+        // since it has `!` prefix in the configuration
+        '!enableFirstText'
+      ],
+    },
+  },
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
+    canActivate: [NgxFeatureToggleCanLoadGuard],
+    data: {
+      // Using string as configuration
+      featureToggle: 'enableSecondText',
     },
   },
 ];
@@ -147,12 +175,29 @@ Also, you can use `NgxFeatureToggleCanActivateGuard` to check if the route shoul
 ```js
 ...
 export const routes: Routes = [
+
   {
     path: 'home',
     component: HomeComponent,
     canActivate: [NgxFeatureToggleCanActivateGuard],
     data: {
-      featureToggle: ['enableSecondText'],
+      // Using array as configuration
+      featureToggle: [
+        // This configuration will check if feature toggle is enabled
+        'enableSecondText',
+        // This configuration will check if feature toggle is disabled
+        // since it has `!` prefix in the configuration
+        '!enableFirstText'
+      ],
+    },
+  },
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
+    canActivate: [NgxFeatureToggleCanActivateGuard],
+    data: {
+      // Using string as configuration
+      featureToggle: 'enableSecondText',
     },
   },
 ];
@@ -169,6 +214,7 @@ export const routes: Routes = [
     component: HomeComponent,
     canActivate: [NgxFeatureToggleCanActivateGuard],
     data: {
+      // Using array as configuration
       featureToggle: [
         // This configuration will check if feature toggle is enabled
         'enableSecondText',
@@ -176,6 +222,15 @@ export const routes: Routes = [
         // since it has `!` prefix in the configuration
         '!enableFirstText'
       ],
+    },
+  },
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
+    canActivate: [NgxFeatureToggleCanActivateGuard],
+    data: {
+      // Using string as configuration
+      featureToggle: 'enableSecondText',
     },
   },
 ];
@@ -201,7 +256,30 @@ export const routes: Routes = [
         // the child component. It can also use
         // a combination of feature toggles
         data: {
-          featureToggle: ['enableCustomerPage', '!enableChildrenNavigation'],
+          featureToggle: [
+            // This configuration will check if feature toggle is enabled
+            'enableCustomerPage',
+            // This configuration will check if feature toggle is disabled
+            // since it has `!` prefix in the configuration
+            '!enableChildrenNavigation'],
+        },
+      },
+    ],
+  },
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
+    canActivateChild: [NgxFeatureToggleCanActivateChildGuard],
+    children: [
+      {
+        path: ':id',
+        component: DashboardDetailsComponent,
+        // This is the featureToggle configuration for
+        // the child component. It can also use
+        // a combination of feature toggles
+        data: {
+          // using string to configure
+          featureToggle: 'enableDashboardDetailsPage',
         },
       },
     ],

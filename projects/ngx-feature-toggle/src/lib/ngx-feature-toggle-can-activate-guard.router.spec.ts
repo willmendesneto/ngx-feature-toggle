@@ -20,7 +20,15 @@ describe('Component: NgxFeatureToggleCanActivateGuard', () => {
         data: {
           featureToggle: ['thisFeatureToggleDoesNotExist'],
         },
-      } as Route),
+      } as Route)
+    ).toBeFalsy();
+    expect(
+      instance.canActivate({
+        path: 'home',
+        data: {
+          featureToggle: 'thisFeatureToggleDoesNotExist',
+        },
+      } as Route)
     ).toBeFalsy();
   });
 
@@ -33,7 +41,7 @@ describe('Component: NgxFeatureToggleCanActivateGuard', () => {
 
     expect(result).toBeFalsy();
     expect(console.error).toHaveBeenCalledWith(
-      '`NgxFeatureToggleCanActivateGuard` need to receive `featureToggle` as data in your route configuration.',
+      '`NgxFeatureToggleCanActivateGuard` need to receive `featureToggle` as data in your route configuration.'
     );
   });
 
@@ -48,7 +56,7 @@ describe('Component: NgxFeatureToggleCanActivateGuard', () => {
 
     expect(result).toBeFalsy();
     expect(console.error).toHaveBeenCalledWith(
-      '`NgxFeatureToggleCanActivateGuard` need to receive `featureToggle` as data as an array in your route configuration.',
+      '`NgxFeatureToggleCanActivateGuard` need to receive `featureToggle` as data as an array or string in your route configuration.'
     );
   });
 
@@ -60,7 +68,15 @@ describe('Component: NgxFeatureToggleCanActivateGuard', () => {
         data: {
           featureToggle: ['isSecondFeatureEnabled'],
         },
-      } as Route),
+      } as Route)
+    ).toBeFalsy();
+
+    expect(
+      instance.canActivate({
+        data: {
+          featureToggle: 'isSecondFeatureEnabled',
+        },
+      } as Route)
     ).toBeFalsy();
   });
 
@@ -88,7 +104,15 @@ describe('Component: NgxFeatureToggleCanActivateGuard', () => {
         data: {
           featureToggle: ['isFirstFeatureEnabled'],
         },
-      } as Route),
+      } as Route)
+    ).toBeTruthy();
+
+    expect(
+      instance.canActivate({
+        data: {
+          featureToggle: 'isFirstFeatureEnabled',
+        },
+      } as Route)
     ).toBeTruthy();
   });
 
@@ -100,7 +124,15 @@ describe('Component: NgxFeatureToggleCanActivateGuard', () => {
         data: {
           featureToggle: ['!isSecondFeatureEnabled'],
         },
-      } as Route),
+      } as Route)
+    ).toBeTruthy();
+
+    expect(
+      instance.canActivate({
+        data: {
+          featureToggle: '!isSecondFeatureEnabled',
+        },
+      } as Route)
     ).toBeTruthy();
   });
 
@@ -112,7 +144,7 @@ describe('Component: NgxFeatureToggleCanActivateGuard', () => {
         data: {
           featureToggle: ['isFirstFeatureEnabled', '!isSecondFeatureEnabled'],
         },
-      } as Route),
+      } as Route)
     ).toBeTruthy();
   });
 });

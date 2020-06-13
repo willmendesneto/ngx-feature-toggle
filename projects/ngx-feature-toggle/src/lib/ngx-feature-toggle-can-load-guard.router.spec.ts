@@ -20,7 +20,16 @@ describe('Component: NgxFeatureToggleCanLoadGuard', () => {
         data: {
           featureToggle: ['thisFeatureToggleDoesNotExist'],
         },
-      } as Route),
+      } as Route)
+    ).toBeFalsy();
+
+    expect(
+      instance.canLoad({
+        path: 'home',
+        data: {
+          featureToggle: 'thisFeatureToggleDoesNotExist',
+        },
+      } as Route)
     ).toBeFalsy();
   });
 
@@ -33,7 +42,7 @@ describe('Component: NgxFeatureToggleCanLoadGuard', () => {
 
     expect(result).toBeFalsy();
     expect(console.error).toHaveBeenCalledWith(
-      '`NgxFeatureToggleCanLoadGuard` need to receive `featureToggle` as data in your route configuration.',
+      '`NgxFeatureToggleCanLoadGuard` need to receive `featureToggle` as data in your route configuration.'
     );
   });
 
@@ -48,7 +57,7 @@ describe('Component: NgxFeatureToggleCanLoadGuard', () => {
 
     expect(result).toBeFalsy();
     expect(console.error).toHaveBeenCalledWith(
-      '`NgxFeatureToggleCanLoadGuard` need to receive `featureToggle` as data as an array in your route configuration.',
+      '`NgxFeatureToggleCanLoadGuard` need to receive `featureToggle` as data as an array or string in your route configuration.'
     );
   });
 
@@ -60,7 +69,15 @@ describe('Component: NgxFeatureToggleCanLoadGuard', () => {
         data: {
           featureToggle: ['isSecondFeatureEnabled'],
         },
-      } as Route),
+      } as Route)
+    ).toBeFalsy();
+
+    expect(
+      instance.canLoad({
+        data: {
+          featureToggle: 'isSecondFeatureEnabled',
+        },
+      } as Route)
     ).toBeFalsy();
   });
 
@@ -88,7 +105,15 @@ describe('Component: NgxFeatureToggleCanLoadGuard', () => {
         data: {
           featureToggle: ['isFirstFeatureEnabled'],
         },
-      } as Route),
+      } as Route)
+    ).toBeTruthy();
+
+    expect(
+      instance.canLoad({
+        data: {
+          featureToggle: 'isFirstFeatureEnabled',
+        },
+      } as Route)
     ).toBeTruthy();
   });
 
@@ -100,7 +125,15 @@ describe('Component: NgxFeatureToggleCanLoadGuard', () => {
         data: {
           featureToggle: ['!isSecondFeatureEnabled'],
         },
-      } as Route),
+      } as Route)
+    ).toBeTruthy();
+
+    expect(
+      instance.canLoad({
+        data: {
+          featureToggle: '!isSecondFeatureEnabled',
+        },
+      } as Route)
     ).toBeTruthy();
   });
 
@@ -112,7 +145,7 @@ describe('Component: NgxFeatureToggleCanLoadGuard', () => {
         data: {
           featureToggle: ['isFirstFeatureEnabled', '!isSecondFeatureEnabled'],
         },
-      } as Route),
+      } as Route)
     ).toBeTruthy();
   });
 });

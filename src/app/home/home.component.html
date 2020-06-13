@@ -13,11 +13,11 @@
       content should not be rendered.
     </p>
   </div>
-  <div *featureToggleWhenDisabled="'enableFirstText'">
+  <div *featureToggle="'!enableFirstText'">
     <p>
       condition is false and "featureToggle" is disabled
-      <b>and it has "featureToggleWhenDisabled" directive.</b> In that case this
-      content should be rendered.
+      <b>but it has "!" as a prefix of the feature toggle to be checked.</b> In
+      that case this content should be rendered.
     </p>
   </div>
 

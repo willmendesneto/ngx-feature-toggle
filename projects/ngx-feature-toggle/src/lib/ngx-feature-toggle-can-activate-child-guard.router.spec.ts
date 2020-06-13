@@ -20,7 +20,7 @@ describe('Component: NgxFeatureToggleCanActivateChildGuard', () => {
         data: {
           featureToggle: ['thisFeatureToggleDoesNotExist'],
         },
-      } as Route),
+      } as Route)
     ).toBeFalsy();
   });
 
@@ -33,7 +33,7 @@ describe('Component: NgxFeatureToggleCanActivateChildGuard', () => {
 
     expect(result).toBeFalsy();
     expect(console.error).toHaveBeenCalledWith(
-      '`NgxFeatureToggleCanActivateChildGuard` need to receive `featureToggle` as data in your route configuration.',
+      '`NgxFeatureToggleCanActivateChildGuard` need to receive `featureToggle` as data in your route configuration.'
     );
   });
 
@@ -48,7 +48,7 @@ describe('Component: NgxFeatureToggleCanActivateChildGuard', () => {
 
     expect(result).toBeFalsy();
     expect(console.error).toHaveBeenCalledWith(
-      '`NgxFeatureToggleCanActivateChildGuard` need to receive `featureToggle` as data as an array in your route configuration.',
+      '`NgxFeatureToggleCanActivateChildGuard` need to receive `featureToggle` as data as an array or string in your route configuration.'
     );
   });
 
@@ -60,7 +60,7 @@ describe('Component: NgxFeatureToggleCanActivateChildGuard', () => {
         data: {
           featureToggle: ['isSecondFeatureEnabled'],
         },
-      } as Route),
+      } as Route)
     ).toBeFalsy();
   });
 
@@ -88,7 +88,7 @@ describe('Component: NgxFeatureToggleCanActivateChildGuard', () => {
         data: {
           featureToggle: ['isFirstFeatureEnabled'],
         },
-      } as Route),
+      } as Route)
     ).toBeTruthy();
   });
 
@@ -100,7 +100,7 @@ describe('Component: NgxFeatureToggleCanActivateChildGuard', () => {
         data: {
           featureToggle: ['!isSecondFeatureEnabled'],
         },
-      } as Route),
+      } as Route)
     ).toBeTruthy();
   });
 
@@ -112,7 +112,7 @@ describe('Component: NgxFeatureToggleCanActivateChildGuard', () => {
         data: {
           featureToggle: ['isFirstFeatureEnabled', '!isSecondFeatureEnabled'],
         },
-      } as Route),
+      } as Route)
     ).toBeTruthy();
   });
 });
