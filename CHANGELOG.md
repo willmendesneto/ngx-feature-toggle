@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][]
 
+## [7.4.5][] - 2020-06-13
+
 ### Added
 
 - Adding support for accept array or string as feature toggle configuration of
@@ -383,3 +385,7 @@ So that, the new flow will be:
 [7.4.3]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v7.4.3
 [unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v7.4.4...HEAD
 [7.4.4]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v7.4.4
+
+
+[Unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v7.4.5...HEAD
+[7.4.5]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v7.4.5
