@@ -11,6 +11,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - Breaking changes: updating `feature-toggle-service` to version 6.0.0. The new package behavior introduces combination instead of overriding. Since it's a different feature, it can affect nested provider components.
 
+## [9.0.0][] - 2020-07-18
+
+### Updated
+
+- Breaking changes: updating `feature-toggle-service` to version 6.0.0. The new package behavior introduces combination instead of overriding. Since it's a different feature, it can affect nested provider components.
+
 ## [8.0.0][] - 2020-06-13
 
 ### Added
@@ -441,3 +447,5 @@ So that, the new flow will be:
 [7.4.5]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v7.4.5
 [unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v8.0.0...HEAD
 [8.0.0]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v8.0.0
+[unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v9.0.0...HEAD
+[9.0.0]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v9.0.0
