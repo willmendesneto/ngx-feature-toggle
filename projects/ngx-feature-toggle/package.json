@@ -28,6 +28,6 @@
     "@angular/router": ">=8.0.0"
   },
   "dependencies": {
-    "feature-toggle-service": "^5.0.1"
+    "feature-toggle-service": "^6.0.0"
   }
 }
