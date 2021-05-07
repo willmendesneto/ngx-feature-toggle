@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][]
 
+## [10.1.0][] - 2021-05-07
+
 ### Added
 
 - Adding mechanism to redirect a user in a specific route when it tries to access in a route with a CanActivate/CanActivateChild/CanLoad Feature Toggle Guard and the feature toggle is disabled.
@@ -483,3 +485,7 @@ So that, the new flow will be:
 [9.0.0]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v9.0.0
 [unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v10.0.0...HEAD
 [10.0.0]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v10.0.0
+
+
+[Unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v10.1.0...HEAD
+[10.1.0]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v10.1.0
