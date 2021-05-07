@@ -288,7 +288,11 @@ export const routes: Routes = [
 ...
 ```
 
-For advanced scenarios you can use a combination of route guards. E.G.
+#### Redirects
+
+You might have some specific requirements that you should redirect a user to a specific route in case of a feature flag is disabled. For that, you can use `redirectTo` as a mechanism to redirect a user in a specific route when it tries to access in a route with a CanActivate/CanActivateChild/CanLoad Feature Toggle Guard and the feature toggle is disabled.
+
+For advanced scenarios you can use a combination of route guards AND redirects. E.G.
 
 ```js
 ...
@@ -302,6 +306,8 @@ export const routes: Routes = [
     // the parent component
     data: {
       featureToggle: ['enableCustomerPage'],
+      // If feature toggle is disabled, the user will be redirected to `/error` URL
+      redirectTo: '/error'
     },
     children: [
       {
@@ -312,6 +318,9 @@ export const routes: Routes = [
         // a combination of feature toggles
         data: {
           featureToggle: ['enableCustomerPage', '!enableChildrenNavigation'],
+          // If one (or all of them) of the feature toggle is disabled, the user will be redirected to `/customer-error` URL
+          // Note that you can use redirects for the main url and their children
+          redirectTo: '/customer-error'
         },
       },
     ],

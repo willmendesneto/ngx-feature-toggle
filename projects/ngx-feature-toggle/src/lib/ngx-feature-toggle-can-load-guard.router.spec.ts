@@ -2,10 +2,15 @@ import { NgxFeatureToggleCanLoadGuard } from './ngx-feature-toggle-can-load-guar
 import { Route } from '@angular/router';
 import { set } from 'feature-toggle-service';
 
+const fakeRouter = {
+  navigate: () => {},
+} as any;
+
 describe('Component: NgxFeatureToggleCanLoadGuard', () => {
   beforeEach(() => {
     set({ isFirstFeatureEnabled: true, isSecondFeatureEnabled: false });
     spyOn(console, 'error');
+    spyOn(fakeRouter, 'navigate');
   });
 
   afterEach(() => {
@@ -13,7 +18,7 @@ describe('Component: NgxFeatureToggleCanLoadGuard', () => {
   });
 
   it('should return `false` if feature toggle is not configured in application level', () => {
-    const instance = new NgxFeatureToggleCanLoadGuard();
+    const instance = new NgxFeatureToggleCanLoadGuard(fakeRouter);
     expect(
       instance.canLoad({
         path: 'home',
@@ -33,8 +38,8 @@ describe('Component: NgxFeatureToggleCanLoadGuard', () => {
     ).toBeFalsy();
   });
 
-  it('should return `false` if feature toggle is not added in route', () => {
-    const instance = new NgxFeatureToggleCanLoadGuard();
+  it('should return `false` if feature toggle does not exist in route', () => {
+    const instance = new NgxFeatureToggleCanLoadGuard(fakeRouter);
 
     const result = instance.canLoad({
       path: 'home',
@@ -42,12 +47,12 @@ describe('Component: NgxFeatureToggleCanLoadGuard', () => {
 
     expect(result).toBeFalsy();
     expect(console.error).toHaveBeenCalledWith(
-      '`NgxFeatureToggleCanLoadGuard` need to receive `featureToggle` as data in your route configuration.'
+      '`NgxFeatureToggleCanLoadGuard` need to receive `featureToggle` as data as an array or string in your route configuration.'
     );
   });
 
-  it('should return `false` if feature toggle is not added in route', () => {
-    const instance = new NgxFeatureToggleCanLoadGuard();
+  it('should return `false` if feature toggle is not added in route as an array or string', () => {
+    const instance = new NgxFeatureToggleCanLoadGuard(fakeRouter);
 
     const result = instance.canLoad({
       data: {
@@ -62,7 +67,7 @@ describe('Component: NgxFeatureToggleCanLoadGuard', () => {
   });
 
   it('should return `false` if feature toggle is disabled', () => {
-    const instance = new NgxFeatureToggleCanLoadGuard();
+    const instance = new NgxFeatureToggleCanLoadGuard(fakeRouter);
 
     expect(
       instance.canLoad({
@@ -81,8 +86,22 @@ describe('Component: NgxFeatureToggleCanLoadGuard', () => {
     ).toBeFalsy();
   });
 
+  it('should return `false` and redirect to the specific URL if feature toggle is disabled AND route contains `redirectTo`', () => {
+    const instance = new NgxFeatureToggleCanLoadGuard(fakeRouter);
+
+    expect(
+      instance.canLoad({
+        data: {
+          featureToggle: ['isSecondFeatureEnabled'],
+          redirectTo: '/redirect-url',
+        },
+      } as Route)
+    ).toBeFalsy();
+    expect(fakeRouter.navigate).toHaveBeenCalledWith(['/redirect-url']);
+  });
+
   it('should NOT console errors if code is running in production mode', () => {
-    const instance = new NgxFeatureToggleCanLoadGuard();
+    const instance = new NgxFeatureToggleCanLoadGuard(fakeRouter);
     spyOn(instance, 'isDevMode').and.returnValue(false);
 
     instance.canLoad({
@@ -98,7 +117,7 @@ describe('Component: NgxFeatureToggleCanLoadGuard', () => {
   });
 
   it('should return `true` if feature toggle is enabled', () => {
-    const instance = new NgxFeatureToggleCanLoadGuard();
+    const instance = new NgxFeatureToggleCanLoadGuard(fakeRouter);
 
     expect(
       instance.canLoad({
@@ -118,7 +137,7 @@ describe('Component: NgxFeatureToggleCanLoadGuard', () => {
   });
 
   it('should return `true` if feature toggle is disabled AND route configuration starts with `!`', () => {
-    const instance = new NgxFeatureToggleCanLoadGuard();
+    const instance = new NgxFeatureToggleCanLoadGuard(fakeRouter);
 
     expect(
       instance.canLoad({
@@ -138,7 +157,7 @@ describe('Component: NgxFeatureToggleCanLoadGuard', () => {
   });
 
   it('should return `true` if combination of feature toggles are thruthy', () => {
-    const instance = new NgxFeatureToggleCanLoadGuard();
+    const instance = new NgxFeatureToggleCanLoadGuard(fakeRouter);
 
     expect(
       instance.canLoad({

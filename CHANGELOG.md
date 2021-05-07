@@ -7,6 +7,32 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][]
 
+### Added
+
+- Adding mechanism to redirect a user in a specific route when it tries to access in a route with a CanActivate/CanActivateChild/CanLoad Feature Toggle Guard and the feature toggle is disabled.
+
+```ts
+...
+export const routes: Routes = [
+  {
+    path: 'restrict',
+    component: RestrictPageDueFeatureToggleComponent,
+    canActivate: [NgxFeatureToggleCanActivateGuard],
+    // This is the featureToggle configuration for
+    // the parent component
+    data: {
+      featureToggle: ['!enableSecondText'],
+      // If feature toggle is disabled, the user will be redirected to `/error` URL
+      redirectTo: '/error',
+    },
+  },
+  ...
+];
+...
+```
+
+Closes https://github.com/willmendesneto/ngx-feature-toggle/issues/223
+
 ### Fixed
 
 - Fixing bundle size command on CircleCI pipeline
