@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][]
 
+## [11.0.0][] - 2021-05-08
+
 ### Added
 
 - Adding `NgxFeatureToggleRouteGuard` route guard. This class can be used on the routes for the checks:
@@ -533,3 +535,7 @@ So that, the new flow will be:
 [10.0.0]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v10.0.0
 [unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v10.1.0...HEAD
 [10.1.0]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v10.1.0
+
+
+[Unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v11.0.0...HEAD
+[11.0.0]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v11.0.0
