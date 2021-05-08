@@ -86,7 +86,7 @@
   "bundlesize": [
     {
       "path": "./dist/ngx-feature-toggle/bundles/ngx-feature-toggle.umd.min.js",
-      "maxSize": "1.9KB"
+      "maxSize": "1.82KB"
     }
   ],
   "engines": {

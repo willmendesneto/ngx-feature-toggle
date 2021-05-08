@@ -170,7 +170,7 @@ export const routes: Routes = [
 ...
 ```
 
-Also, you can use `NgxFeatureToggleCanActivateGuard` to check if the route should be activated or not by passing the class and configuration of the feature toggle to be checked in your route data.
+Also, you can use `NgxFeatureToggleRouteGuard` to check if the route should be activated or not by passing the class and configuration of the feature toggle to be checked in your route data.
 
 ```js
 ...
@@ -179,7 +179,7 @@ export const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
-    canActivate: [NgxFeatureToggleCanActivateGuard],
+    canActivate: [NgxFeatureToggleRouteGuard],
     data: {
       // Using array as configuration
       featureToggle: [
@@ -194,7 +194,7 @@ export const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
-    canActivate: [NgxFeatureToggleCanActivateGuard],
+    canActivate: [NgxFeatureToggleRouteGuard],
     data: {
       // Using string as configuration
       featureToggle: 'enableSecondText',
@@ -212,7 +212,7 @@ export const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
-    canActivate: [NgxFeatureToggleCanActivateGuard],
+    canActivate: [NgxFeatureToggleRouteGuard],
     data: {
       // Using array as configuration
       featureToggle: [
@@ -227,7 +227,7 @@ export const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
-    canActivate: [NgxFeatureToggleCanActivateGuard],
+    canActivate: [NgxFeatureToggleRouteGuard],
     data: {
       // Using string as configuration
       featureToggle: 'enableSecondText',
@@ -239,7 +239,7 @@ export const routes: Routes = [
 
 In this case, we are combining the checks. So the component will be activated if `enableSecondText` is configured as `true` AND `enableFirstText` is configured as `false`. With that configuration you can have all the flexibility to cover different scenarios in your app.
 
-Use `NgxFeatureToggleCanActivateChildGuard` to control when the child component of a specific component can be activate via routing. It can be passed as an array of items.
+Use `NgxFeatureToggleRouteGuard` to control when the child component of a specific component can be activate via routing. It can be passed as an array of items.
 
 ```js
 ...
@@ -247,7 +247,7 @@ export const routes: Routes = [
   {
     path: 'customer',
     component: CustomerComponent,
-    canActivateChild: [NgxFeatureToggleCanActivateChildGuard],
+    canActivateChild: [NgxFeatureToggleRouteGuard],
     children: [
       {
         path: ':id',
@@ -269,7 +269,7 @@ export const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
-    canActivateChild: [NgxFeatureToggleCanActivateChildGuard],
+    canActivateChild: [NgxFeatureToggleRouteGuard],
     children: [
       {
         path: ':id',
@@ -300,8 +300,9 @@ export const routes: Routes = [
   {
     path: 'customer',
     component: CustomerComponent,
-    canActivate: [NgxFeatureToggleCanActivateGuard],
-    canActivateChild: [NgxFeatureToggleCanActivateChildGuard],
+    canLoad: [NgxFeatureToggleRouteGuard],
+    canActivate: [NgxFeatureToggleRouteGuard],
+    canActivateChild: [NgxFeatureToggleRouteGuard],
     // This is the featureToggle configuration for
     // the parent component
     data: {

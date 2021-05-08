@@ -46,16 +46,17 @@ export class FeatureToggleDirective implements OnInit, DoCheck {
   }
 
   isOnCheck(featureToggle: string[] | string) {
-    const DEV_MODE = isDevMode();
-
-    if (typeof featureToggle === 'string' || Array.isArray(featureToggle)) {
-      return ([].concat(featureToggle) as string[]).every((toggle) =>
-        toggle[0] === '!' ? !isOn(toggle.replace('!', '')) : isOn(toggle)
-      );
-    } else if (DEV_MODE) {
-      console.error(
-        '`NgxFeatureToggle`: `featureToggle` should receive an array or an string as a value.'
-      );
+    if (typeof featureToggle !== 'string' && !Array.isArray(featureToggle)) {
+      if (isDevMode()) {
+        console.error(
+          '`NgxFeatureToggle`: `featureToggle` should receive an array or an string as a value.'
+        );
+      }
+      return false;
     }
+
+    return ([].concat(featureToggle) as string[]).every((toggle) =>
+      toggle[0] === '!' ? !isOn(toggle.replace('!', '')) : isOn(toggle)
+    );
   }
 }

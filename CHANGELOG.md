@@ -7,6 +7,52 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][]
 
+### Added
+
+- Adding `NgxFeatureToggleRouteGuard` route guard. This class can be used on the routes for the checks:
+  - `canLoad`
+  - `canActivateChild`
+  - `canActivate`
+
+### Updated
+
+- Removing other Route Guards in favor of `NgxFeatureToggleRouteGuard`. The replace should be a matter of find and replace the classes in your codebase.
+
+E.G.:
+
+```ts
+...
+export const routes: Routes = [
+  {
+    path: 'customer',
+    component: CustomerComponent,
+    // Before it was `NgxFeatureToggleCanALoadGuard`
+    canLoad: [NgxFeatureToggleRouteGuard],
+    // Before it was `NgxFeatureToggleCanActivateGuard`
+    canActivate: [NgxFeatureToggleRouteGuard],
+    // Before it was `NgxFeatureToggleCanActivateChildGuard`
+    canActivateChild: [NgxFeatureToggleRouteGuard],
+    data: {
+      featureToggle: ['enableCustomerPage'],
+      redirectTo: '/error',
+    },
+    children: [
+      {
+        path: ':id',
+        component: CustomerDetailComponent,
+        data: {
+          featureToggle: ['enableCustomerPage', '!enableChildrenNavigation'],
+          redirectTo: '/error',
+        },
+      },
+    ],
+  },
+  ...
+];
+...
+
+```
+
 ## [10.1.0][] - 2021-05-07
 
 ### Added
@@ -485,7 +531,5 @@ So that, the new flow will be:
 [9.0.0]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v9.0.0
 [unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v10.0.0...HEAD
 [10.0.0]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v10.0.0
-
-
-[Unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v10.1.0...HEAD
+[unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v10.1.0...HEAD
 [10.1.0]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v10.1.0
