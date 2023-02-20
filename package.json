@@ -87,7 +87,7 @@
     "@typescript-eslint/eslint-plugin": "^5.43.0",
     "@typescript-eslint/parser": "^5.43.0",
     "ajv": "^8.11.2",
-    "bundlesize": "^0.17.0",
+    "bundlesize": "^0.18.1",
     "changelog-verify": "^1.1.0",
     "core-js": "^3.26.1",
     "coveralls": "^3.0.2",
