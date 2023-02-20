@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][]
 
+### Updated
+
+- Upgrading library to Angular v15
+
 ## [7.0.0][] - 2023-02-04
 
 ### Added
