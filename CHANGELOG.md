@@ -7,535 +7,554 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][]
 
-## [11.0.0][] - 2021-05-08
+## [7.0.0][] - 2023-02-04
 
 ### Added
 
-- Adding `NgxFeatureToggleRouteGuard` route guard. This class can be used on the routes for the checks:
-  - `canLoad`
-  - `canActivateChild`
-  - `canActivate`
+- Adding support for extending global theme added via `NgxSkeletonLoaderModule.forRoot({ theme: /* ...list of CSS atributes */} })`
+
+By default when using `NgxSkeletonLoaderModule.forRoot({ theme: /* ...list of CSS atributes */} })` the application is using this value as source of truth, overriding any local theming passed to `<ngx-feature-toggle>` component via `[theme]` input.
+
+By using `NgxSkeletonLoaderModule.forRoot({ theme: { extendsFromRoot: true, /* ...list of CSS atributes */} })` in your application, you should also be aware that:
+
+- By default, every `<ngx-feature-toggle>` component will use `theme` coming from `NgxSkeletonLoaderModule.forRoot()` as the source of truth
+- If there's any CSS attribute on the component locally which overrides the CSS spec, it combines both themes, but overriding global CSS attributes in favor of local ones.
+
+```html
+<!-- 
+  // ... E.G: App is using this configuration below
+
+  NgxSkeletonLoaderModule.forRoot({
+    theme: {
+      // Enabliong theme combination
+      extendsFromRoot: true,
+      // ... list of CSS theme attributes
+      height: '30px',
+    },
+  }),
+-->
+
+<div class="item">
+  <ngx-feature-toggle></ngx-feature-toggle>
+  <!-- above line will produce a skeleton component using `height: 30px;`" -->
+  <ngx-feature-toggle [theme]="{background: 'blue'}"></ngx-feature-toggle>
+  <!-- above line will produce a skeleton component using `height: 30px; background: blue;`" -->
+  <ngx-feature-toggle [theme]="{height: '50px', background: 'red'}"></ngx-feature-toggle>
+  <!-- above line will produce a skeleton component using `height: 50px; background: red;`" -->
+</div>
+```
+
+- Adding new `custom-content` appearance. From now on, consumers can now add their own content inside `<ng-skeleton-loader></ng-skeleton-loader>` component. So that, they can add some custom content, such as SVG, as an example
+- Adding examples for `custom-content` usage
 
 ### Updated
 
-- Removing other Route Guards in favor of `NgxFeatureToggleRouteGuard`. The replace should be a matter of find and replace the classes in your codebase.
+- Updagrading module to Angular v15
 
-E.G.:
+### Fixed
 
-```ts
-...
-export const routes: Routes = [
-  {
-    path: 'customer',
-    component: CustomerComponent,
-    // Before it was `NgxFeatureToggleCanALoadGuard`
-    canLoad: [NgxFeatureToggleRouteGuard],
-    // Before it was `NgxFeatureToggleCanActivateGuard`
-    canActivate: [NgxFeatureToggleRouteGuard],
-    // Before it was `NgxFeatureToggleCanActivateChildGuard`
-    canActivateChild: [NgxFeatureToggleRouteGuard],
-    data: {
-      featureToggle: ['enableCustomerPage'],
-      redirectTo: '/error',
-    },
-    children: [
-      {
-        path: ':id',
-        component: CustomerDetailComponent,
-        data: {
-          featureToggle: ['enableCustomerPage', '!enableChildrenNavigation'],
-          redirectTo: '/error',
-        },
-      },
-    ],
-  },
-  ...
-];
-...
+- Removing build warnings
 
-```
+## [6.0.0][] - 2022-08-18
 
-## [10.1.0][] - 2021-05-07
+### Updated
+
+- Adding Publishing setup using NPX
+- Replacing CSS class namespace from `.loader` to `.skeleton-loader`
+
+#### Breaking Change
+
+The CSS class used as namespace was changed. Previously, it was called `.loader` and now is `.skeleton-loader`. It might cause some issues in cases of `:host` DOM style scoping usage. For the sake of semantic versioning, please bear in mind this scenario in case of `:host` usage.
+
+## [5.0.0][] - 2022-02-08
+
+### Updated
+
+> Thanks @yharaskrik
+
+#### Breaking Change
+
+Bundle distribution are now `esm2020`, `fesm2015` and `fesm2020`. UMD and CommonJS versions were support were removed from Angular CLI directly. So the next version for the package will be a major version to cover these changes accordingly.
+
+- Updating package bundle distribution
+- Updating `@angular/cli` to v13
+- Applying project changes to v13
+- Updating bundlesize check to point to `fesm2020`
+
+## [4.0.0][] - 2021-07-28
+
+### Fixed
+
+#### Breaking Change
+
+- Rolling back "Adding mechanism to prevents calling `forRoot()` more than once if module is loaded asynchronously in a submodule.". Unfortunately, this was affecting consumers and it needed to be reverted to avoid friction in other applications.
+
+If you need to have this feature in place, the suggestion is to create a specific module in your app and apply the changes on your application.
+
+## [3.0.0][] - 2021-07-23
 
 ### Added
 
-- Adding mechanism to redirect a user in a specific route when it tries to access in a route with a CanActivate/CanActivateChild/CanLoad Feature Toggle Guard and the feature toggle is disabled.
+#### Breaking Change
+
+- Adding mechanism to prevents calling `forRoot()` more than once if module is loaded asynchronously in a submodule. This is required in order to avoid issues in consumers. To avoid that, consumers should load the module once on the main module instead - if loading submodules async.
+
+## [2.10.1][] - 2021-07-13
+
+### Fixed
+
+- Ensures every ARIA progressbar node has an accessible name. This is caused by missing aria-label on the `<span>` element.
+
+Thanks @rkristelijn for raising the issue and the pull request!
+
+## [2.10.0][] - 2021-06-15
+
+### Added
+
+- Adding module configuration support via `forRoot()` method. Now you can add configure your module via `forRoot()`. You can now set the default of `appearance`, `animation`, `theme`, `loadingText`, `count` and/or `items`.E.G.
 
 ```ts
-...
-export const routes: Routes = [
-  {
-    path: 'restrict',
-    component: RestrictPageDueFeatureToggleComponent,
-    canActivate: [NgxFeatureToggleCanActivateGuard],
-    // This is the featureToggle configuration for
-    // the parent component
-    data: {
-      featureToggle: ['!enableSecondText'],
-      // If feature toggle is disabled, the user will be redirected to `/error` URL
-      redirectTo: '/error',
-    },
-  },
-  ...
-];
-...
+
+@NgModule({
+  // ...
+  imports: [NgxSkeletonLoaderModule.forRoot({ appearance: 'circle', count: 3 )],
+  // ...
+})
 ```
 
-Closes https://github.com/willmendesneto/ngx-feature-toggle/issues/223
+## [2.9.2][] - 2021-04-11
+
+### Updated
+
+- Updating link in README.md
+
+### Fixed
+
+- Bumping dev dependencies to avoid security issues
+
+## [2.9.1][] - 2021-02-20
+
+### Fixed
+
+- Adding `appearance` attribute to be checked via `ngOnChanges`
+
+### Updated
+
+- Updating examples with new features
+
+## [2.9.0][] - 2021-02-19
+
+### Added
+
+- Adding validation for @Input attributes that needs internal manipulation. After these changes:
+  - if `count` is not a numeric value, it will use the default value as `1`
+  - if `animation` is not a valid attribute, it will use the default value as `progress`
+  - PS: The other values alredy have a fallback, so nothing to worry here
+- Adding error feedback for `appearance` attribute in case of wrong configuration. Now it will show a error message on the console in case of receiving a wrong value
+
+### Updated
+
+- Adding `ngOnChange` to validate `count` input in case of changes via binding
+- Updating `README.md` with information about `appearance` and `theme` usage.
+
+## [2.8.0][] - 2021-02-18
+
+### Fixed
+
+- Using `ngAcceptInputType_count` for template checking in count input. That solves issue https://github.com/willmendesneto/ngx-feature-toggle/issues/59. You can find more details about it in https://angular.io/guide/template-typecheck
+- Fixing type issues on `yarn build:ssr` command
+
+### Updated
+
+- Updating `perf-marks` to `v1.14.1`
+- Adding strict mode support in module
+- Updating types for `theme` to match with `ngStyle`. More details in https://angular.io/api/common/NgStyle#properties
+
+## [2.7.0][] - 2021-02-06
+
+### Added
+
+- Adding new `loadingText` attribute to be used as WAI-ARIA `aria-valuetext`. In this case, it will render the component using "Please wait ...". Otherwise, it defaults to "Loading..."
+
+```html
+<!-- Passing loading text to be used as WAI-ARIA `aria-valuetext` -->
+<!-- In this case, it will render the component using "Please wait ..." -->
+<!-- Otherwise, it defaults to "Loading..." -->
+<div class="skeleton-with-specific-loading-text">
+  <ngx-feature-toggle loadingText="Please wait ..."></ngx-feature-toggle>
+</div>
+```
+
+### Updated
+
+- Using OnPush as changeDetection mechanism into ngx-feature-toggle component
+- Adding ability to pass `false` as string or boolean (coming from variable value via binding) on `animation` attribute in `ngx-feature-toggle` component configuration. animation will receive `false` as string when attribute field it's not using binding. Component now can receive `false` (boolean), "false" (string), or any other animation type via binding.
+
+```html
+<div class="item">
+  <!-- Disables the animation -->
+  <ngx-feature-toggle animation="false"></ngx-feature-toggle>
+  <!-- Disables the animation, but receiving boolean value from binding -->
+  <!-- Via binding it can receive `false` (boolean), "false" (string), or any other animation type -->
+  <ngx-feature-toggle [animation]="classAttributeWithBooleanFalseValue"></ngx-feature-toggle>
+  <!-- Uses `progress` as animation -->
+  <ngx-feature-toggle animation="progress"></ngx-feature-toggle>
+  <ngx-feature-toggle></ngx-feature-toggle>
+  <!-- Uses `pulse` as animation -->
+  <ngx-feature-toggle animation="pulse"></ngx-feature-toggle>
+</div>
+```
+
+## [2.6.2][] - 2020-12-08
+
+### Fixed
+
+- Removing Lighthouse "Avoid non-composited animations" issue. Lighthouse shows warnings from ngx-feature-toggle.scss -file (progress).
+
+- "Avoid non-composited animations":
+- "Animations which are not composited can be janky and contribute to CLS"
+
+To solve that, instead of using CSS `background-position` the module is now using CSS `translate3d`, which improves the animation by using GPU instead of CPU. Issue fixed and performance boost added 🎉
+
+## [2.6.1][] - 2020-11-30
+
+### Fixed
+
+- Solving `forRoot()` types error `Generic type 'ModuleWithProviders<T>' requires 1 type argument(s)`. Closes https://github.com/willmendesneto/ngx-feature-toggle/issues/51
+
+## [2.6.0][] - 2020-11-15
+
+### Added
+
+- Adding `NgxSkeletonLoaderModule.forRoot()` method. Usage:
+
+```js
+import { NgModule } from '@angular/core';
+import { NgxSkeletonLoaderModule } from 'ngx-feature-toggle';
+// ... list of other app dependencies
+
+import { AppComponent } from './app.component';
+// ... list of other app components/modules
+
+@NgModule({
+  declarations: [AppComponent],
+  imports: [NgxSkeletonLoaderModule.forRoot()],
+  providers: [],
+  bootstrap: [AppComponent],
+})
+export class AppModule {}
+```
+
+## [2.5.0][] - 2020-10-10
 
 ### Fixed
 
 - Fixing bundle size command on CircleCI pipeline
 
-## [10.0.0][] - 2020-07-18
-
 ### Updated
 
-- Breaking changes: updating `feature-toggle-service` to version 6.0.0. The new package behavior introduces combination instead of overriding. Since it's a different feature, it can affect nested provider components.
+- Upgrading NodeJS to v14.11.0
+- Updating `perf-marks` package to v1.14.0
+- Improving skeleton animations fps by using `cubic-bezier` instead of `ease-in-out`
 
-## [9.0.0][] - 2020-07-18
+## [2.4.4][] - 2020-08-21
 
-### Updated
+### Fixed
 
-- Breaking changes: updating `feature-toggle-service` to version 6.0.0. The new package behavior introduces combination instead of overriding. Since it's a different feature, it can affect nested provider components.
-
-## [8.0.0][] - 2020-06-13
+- Remove check requirements if perf-marks is running in a browser or not in Angular apps 🔥
 
 ### Added
 
-- Adding support for accept array or string as feature toggle configuration of
+- Adding Angular Universal support for examples. Now we can run `npm run dev:ssr` and access `http://localhost:4200/index.html` and the page will run using angular universal 💪
+- Adding `.prettierrc` file with some of the code styling rules
 
-  - `NgxFeatureToggleCanLoadGuard`
-  - `NgxFeatureToggleCanActivateGuard`
-  - `NgxFeatureToggleCanActivateChildGuard`
+## [2.4.3][] - 2020-08-13
 
-- `*featureToggle` now supports a string or an array of toggles to be checked
+### Fixed
 
-```html
-<div
-  class="feature-toggle-enabled-with-exclamation-mark"
-  *featureToggle="'enableFirstText'"
->
-  Feature toggle is enabled if `enableFirstText` is true
-</div>
+- Avoiding perf-marks call if running in Angular Universal applications
 
-<div
-  class="feature-toggle-enabled-with-exclamation-mark"
-  *featureToggle="['enableFirstText', 'enableSecondText']"
->
-  Feature toggle is enabled if both feature toggles are true
-</div>
-```
+## [2.4.2][] - 2020-08-01
 
 ### Updated
 
-- Breaking changes:
-  - `*featureToggleWhenDisabled` directive was removed since we can have the same behavior by using `*featureToggle` directive and passing `!` as a prefix for the feature toggle.
+- Bumping `perf-marks` to latest version
 
-```html
-<div
-  class="feature-toggle-enabled-with-exclamation-mark"
-  *featureToggle="'enableFirstText'"
->
-  Feature toggle is enabled
-</div>
-<div
-  class="feature-toggle-enabled-with-exclamation-mark"
-  *featureToggle="'!enableFirstText'"
->
-  Feature toggle disabled since it's enabled and it has <b>!</b> at front.
-</div>
-```
+## [2.4.1][] - 2020-08-01
 
-## [7.4.5][] - 2020-06-13
+### Updated
+
+- Bumping `perf-marks` to latest version
+
+## [2.4.0][] - 2020-08-01
 
 ### Added
 
-- Adding support for accept array or string as feature toggle configuration of
-
-  - `NgxFeatureToggleCanLoadGuard`
-  - `NgxFeatureToggleCanActivateGuard`
-  - `NgxFeatureToggleCanActivateChildGuard`
-
-- `*featureToggle` now supports a string or an array of toggles to be checked
-
-```html
-<div
-  class="feature-toggle-enabled-with-exclamation-mark"
-  *featureToggle="'enableFirstText'"
->
-  Feature toggle is enabled if `enableFirstText` is true
-</div>
-
-<div
-  class="feature-toggle-enabled-with-exclamation-mark"
-  *featureToggle="['enableFirstText', 'enableSecondText']"
->
-  Feature toggle is enabled if both feature toggles are true
-</div>
-```
+- Adding User Timing API to track component render and content loader time
 
 ### Updated
 
-- Breaking changes:
-  - `*featureToggleWhenDisabled` directive was removed since we can have the same behavior by using `*featureToggle` directive and passing `!` as a prefix for the feature toggle.
+- Updating examples with new skeleton simulation
+- Adding Stackblitz link for user card skeleton loading demo
 
-```html
-<div
-  class="feature-toggle-enabled-with-exclamation-mark"
-  *featureToggle="'enableFirstText'"
->
-  Feature toggle is enabled
-</div>
-<div
-  class="feature-toggle-enabled-with-exclamation-mark"
-  *featureToggle="'!enableFirstText'"
->
-  Feature toggle disabled since it's enabled and it has <b>!</b> at front.
-</div>
-```
+## [2.3.0][] - 2020-08-01
 
-## [7.4.4][] - 2020-06-01
+### Added
+
+- Adding User Timing API to track component render and content loader time
+
+### Updated
+
+- Updating examples with new skeleton simulation
+- Adding Stackblitz link for user card skeleton loading demo
+
+## [2.2.1][] - 2020-06-30
 
 ### Fixed
 
-- Fixing README.md
+- For compatibility with IE11 by using indexOf instead of `includes`
 
-## [7.4.3][] - 2020-06-01
+### Updated
 
-### Fixed
+- Updating `npm run postinstall` command to follow the new rules from update.angular.io website
 
-- Fixing package publish
+## [2.2.0][] - 2020-06-01
 
-## [7.4.2][] - 2020-06-01
+### Added
 
-### Fixed
+- Using `prefers-reduced-motion` to respect user’s OS option to `Reduce Motion`. More details about `prefers-reduced-motion` in https://web.dev/prefers-reduced-motion/
 
-- N/A
-
-## [7.4.1][] - 2020-06-01
-
-### Fixed
-
-- Fixing post install command
-- Fixing `npm audit` command
-- Fixing warning messages during `npm run build` command
-- Fixing issue with publish command when building package in ivy mode
-
-## [7.4.0][] - 2020-06-01
+## [2.1.0][] - 2020-06-01
 
 ### Updated
 
 - Upgrading @angular/cli to version 9
-- Fixing single quotes in `.editorconfig` file
+- 🎉 Decreasing bundle size to 1.17KB 🎉
 
-## [7.3.0][] - 2020-05-14
-
-### Updated
-
-- Upgrading NodeJS to `v12.16.2`
-- Updating `feature-toggle-service` to `v5.0.1`
-
-## [7.2.1][] - 2020-02-26
+## [2.0.0][] - 2020-05-15
 
 ### Updated
 
-- Updating to NodeJS v12.14.1
+- Upgrading NodeJS to v12.16.2
+- Updating documentation with `animation` attribute
+
+### Added
+
+- Supporting for new animation `progress-dark` to enable users when using theme with darker color schema
+- Supporting for different animations 🎉
+
+Now we can define the animation we want to use in `<ngx-feature-toggle>` component via `animation` input. It's a string that can defined the animation used during the loading, having as options:
+
+- `false`: it will disable the animation;
+- `progress` - _default_: it will use it `progress` as animation;
+- `pulse`: it will use `pulse` as animation;
+
+> `progress` is the default animation, used as the single one previously. If you don't pass the animation attribute, it defaults to `progress`.
+
+```html
+<div class="item">
+  <!-- Disables the animation -->
+  <ngx-feature-toggle animation="false"></ngx-feature-toggle>
+  <!-- Uses `progress` as animation -->
+  <ngx-feature-toggle animation="progress"></ngx-feature-toggle>
+  <ngx-feature-toggle></ngx-feature-toggle>
+  <!-- Uses `pulse` as animation -->
+  <ngx-feature-toggle animation="pulse"></ngx-feature-toggle>
+</div>
+```
+
+- Supporting enabling/disabling animations.
+  Now the users will be able to enable/disable animations by using `animation` input. It's a string with `false` as value that the component receives to check if it should not load progress animation.
+
+> It works only to disable it. In case you want to keep enable it
+
+```js
+<div class="item">
+  <ngx-feature-toggle animation="false"></ngx-feature-toggle>
+</div>
+```
+
+## [1.2.7][] - 2020-04-13
+
+### Updated
+
+- Decreasing bundle size after disable Ivy in production build
+- Adding description, keywords and github information on `package.json` files
+
+## [1.2.6][] - 2020-02-26
+
+### Fixed
+
+- Changing angular library configuration to prod and forcing it at publish time
+
+## [1.2.5][] - 2020-02-25
+
+### Fixed
+
+- Changing angular library configuration to prod
+
+## [1.2.4][] - 2020-02-25
+
+### Updated
+
+- Updating Github templates
+- Updating Angular CLI to v9
+
+## [1.2.3][] - 2020-02-25
 
 ### Fixed
 
 - Solving peerDependency warning when installing library in an Angular 9 project
 
-## [7.2.0][] - 2019-10-10
+## [1.2.2][] - 2019-06-22
 
-### Updated
+### Fixed
 
-- Updating docs with Route Guards section, showing different usage for the components, directives and route guards
+- Fixing component dimensions via theme
 
-### Added
-
-- Adding new `NgxFeatureToggleCanActivateChildGuard` to control when the child component of a specific component can be activate via routing. It can be passed as an array of items.
-
-```js
-...
-export const routes: Routes = [
-  {
-    path: 'home',
-    component: HomeComponent,
-    canActivate: [NgxFeatureToggleCanActivateGuard],
-    canActivateChild: [NgxFeatureToggleCanActivateChildGuard],
-    // This is the featureToggle configuration for
-    // the parent component
-    data: {
-      featureToggle: ['enableCustomerPage'],
-    },
-    children: [
-      {
-        path: ':id',
-        component: CustomerDetailComponent,
-        // This is the featureToggle configuration for
-        // the child component. It can also use
-        // a combination of feature toggles
-        data: {
-          featureToggle: ['enableCustomerPage', '!enableChildrenNavigation'],
-        },
-      },
-    ],
-  },
-];
-...
-```
-
-## [7.1.0][] - 2019-10-09
-
-### Added
-
-- Adding new docs for route guards configuration
-- Adding new `NgxFeatureToggleCanLoadGuard` to control when the component can be loaded via routing. It can be passed as an array of items.
-
-```js
-...
-export const routes: Routes = [
-  {
-    path: 'home',
-    component: HomeComponent,
-    canLoad: [NgxFeatureToggleCanLoadGuard],
-    data: {
-      featureToggle: ['enableSecondText'],
-    },
-  },
-];
-...
-```
-
-- Adding new `NgxFeatureToggleCanActivateGuard` to control when the component can be activate via routing. It can be passed as an array of items.
-
-```js
-...
-export const routes: Routes = [
-  {
-    path: 'home',
-    component: HomeComponent,
-    canActivate: [NgxFeatureToggleCanActivateGuard],
-    data: {
-      featureToggle: ['enableSecondText'],
-    },
-  },
-];
-...
-```
-
-## [7.0.2][] - 2019-06-22
-
-### Updated
-
-- Updating `feature-toggle-service` to `v4.1.1` for better editor/ide integration and use package types
-
-<img width="701" alt="Added method description for Editor/IDE integration" src="https://user-images.githubusercontent.com/1252570/59961226-53d91480-9518-11e9-8f3f-acbaf952e955.png">
-
-## [7.0.1][] - 2019-06-09
+## [1.2.1][] - 2019-06-08
 
 ### Updated
 
 - Updating Angular CLI to v8
 
-## [7.0.0][] - 2019-04-09
-
-### Fixed
-
-- Fixed component to trigger Angular Lifecycle of components inside
-
-If this PR contains a breaking change, please describe the impact and migration
-path for existing applications: …
-
-It removed `<feature-toggle>` component. Instead of it it will add 2 new directives:
-
-- `*featureToggle`: Directive that handles with feature toggle check. So that, the component will be rendered/removed based on the feature toggle configuration is enabled;
-- `*featureToggleWhenDisabled`: Directive that handles with feature toggle check. So that, the component will be rendered/removed when the feature toggle configuration is disabled;
-
-So that, the new flow will be:
-
-```html
-<feature-toggle-provider [features]="featureToggleData">
-  <div *featureToggle="'enableSecondText'">
-    <p>condition is true and "featureToggle" is enabled.</p>
-  </div>
-  <div *featureToggleWhenDisabled="'enableFirstText'">
-    <p>
-      condition is false and "featureToggle" is disabled
-      <b>and it has "featureToggleWhenDisabled" directive.</b> In that case this
-      content should be rendered.
-    </p>
-  </div>
-</feature-toggle-provider>
-```
-
-- Avoiding add multiple components in first-page load. The components with enabled features were added thrice.
+## [1.2.0][] - 2019-04-19
 
 ### Updated
 
-- Updated module docs for including new directives
-- Updating github templates for issues and pull requests
-- Updating NPM keywords for package
+- Updating Angular CLI to 7.3.8
 
-## [6.0.1][] - 2018-12-18
-
-### Updated
-
-- Adding more information in package.json for the library
-
-## [6.0.0][] - 2018-12-18
-
-### Updated
-
-- Using `@angular/cli` structure
-- Decreasing module bundle size
-- Updating `script/build.js` to bump library version at build time
-- Updating publish steps on `README.md` to use library `dist` folder
+## [1.1.2][] - 2019-01-07
 
 ### Added
 
-- Adding badges for Stackblitz and license
-- Adding `CODE_OF_CONDUCT.md` file
-
-## [5.2.6][] - 2018-10-07
+- Adding badges for stackblitz, bundlephobia and license
 
 ### Updated
 
-- Bumping `feature-toggle-service` to 4.0.0
-- Decreasing bundle size to `808B`
+- Removing unnecessary CSS styles for skeleton
 
-## [5.2.5][] - 2018-05-28
+## [1.1.1][] - 2018-12-17
+
+### Fixed
+
+- Fixing Stackblitz link demo link
+
+## [1.1.0][] - 2018-12-17
+
+### Added
+
+- Added GitHub urls into `package.json`
+- Added Circle CI integration
+- Added Coveralls integration
+- Added GitHub templates
+- Added `CODE_OF_CONDUCT.md` with the Code of conduct
+- Added unit tests for skeletons and demo components
 
 ### Updated
 
-- Adding publish steps on `README.md`
+- Decreased bundle size
+- New gif showing `ngx-feature-toggle` in action
 
-## [5.2.4][] - 2018-05-28
-
-### Updated
-
-- Updating the npm scripts to add support for `np`
-- Updating scripts to publish package
-
-## [5.2.3][] - 2018-05-28
-
-### Updated
-
-- Updating the npm scripts to add support for `np`
-- Updating scripts to publish package
-
-## [5.2.2][] - 2018-04-25
+## [1.0.2][] - 2018-12-16
 
 ### Fixed
 
-- Fixing NPM publish script
+- Added markdown files in dist folder in build time
 
-## [5.2.1][] - 2018-04-25
-
-### Fixed
-
-- Fixing NPM publish task to v5.2.0
-
-## [5.1.11][] - 2018-04-24
+## [1.0.1][] - 2018-12-16
 
 ### Fixed
 
-- Fixing NPM publish task to v5.1.12
+- Added markdown files in dist folder in build time
 
-## [5.1.8][] - 2018-04-24
-
-### Fixed
-
-- Fixing NPM publish task to v5.1.8
-
-## [5.1.7][] - 2018-04-24
+## [1.0.0][] - 2018-12-16
 
 ### Fixed
 
-- Fixing NPM publish task
+- Fixed build script
 
-## [5.1.6][] - 2018-04-24
+## [0.0.1][] - 2018-12-16
 
-- Fixing NPM publish task
+### Added
 
-## [5.1.5][] - 2018-04-24
+- Created `ngx-feature-toggle`
+- Created test automation for the module
 
-### Updated
-
-- Decreasing the bundle to `839B`
-- Updating NPM tasks
-
-## [5.1.1][] - 2018-03-19
-
-- Fixing published bundle
-
-## [5.0.0][] - 2018-03-19
-
-### Changed
-
-- Using `ng-packagr` as package bundle
-
-### Security
-
-- Updating NPM packages
-
-### Removed
-
-- Changing `featureToggleService` to `features` prop on `<feature-toggle-provider />` component
-
-[unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v5.2.5...HEAD
-[5.2.5]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v5.2.4...v5.2.5
-[5.2.4]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v5.2.3...v5.2.4
-[5.2.3]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v5.2.3...v5.2.3
-[5.2.3]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v5.2.2...v5.2.3
-[5.2.2]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v5.2.1...v5.2.2
-[5.2.1]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v5.1.11...v5.2.1
-[5.1.11]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v5.1.8...v5.1.11
-[5.1.8]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v5.1.7...v5.1.8
-[5.1.7]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v5.1.6...v5.1.7
-[5.1.6]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v5.1.5...v5.1.6
-[5.1.5]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v5.1.0...v5.1.5
-[5.1.1]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v5.1.1
+[unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v0.0.1...HEAD
+[0.0.1]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v0.0.1
+[unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v1.0.0
+[unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v1.0.2...HEAD
+[1.0.2]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v1.0.1...v1.0.2
+[1.0.1]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v1.0.1
+[unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v1.0.2...HEAD
+[1.0.2]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v1.0.2
+[unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v1.1.0
+[unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v1.1.1...HEAD
+[1.1.1]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v1.1.1
+[unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v1.2.4...HEAD
+[1.2.4]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v1.2.3...v1.2.4
+[1.2.3]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v1.2.2...v1.2.3
+[1.2.2]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v1.2.1...v1.2.2
+[1.2.1]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v1.2.0...v1.2.1
+[1.2.0]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v1.1.2...v1.2.0
+[1.1.2]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v1.1.2
+[unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v1.2.5...HEAD
+[1.2.5]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v1.2.5
+[unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v1.2.6...HEAD
+[1.2.6]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v1.2.6
+[unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v1.2.7...HEAD
+[1.2.7]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v1.2.7
+[unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v2.0.0...HEAD
+[2.0.0]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v2.0.0
+[unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v2.1.0...HEAD
+[2.1.0]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v2.1.0
+[unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v2.2.0...HEAD
+[2.2.0]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v2.2.0
+[unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v2.2.1...HEAD
+[2.2.1]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v2.2.1
+[unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v2.3.0...HEAD
+[2.3.0]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v2.3.0
+[unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v2.4.0...HEAD
+[2.4.0]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v2.4.0
+[unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v2.4.1...HEAD
+[2.4.1]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v2.4.1
+[unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v2.4.2...HEAD
+[2.4.2]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v2.4.2
+[unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v2.4.3...HEAD
+[2.4.3]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v2.4.3
+[unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v2.4.4...HEAD
+[2.4.4]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v2.4.4
+[unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v2.5.0...HEAD
+[2.5.0]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v2.5.0
+[unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v2.6.0...HEAD
+[2.6.0]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v2.6.0
+[unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v2.6.1...HEAD
+[2.6.1]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v2.6.1
+[unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v2.6.2...HEAD
+[2.6.2]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v2.6.2
+[unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v2.7.0...HEAD
+[2.7.0]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v2.7.0
+[unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v2.8.0...HEAD
+[2.8.0]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v2.8.0
+[unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v2.9.0...HEAD
+[2.9.0]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v2.9.0
+[unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v2.9.1...HEAD
+[2.9.1]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v2.9.1
+[unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v2.9.2...HEAD
+[2.9.2]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v2.9.2
+[unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v2.10.0...HEAD
+[2.10.0]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v2.10.0
+[unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v2.10.1...HEAD
+[2.10.1]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v2.10.1
+[unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v4.0.0...HEAD
+[4.0.0]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v3.0.0...v4.0.0
+[3.0.0]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v3.0.0
+[unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v5.0.0...HEAD
 [5.0.0]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v5.0.0
-[unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v5.2.6...HEAD
-[5.2.6]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v5.2.6
 [unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v6.0.0...HEAD
 [6.0.0]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v6.0.0
-[unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v6.0.1...HEAD
-[6.0.1]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v6.0.1
-[unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v7.0.2...HEAD
-[7.0.2]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v7.0.1...v7.0.2
-[7.0.1]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v7.0.0...v7.0.1
+[unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v7.0.0...HEAD
 [7.0.0]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v7.0.0
-[unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v7.1.0...HEAD
-[7.1.0]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v7.1.0
-[unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v7.2.0...HEAD
-[7.2.0]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v7.2.0
-[unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v7.2.1...HEAD
-[7.2.1]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v7.2.1
-[unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v7.3.0...HEAD
-[7.3.0]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v7.3.0
-[unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v7.4.0...HEAD
-[7.4.0]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v7.4.0
-[unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v7.4.2...HEAD
-[7.4.2]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v7.4.1...v7.4.2
-[7.4.1]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v7.4.1
-[unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v7.4.3...HEAD
-[7.4.3]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v7.4.3
-[unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v7.4.4...HEAD
-[7.4.4]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v7.4.4
-[unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v7.4.5...HEAD
-[7.4.5]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v7.4.5
-[unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v8.0.0...HEAD
-[8.0.0]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v8.0.0
-[unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v9.0.0...HEAD
-[9.0.0]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v9.0.0
-[unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v10.0.0...HEAD
-[10.0.0]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v10.0.0
-[unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v10.1.0...HEAD
-[10.1.0]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v10.1.0
-
-
-[Unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v11.0.0...HEAD
-[11.0.0]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v11.0.0

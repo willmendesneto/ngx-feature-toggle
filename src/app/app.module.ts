@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppComponent } from './app.component';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -13,7 +12,12 @@ import { CustomerDetailComponent } from './customer/customer-detail.component';
 
 @NgModule({
   declarations: [AppComponent, ErrorComponent, CustomerComponent, CustomerDetailComponent],
-  imports: [BrowserModule, FeatureToggleModule, AppRoutingModule, HomeModule],
+  imports: [
+    BrowserModule.withServerTransition({ appId: 'ngx-feature-toggle-demo' }),
+    FeatureToggleModule,
+    AppRoutingModule,
+    HomeModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })
