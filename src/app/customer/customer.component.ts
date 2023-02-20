@@ -25,11 +25,14 @@ interface Customer {
   `,
 })
 export class CustomerComponent implements OnInit {
-  customers: Customer[];
+  customers: Customer[] = [];
 
   constructor(private router: Router) {}
 
   ngOnInit() {
-    this.customers = [{ id: 1, name: 'Lee' }, { id: 2, name: 'Kim' }];
+    this.customers = [
+      { id: 1, name: 'Lee' },
+      { id: 2, name: 'Kim' },
+    ];
   }
 }

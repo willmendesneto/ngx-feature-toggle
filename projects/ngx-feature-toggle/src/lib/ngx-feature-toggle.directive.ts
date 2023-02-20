@@ -1,12 +1,4 @@
-import {
-  Directive,
-  Input,
-  OnInit,
-  TemplateRef,
-  ViewContainerRef,
-  DoCheck,
-  isDevMode,
-} from '@angular/core';
+import { Directive, Input, OnInit, TemplateRef, ViewContainerRef, DoCheck, isDevMode } from '@angular/core';
 
 import { isOn } from 'feature-toggle-service';
 
@@ -15,13 +7,10 @@ import { isOn } from 'feature-toggle-service';
   selector: '[featureToggle]',
 })
 export class FeatureToggleDirective implements OnInit, DoCheck {
-  @Input() public featureToggle: string[] | string;
+  @Input() public featureToggle: string[] | string | undefined;
   private isOn = false;
 
-  constructor(
-    private templateRef: TemplateRef<any>,
-    private viewContainer: ViewContainerRef
-  ) {}
+  constructor(private templateRef: TemplateRef<any>, private viewContainer: ViewContainerRef) {}
 
   ngOnInit() {
     if (!this.featureToggle) {
@@ -45,18 +34,16 @@ export class FeatureToggleDirective implements OnInit, DoCheck {
     }
   }
 
-  isOnCheck(featureToggle: string[] | string) {
+  isOnCheck(featureToggle: string[] | string | undefined) {
     if (typeof featureToggle !== 'string' && !Array.isArray(featureToggle)) {
       if (isDevMode()) {
-        console.error(
-          '`NgxFeatureToggle`: `featureToggle` should receive an array or an string as a value.'
-        );
+        console.error('`NgxFeatureToggle`: `featureToggle` should receive an array or an string as a value.');
       }
       return false;
     }
 
-    return ([].concat(featureToggle) as string[]).every((toggle) =>
-      toggle[0] === '!' ? !isOn(toggle.replace('!', '')) : isOn(toggle)
+    return ([].concat(featureToggle as any) as string[]).every(toggle =>
+      toggle[0] === '!' ? !isOn(toggle.replace('!', '')) : isOn(toggle),
     );
   }
 }

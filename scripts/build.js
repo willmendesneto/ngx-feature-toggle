@@ -3,10 +3,7 @@ const fs = require('fs');
 
 const NG_MODULE_NAME = name.replace('-demo', '');
 
-const changePakackageVersionWithNewVersion = (
-  packageNameDirectory,
-  version
-) => {
+const changePackageVersionWithNewVersion = (packageNameDirectory, version) => {
   const pkg = JSON.parse(
     fs.readFileSync(`${packageNameDirectory}/package.json`, 'utf8')
   );
@@ -19,12 +16,12 @@ const changePakackageVersionWithNewVersion = (
 };
 
 try {
-  changePakackageVersionWithNewVersion(
+  changePackageVersionWithNewVersion(
     `${__dirname}/../dist/${NG_MODULE_NAME}`,
     version
   );
 
-  changePakackageVersionWithNewVersion(
+  changePackageVersionWithNewVersion(
     `${__dirname}/../projects/${NG_MODULE_NAME}`,
     version
   );

@@ -90,20 +90,17 @@ After that, you can use the `featureToggle` components and directives in your te
 - `*featureToggleWhenDisabled`: Directive that handles with feature toggle check. So that, the component will be rendered/removed when the feature toggle configuration is disabled;
 
 ```typescript
-import { Component } from "@angular/core";
+import { Component } from '@angular/core';
 
 @Component({
-  selector: "component-docs",
+  selector: 'component-docs',
   template: `
     <feature-toggle-provider [features]="featureToggleData">
       <div *featureToggle="'enableSecondText'">
         <p>condition is true and "featureToggle" is enabled.</p>
       </div>
       <div *featureToggle="'enableFirstText'">
-        <p>
-          condition is false and "featureToggle" is disabled. In that case this
-          content should not be rendered.
-        </p>
+        <p>condition is false and "featureToggle" is disabled. In that case this content should not be rendered.</p>
       </div>
       <div *featureToggle="'!enableFirstText'">
         <p>
@@ -117,10 +114,9 @@ import { Component } from "@angular/core";
         *featureToggle="['!enableFirstText', 'enableSecondText']"
       >
         <p>
-          This is a combined condition. It shows if <b>enableSecondText</b> is
-          true and <b>enableFirstText</b> is falsy, but it has "!" as a prefix.
-          If both cases are correct, then the "featureToggle" is enabled and
-          rendering this component.
+          This is a combined condition. It shows if <b>enableSecondText</b> is true and <b>enableFirstText</b> is falsy,
+          but it has "!" as a prefix. If both cases are correct, then the "featureToggle" is enabled and rendering this
+          component.
         </p>
       </div>
     </feature-toggle-provider>

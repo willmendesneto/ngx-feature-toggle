@@ -19,17 +19,20 @@ describe('Component: NgxFeatureToggleRouteGuard', () => {
 
   // We have the same test for all the route guards methods
   // So that, we are keeping the same behaviour as before
-  ['canActivateChild', 'canLoad', 'canActivate'].forEach((method) => {
+  ['canActivateChild', 'canLoad', 'canActivate'].forEach((routeGuardMethod: string) => {
+    const method = routeGuardMethod as keyof NgxFeatureToggleRouteGuard;
+
     describe(`#${method}()`, () => {
       it('should return `false` if feature toggle is not configured in application level', () => {
         const instance = new NgxFeatureToggleRouteGuard(fakeRouter);
+
         expect(
           instance[method]({
             path: 'home',
             data: {
               featureToggle: ['thisFeatureToggleDoesNotExist'],
             },
-          } as Route)
+          } as Route),
         ).toBeFalsy();
       });
 
@@ -42,7 +45,7 @@ describe('Component: NgxFeatureToggleRouteGuard', () => {
 
         expect(result).toBeFalsy();
         expect(console.error).toHaveBeenCalledWith(
-          '`NgxFeatureToggleRouteGuard` need to receive `featureToggle` as data as an array or string in your route configuration.'
+          '`NgxFeatureToggleRouteGuard` need to receive `featureToggle` as data as an array or string in your route configuration.',
         );
       });
 
@@ -57,7 +60,7 @@ describe('Component: NgxFeatureToggleRouteGuard', () => {
 
         expect(result).toBeFalsy();
         expect(console.error).toHaveBeenCalledWith(
-          '`NgxFeatureToggleRouteGuard` need to receive `featureToggle` as data as an array or string in your route configuration.'
+          '`NgxFeatureToggleRouteGuard` need to receive `featureToggle` as data as an array or string in your route configuration.',
         );
       });
 
@@ -69,7 +72,7 @@ describe('Component: NgxFeatureToggleRouteGuard', () => {
             data: {
               featureToggle: ['isSecondFeatureEnabled'],
             },
-          } as Route)
+          } as Route),
         ).toBeFalsy();
       });
 
@@ -82,7 +85,7 @@ describe('Component: NgxFeatureToggleRouteGuard', () => {
               featureToggle: ['isSecondFeatureEnabled'],
               redirectTo: '/redirect-url',
             },
-          } as Route)
+          } as Route),
         ).toBeFalsy();
         expect(fakeRouter.navigate).toHaveBeenCalledWith(['/redirect-url']);
       });
@@ -111,7 +114,7 @@ describe('Component: NgxFeatureToggleRouteGuard', () => {
             data: {
               featureToggle: ['isFirstFeatureEnabled'],
             },
-          } as Route)
+          } as Route),
         ).toBeTruthy();
       });
 
@@ -123,7 +126,7 @@ describe('Component: NgxFeatureToggleRouteGuard', () => {
             data: {
               featureToggle: ['!isSecondFeatureEnabled'],
             },
-          } as Route)
+          } as Route),
         ).toBeTruthy();
       });
 
@@ -133,12 +136,9 @@ describe('Component: NgxFeatureToggleRouteGuard', () => {
         expect(
           instance[method]({
             data: {
-              featureToggle: [
-                'isFirstFeatureEnabled',
-                '!isSecondFeatureEnabled',
-              ],
+              featureToggle: ['isFirstFeatureEnabled', '!isSecondFeatureEnabled'],
             },
-          } as Route)
+          } as Route),
         ).toBeTruthy();
       });
     });

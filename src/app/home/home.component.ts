@@ -1,7 +1,7 @@
 import { Component, NgZone } from '@angular/core';
 
 @Component({
-  selector: 'app-home',
+  selector: 'ngx-app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
@@ -17,9 +17,7 @@ export class HomeComponent {
     this.zone.runOutsideAngular(() => {
       setInterval(() => {
         this.zone.run(() => {
-          Object.keys(this.featureToggleData).map(
-            key => (this.featureToggleData[key] = !this.featureToggleData[key]),
-          );
+          Object.keys(this.featureToggleData).map(key => (this.featureToggleData[key] = !this.featureToggleData[key]));
         });
         // increase/decrease this number to see the
         // current feature toggle component behavior
