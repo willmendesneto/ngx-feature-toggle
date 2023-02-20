@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][]
 
+## [12.0.0][] - 2023-02-20
+
 ### Updated
 
 - Upgrading library to Angular v15
@@ -562,3 +564,7 @@ Now we can define the animation we want to use in `<ngx-feature-toggle>` compone
 [6.0.0]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v6.0.0
 [unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v7.0.0...HEAD
 [7.0.0]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v7.0.0
+
+
+[Unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v12.0.0...HEAD
+[12.0.0]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v12.0.0
