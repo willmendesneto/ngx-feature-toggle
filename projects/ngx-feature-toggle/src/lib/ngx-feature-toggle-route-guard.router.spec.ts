@@ -64,7 +64,7 @@ describe('Component: NgxFeatureToggleRouteGuard', () => {
         );
       });
 
-      it('should return `false` if feature toggle is disabled and no redirect', () => {
+      it('should return `false` if feature toggle is disabled and `redirectTo` is null', () => {
         const instance = new NgxFeatureToggleRouteGuard(fakeRouter);
 
         expect(
