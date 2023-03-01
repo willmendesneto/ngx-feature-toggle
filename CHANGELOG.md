@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][]
 
+### Fixed
+
+- Users now can redirect when Path is an empty string. When you configure home page to have path = '', and use NgxFeatureToggleRouteGuard with redirectTo = '', redirect does not happen. Thanks @brandonsmith86 🎉
+- Fixing `redirecTo` types
+
+### Added
+
+- Adding typescript types validation on pipeline
+
 ## [12.0.0][] - 2023-02-20
 
 ### Updated
@@ -564,7 +573,5 @@ Now we can define the animation we want to use in `<ngx-feature-toggle>` compone
 [6.0.0]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v6.0.0
 [unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v7.0.0...HEAD
 [7.0.0]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v7.0.0
-
-
-[Unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v12.0.0...HEAD
+[unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v12.0.0...HEAD
 [12.0.0]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v12.0.0
