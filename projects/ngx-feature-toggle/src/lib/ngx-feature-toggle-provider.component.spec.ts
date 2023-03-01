@@ -1,5 +1,5 @@
 import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { TestBed, async as asyncMethod } from '@angular/core/testing';
+import { TestBed, waitForAsync as asyncMethod } from '@angular/core/testing';
 import { FeatureToggleProviderComponent } from './ngx-feature-toggle-provider.component';
 import { FeatureToggleDirective } from './ngx-feature-toggle.directive';
 import { set, FeatureToggleServiceConfig } from 'feature-toggle-service';
@@ -11,9 +11,7 @@ import { set, FeatureToggleServiceConfig } from 'feature-toggle-service';
       <feature-toggle-provider [features]="featureToggleData">
         <div class="feature-toggle-component" *featureToggle="'enableFirstText'">
           <p>Enabled content</p>
-          <div class="feature-toggle-component" *featureToggle="'enableSecondText'">
-            Disabled content
-          </div>
+          <div class="feature-toggle-component" *featureToggle="'enableSecondText'">Disabled content</div>
         </div>
       </feature-toggle-provider>
     </div>
@@ -49,14 +47,12 @@ describe('Component: FeatureToggleProviderComponent', () => {
   });
 
   it('should render the enabled children content', () => {
-    const elementText = fixture.nativeElement.querySelectorAll('.feature-toggle-component')[0]
-      .innerText;
+    const elementText = fixture.nativeElement.querySelectorAll('.feature-toggle-component')[0].innerText;
     expect(elementText).toContain('Enabled content');
   });
 
   it('should NOT render the disabled content', () => {
-    const elementText = fixture.nativeElement.querySelectorAll('.feature-toggle-component')[0]
-      .innerText;
+    const elementText = fixture.nativeElement.querySelectorAll('.feature-toggle-component')[0].innerText;
     expect(elementText).not.toContain('Disabled content');
   });
 });

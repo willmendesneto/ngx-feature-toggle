@@ -92,18 +92,20 @@ describe('Component: NgxFeatureToggleRouteGuard', () => {
         expect(fakeRouter.navigate).toHaveBeenCalledWith(['/redirect-url']);
       });
 
-      it('redirectTo empty string redirects', () => {
+      it('should return `false` and redirect to the specific URL if feature toggle is disabled AND `redirectTo` is null', () => {
         const instance = new NgxFeatureToggleRouteGuard(fakeRouter);
-        const redirect = '';
-        const route: Route = {
-          data: {
-            featureToggle: ['isSecondFeatureEnabled'],
-            redirectTo: redirect,
-          },
-        };
+        const redirectTo = '';
 
-        instance[method](route);
-        expect(fakeRouter.navigate).toHaveBeenCalledWith([redirect]);
+        expect(
+          instance[method]({
+            data: {
+              featureToggle: ['isSecondFeatureEnabled'],
+              redirectTo,
+            },
+          } as Route),
+        ).toBeFalsy();
+
+        expect(fakeRouter.navigate).toHaveBeenCalledWith([redirectTo]);
       });
 
       it('should NOT console errors if code is running in production mode', () => {
