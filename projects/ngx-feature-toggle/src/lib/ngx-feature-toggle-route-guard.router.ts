@@ -29,7 +29,7 @@ export class NgxFeatureToggleRouteGuard implements CanActivateChild, CanLoad, Ca
       toggle[0] === '!' ? !isOn(toggle.replace('!', '')) : isOn(toggle),
     );
 
-    if (!hasAllTogglesOn && typeof route.data.redirectTo === 'string') {
+    if (!hasAllTogglesOn && route.data.redirectTo !== null && route.data.redirectTo !== undefined) {
       this.router.navigate([].concat(route.data.redirectTo));
     }
 

@@ -31,6 +31,7 @@
     "test": "ng test --watch=false --no-progress --code-coverage && ng test ngx-feature-toggle --watch=false --no-progress --code-coverage",
     "tdd": "ng test",
     "lint": "ng lint",
+    "lint:types": "tsc --noEmit",
     "e2e": "ng e2e",
     "bundlesize": "bundlesize",
     "build:pkg": "ng build ngx-feature-toggle --configuration production",

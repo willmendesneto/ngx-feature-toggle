@@ -49,9 +49,7 @@ workflows:
       - build_ssr:
           requires:
             - build
-      # - end_to_end:
-      #     requires:
-      #         - build
+
 orbs:
   browser-tools: circleci/browser-tools@1.4.0
 jobs:
@@ -66,6 +64,7 @@ jobs:
       - run:
           name: Running unit tests
           command: |
+            npm run lint:types
             npm run lint
             npm test
           environment:
@@ -91,11 +90,3 @@ jobs:
             npm rebuild
             npm run build:pkg
             npm run bundlesize
-  # end_to_end:
-  #     <<: *docker_defaults
-  #     steps:
-  #         - *attach_workspace
-  #         - run:
-  #             name: Running E2E tests
-  #             command: |
-  #               sudo npm run e2e
