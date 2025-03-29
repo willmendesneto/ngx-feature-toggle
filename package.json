@@ -71,7 +71,7 @@
     "zone.js": "~0.13.0"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^15.0.4",
+    "@angular-devkit/build-angular": "^19.2.5",
     "@angular-eslint/builder": "15.1.0",
     "@angular-eslint/eslint-plugin": "15.1.0",
     "@angular-eslint/eslint-plugin-template": "15.1.0",
@@ -101,7 +101,7 @@
     "karma-coverage-istanbul-reporter": "~3.0.2",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.5.0",
-    "ng-packagr": "^15.0.3",
+    "ng-packagr": "^19.2.0",
     "protractor": "~7.0.0",
     "ts-node": "~8.3.0",
     "tsickle": "^0.39.1",
