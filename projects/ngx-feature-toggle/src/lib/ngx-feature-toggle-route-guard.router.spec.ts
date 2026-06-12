@@ -1,6 +1,16 @@
 import { NgxFeatureToggleRouteGuard } from './ngx-feature-toggle-route-guard.router';
 import { Route } from '@angular/router';
-import { set } from 'feature-toggle-service';
+import { FeatureTogglePredicate, setFeatureToggles } from './ngx-feature-toggle.util';
+
+const orCallback: FeatureTogglePredicate = ({ isOn }) =>
+  isOn('isFirstFeatureEnabled') || isOn('isSecondFeatureEnabled');
+
+const mixedCallback: FeatureTogglePredicate = ({ isOn }) =>
+  isOn('isFirstFeatureEnabled') && (isOn('isSecondFeatureEnabled') || isOn('isFirstFeatureEnabled'));
+
+const failingCallback: FeatureTogglePredicate = ({ isOn }) => isOn('isSecondFeatureEnabled');
+
+const passingCallback: FeatureTogglePredicate = ({ isOn }) => isOn('isFirstFeatureEnabled');
 
 const fakeRouter = {
   navigate: () => {},
@@ -8,13 +18,13 @@ const fakeRouter = {
 
 describe('Component: NgxFeatureToggleRouteGuard', () => {
   beforeEach(() => {
-    set({ isFirstFeatureEnabled: true, isSecondFeatureEnabled: false });
+    setFeatureToggles({ isFirstFeatureEnabled: true, isSecondFeatureEnabled: false });
     spyOn(console, 'error');
     spyOn(fakeRouter, 'navigate');
   });
 
   afterEach(() => {
-    set({ isFirstFeatureEnabled: false, isSecondFeatureEnabled: false });
+    setFeatureToggles({ isFirstFeatureEnabled: false, isSecondFeatureEnabled: false });
   });
 
   // We have the same test for all the route guards methods
@@ -158,6 +168,63 @@ describe('Component: NgxFeatureToggleRouteGuard', () => {
             },
           } as Route),
         ).toBeTruthy();
+      });
+
+      describe('When featureToggle is a callback', () => {
+        beforeEach(() => {
+          setFeatureToggles({ isFirstFeatureEnabled: true, isSecondFeatureEnabled: false });
+        });
+
+        it('should return `true` when OR callback matches any registered flag', () => {
+          const instance = new NgxFeatureToggleRouteGuard(fakeRouter);
+
+          expect(
+            instance[method]({
+              data: {
+                featureToggle: orCallback,
+              },
+            } as Route),
+          ).toBeTruthy();
+        });
+
+        it('should return `true` when mixed AND/OR callback matches', () => {
+          const instance = new NgxFeatureToggleRouteGuard(fakeRouter);
+
+          expect(
+            instance[method]({
+              data: {
+                featureToggle: mixedCallback,
+              },
+            } as Route),
+          ).toBeTruthy();
+        });
+
+        it('should return `false` and redirect when callback fails and `redirectTo` is set', () => {
+          const instance = new NgxFeatureToggleRouteGuard(fakeRouter);
+
+          expect(
+            instance[method]({
+              data: {
+                featureToggle: failingCallback,
+                redirectTo: '/redirect-url',
+              },
+            } as Route),
+          ).toBeFalsy();
+
+          expect(fakeRouter.navigate).toHaveBeenCalledWith(['/redirect-url']);
+        });
+
+        it('should NOT console errors when feature toggle is a function', () => {
+          const instance = new NgxFeatureToggleRouteGuard(fakeRouter);
+
+          instance[method]({
+            data: {
+              featureToggle: passingCallback,
+            },
+          } as Route);
+
+          expect(console.error).not.toHaveBeenCalled();
+        });
       });
     });
   });

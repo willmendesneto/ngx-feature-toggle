@@ -2,13 +2,20 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ErrorComponent } from './error/error.component';
 import { HomeComponent } from './home/home.component';
-import { set } from 'feature-toggle-service';
 import { CustomerComponent } from './customer/customer.component';
 import { CustomerDetailComponent } from './customer/customer-detail.component';
 import { RestrictPageDueFeatureToggleComponent } from './restrict-page-due-feature-toggle/restrict-page-due-feature-toggle.component';
-import { NgxFeatureToggleRouteGuard } from 'projects/ngx-feature-toggle/src/lib/ngx-feature-toggle-route-guard.router';
+import { CallbackDemoComponent } from './callback-demo/callback-demo.component';
+import {
+  FeatureTogglePredicate,
+  NgxFeatureToggleRouteGuard,
+  setFeatureToggles,
+} from 'ngx-feature-toggle';
 
-set({
+const callbackDemoGuard: FeatureTogglePredicate = ({ isOn }) =>
+  isOn('enableFirstText') || isOn('enableSecondText');
+
+setFeatureToggles({
   enableFirstText: true,
   enableSecondText: true,
   enableCustomerPage: true,
@@ -32,6 +39,15 @@ export const routes: Routes = [
     canActivate: [NgxFeatureToggleRouteGuard],
     data: {
       featureToggle: ['!enableSecondText'],
+      redirectTo: '/error',
+    },
+  },
+  {
+    path: 'callback-demo',
+    component: CallbackDemoComponent,
+    canActivate: [NgxFeatureToggleRouteGuard],
+    data: {
+      featureToggle: callbackDemoGuard,
       redirectTo: '/error',
     },
   },

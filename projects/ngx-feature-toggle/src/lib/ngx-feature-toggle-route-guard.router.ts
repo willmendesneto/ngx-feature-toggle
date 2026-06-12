@@ -1,6 +1,6 @@
 import { Injectable, isDevMode } from '@angular/core';
 import { ActivatedRouteSnapshot, Route, CanActivateChild, Router, CanLoad, CanActivate } from '@angular/router';
-import { isOn } from 'feature-toggle-service';
+import { evaluateFeatureToggle, isValidFeatureToggleConfig } from './ngx-feature-toggle.util';
 
 @Injectable({ providedIn: 'root' })
 export class NgxFeatureToggleRouteGuard implements CanActivateChild, CanLoad, CanActivate {
@@ -11,11 +11,7 @@ export class NgxFeatureToggleRouteGuard implements CanActivateChild, CanLoad, Ca
   }
 
   private isOnCheck(route: ActivatedRouteSnapshot | Route): boolean {
-    if (
-      !route ||
-      !route.data ||
-      (typeof route.data.featureToggle !== 'string' && !Array.isArray(route.data.featureToggle))
-    ) {
+    if (!route || !route.data || !isValidFeatureToggleConfig(route.data.featureToggle)) {
       if (this.isDevMode()) {
         console.error(
           // tslint:disable-next-line: max-line-length
@@ -25,15 +21,13 @@ export class NgxFeatureToggleRouteGuard implements CanActivateChild, CanLoad, Ca
       return false;
     }
 
-    const hasAllTogglesOn = ([].concat(route.data.featureToggle as any) as string[]).every(toggle =>
-      toggle[0] === '!' ? !isOn(toggle.replace('!', '')) : isOn(toggle),
-    );
+    const hasTogglesOn = evaluateFeatureToggle(route.data.featureToggle);
 
-    if (!hasAllTogglesOn && route.data.redirectTo !== null && route.data.redirectTo !== undefined) {
+    if (!hasTogglesOn && route.data.redirectTo !== null && route.data.redirectTo !== undefined) {
       this.router.navigate([].concat(route.data.redirectTo));
     }
 
-    return hasAllTogglesOn;
+    return hasTogglesOn;
   }
 
   canLoad(route: Route): boolean {

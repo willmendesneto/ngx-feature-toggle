@@ -13,8 +13,8 @@
     "typeRoots": ["node_modules/@types"],
     "lib": ["es2018", "dom"],
     "paths": {
-      "ngx-feature-toggle": ["dist/ngx-feature-toggle"],
-      "ngx-feature-toggle/*": ["dist/ngx-feature-toggle/*"]
+      "ngx-feature-toggle": ["projects/ngx-feature-toggle/src/public-api.ts"],
+      "ngx-feature-toggle/*": ["projects/ngx-feature-toggle/src/*"]
     },
     "strict": true,
     "forceConsistentCasingInFileNames": true,

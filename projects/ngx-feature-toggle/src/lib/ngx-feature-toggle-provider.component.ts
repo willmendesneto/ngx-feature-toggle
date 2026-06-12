@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, DoCheck } from '@angular/core';
-import { set, FeatureToggleServiceConfig } from 'feature-toggle-service';
+import { FeatureToggleServiceConfig, setFeatureToggles } from './ngx-feature-toggle.util';
 
 @Component({
   selector: 'feature-toggle-provider',
@@ -15,20 +15,20 @@ export class FeatureToggleProviderComponent implements DoCheck, OnInit {
     if (typeof this.features !== 'object') {
       throw new Error('Attribute `features` should not be null or empty');
     }
-    this.setFeatureToggles();
+    this.applyFeatureToggles();
   }
 
   ngDoCheck() {
-    this.setFeatureToggles();
+    this.applyFeatureToggles();
   }
 
-  private setFeatureToggles() {
+  private applyFeatureToggles() {
     if (this.currentConfig !== this.features) {
       // Using `Object.assign()` method for bundle size decreasing purposes
       // It's required since it needs a new memory reference
       // for the new object value
       this.currentConfig = Object.assign({}, this.features);
-      set(this.features);
+      setFeatureToggles(this.features);
     }
   }
 }

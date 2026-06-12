@@ -28,4 +28,11 @@
   <div *featureToggle="'enableFirstText'">
     <ngx-app-hello name="Oops"></ngx-app-hello>
   </div>
+
+  <div *featureToggle="myFn">
+    <p>
+      This section uses a <b>callback predicate</b> on <code>*featureToggle</code>. It renders when
+      <b>enableFirstText</b> OR <b>enableSecondText</b> is enabled.
+    </p>
+  </div>
 </feature-toggle-provider>
