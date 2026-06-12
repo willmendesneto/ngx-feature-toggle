@@ -4,6 +4,7 @@ import { FeatureToggleServiceConfig, setFeatureToggles } from './ngx-feature-tog
 @Component({
   selector: 'feature-toggle-provider',
   template: '<ng-content></ng-content>',
+  standalone: true,
 })
 export class FeatureToggleProviderComponent implements DoCheck, OnInit {
   @Input()

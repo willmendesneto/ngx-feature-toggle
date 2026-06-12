@@ -7,6 +7,24 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][]
 
+## [13.0.0][] - 2026-06-12
+
+### Updated
+
+- Upgraded to Angular 22 with Node.js 22.22.3+
+- Migrated SSR from `@nguniversal/*` to `@angular/ssr`
+- Migrated unit tests from Karma/Jasmine to Vitest
+- Migrated CI from CircleCI to GitHub Actions
+- Library components and directives are now standalone and re-exported via `FeatureToggleModule`
+
+#### Breaking Change
+
+- Minimum Angular peer dependency is now `>=22.0.0`
+- Minimum Node.js version is `^22.22.3 || ^24.15.0 || >=26.0.0`
+- `NgxFeatureToggleRouteGuard` replaces deprecated `CanLoad` with `CanMatch`; update route configs from `canLoad` to `canMatch`
+- Protractor e2e scaffolding removed
+- Library bundle path changed to `fesm2022/ngx-feature-toggle.mjs`
+
 ### Fixed
 
 - Users now can redirect when Path is an empty string. When you configure home page to have path = '', and use NgxFeatureToggleRouteGuard with redirectTo = '', redirect does not happen. Thanks @brandonsmith86 🎉

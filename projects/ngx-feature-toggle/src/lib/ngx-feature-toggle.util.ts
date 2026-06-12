@@ -1,6 +1,6 @@
 import { isOn as serviceIsOn, set, FeatureToggleServiceConfig } from 'feature-toggle-service';
 
-export { FeatureToggleServiceConfig };
+export type { FeatureToggleServiceConfig };
 
 export interface FeatureToggleCheckContext<T extends FeatureToggleServiceConfig = FeatureToggleServiceConfig> {
   isOn: (key: Extract<keyof T, string>) => boolean;

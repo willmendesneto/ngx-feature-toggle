@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
   selector: 'ngx-app-restrict-page-due-feature-toggle',
   templateUrl: './restrict-page-due-feature-toggle.component.html',
   styleUrls: ['./restrict-page-due-feature-toggle.component.scss'],
+  standalone: false,
 })
 export class RestrictPageDueFeatureToggleComponent {
   constructor() {}

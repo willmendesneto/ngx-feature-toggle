@@ -1,9 +1,16 @@
 import { Injectable, isDevMode } from '@angular/core';
-import { ActivatedRouteSnapshot, Route, CanActivateChild, Router, CanLoad, CanActivate } from '@angular/router';
+import {
+  ActivatedRouteSnapshot,
+  Route,
+  CanActivateChild,
+  Router,
+  CanMatch,
+  CanActivate,
+} from '@angular/router';
 import { evaluateFeatureToggle, isValidFeatureToggleConfig } from './ngx-feature-toggle.util';
 
 @Injectable({ providedIn: 'root' })
-export class NgxFeatureToggleRouteGuard implements CanActivateChild, CanLoad, CanActivate {
+export class NgxFeatureToggleRouteGuard implements CanActivateChild, CanMatch, CanActivate {
   constructor(private router: Router) {}
 
   isDevMode() {
@@ -14,7 +21,6 @@ export class NgxFeatureToggleRouteGuard implements CanActivateChild, CanLoad, Ca
     if (!route || !route.data || !isValidFeatureToggleConfig(route.data.featureToggle)) {
       if (this.isDevMode()) {
         console.error(
-          // tslint:disable-next-line: max-line-length
           '`NgxFeatureToggleRouteGuard` need to receive `featureToggle` as data as an array or string in your route configuration.',
         );
       }
@@ -30,7 +36,7 @@ export class NgxFeatureToggleRouteGuard implements CanActivateChild, CanLoad, Ca
     return hasTogglesOn;
   }
 
-  canLoad(route: Route): boolean {
+  canMatch(route: Route): boolean {
     return this.isOnCheck(route);
   }
 

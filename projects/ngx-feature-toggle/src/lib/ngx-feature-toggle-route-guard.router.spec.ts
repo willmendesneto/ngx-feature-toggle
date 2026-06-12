@@ -1,5 +1,5 @@
 import { NgxFeatureToggleRouteGuard } from './ngx-feature-toggle-route-guard.router';
-import { Route } from '@angular/router';
+import { Route, Router } from '@angular/router';
 import { FeatureTogglePredicate, setFeatureToggles } from './ngx-feature-toggle.util';
 
 const orCallback: FeatureTogglePredicate = ({ isOn }) =>
@@ -12,15 +12,17 @@ const failingCallback: FeatureTogglePredicate = ({ isOn }) => isOn('isSecondFeat
 
 const passingCallback: FeatureTogglePredicate = ({ isOn }) => isOn('isFirstFeatureEnabled');
 
+const navigateMock = vi.fn();
 const fakeRouter = {
-  navigate: () => {},
-} as any;
+  navigate: navigateMock,
+} as unknown as Router;
 
 describe('Component: NgxFeatureToggleRouteGuard', () => {
   beforeEach(() => {
+    vi.clearAllMocks();
+    navigateMock.mockReset();
     setFeatureToggles({ isFirstFeatureEnabled: true, isSecondFeatureEnabled: false });
-    spyOn(console, 'error');
-    spyOn(fakeRouter, 'navigate');
+    vi.spyOn(console, 'error').mockImplementation(() => undefined);
   });
 
   afterEach(() => {
@@ -29,7 +31,7 @@ describe('Component: NgxFeatureToggleRouteGuard', () => {
 
   // We have the same test for all the route guards methods
   // So that, we are keeping the same behaviour as before
-  ['canActivateChild', 'canLoad', 'canActivate'].forEach((routeGuardMethod: string) => {
+  ['canActivateChild', 'canMatch', 'canActivate'].forEach((routeGuardMethod: string) => {
     const method = routeGuardMethod as keyof NgxFeatureToggleRouteGuard;
 
     describe(`#${method}()`, () => {
@@ -85,7 +87,7 @@ describe('Component: NgxFeatureToggleRouteGuard', () => {
           } as Route),
         ).toBeFalsy();
 
-        expect(fakeRouter.navigate).not.toHaveBeenCalled();
+        expect(navigateMock).not.toHaveBeenCalled();
       });
 
       it('should return `false` and redirect to the specific URL if feature toggle is disabled AND route contains `redirectTo`', () => {
@@ -99,7 +101,7 @@ describe('Component: NgxFeatureToggleRouteGuard', () => {
             },
           } as Route),
         ).toBeFalsy();
-        expect(fakeRouter.navigate).toHaveBeenCalledWith(['/redirect-url']);
+        expect(navigateMock).toHaveBeenCalledWith(['/redirect-url']);
       });
 
       it('should return `false` and redirect to the specific URL if feature toggle is disabled AND `redirectTo` is null', () => {
@@ -115,12 +117,12 @@ describe('Component: NgxFeatureToggleRouteGuard', () => {
           } as Route),
         ).toBeFalsy();
 
-        expect(fakeRouter.navigate).toHaveBeenCalledWith([redirectTo]);
+        expect(navigateMock).toHaveBeenCalledWith([redirectTo]);
       });
 
       it('should NOT console errors if code is running in production mode', () => {
         const instance = new NgxFeatureToggleRouteGuard(fakeRouter);
-        spyOn(instance, 'isDevMode').and.returnValue(false);
+        vi.spyOn(instance, 'isDevMode').mockReturnValue(false);
 
         instance[method]({
           data: {
@@ -211,7 +213,7 @@ describe('Component: NgxFeatureToggleRouteGuard', () => {
             } as Route),
           ).toBeFalsy();
 
-          expect(fakeRouter.navigate).toHaveBeenCalledWith(['/redirect-url']);
+          expect(navigateMock).toHaveBeenCalledWith(['/redirect-url']);
         });
 
         it('should NOT console errors when feature toggle is a function', () => {

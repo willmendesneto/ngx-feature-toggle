@@ -5,6 +5,7 @@ import { evaluateFeatureToggle, FeatureToggleConfig, isValidFeatureToggleConfig 
 @Directive({
   // tslint:disable-next-line: directive-selector
   selector: '[featureToggle]',
+  standalone: true,
 })
 export class FeatureToggleDirective implements OnInit, DoCheck {
   @Input() public featureToggle: FeatureToggleConfig | undefined;
@@ -26,11 +27,10 @@ export class FeatureToggleDirective implements OnInit, DoCheck {
   }
 
   private shouldRender() {
+    this.viewContainer.clear();
     this.isOn = this.isOnCheck(this.featureToggle);
     if (this.isOn) {
       this.viewContainer.createEmbeddedView(this.templateRef);
-    } else {
-      this.viewContainer.clear();
     }
   }
 

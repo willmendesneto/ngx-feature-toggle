@@ -8,6 +8,7 @@ interface Customer {
 
 @Component({
   selector: 'app-customer',
+  standalone: false,
   styleUrls: ['./customer.component.css'],
   template: `
     <p>Customer List</p>

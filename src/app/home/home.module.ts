@@ -9,7 +9,6 @@ import { HelloComponent } from '../hello.component';
 @NgModule({
   declarations: [HomeComponent, HelloComponent],
   imports: [BrowserModule, FeatureToggleModule],
-  providers: [],
-  bootstrap: [HomeComponent],
+  exports: [HomeComponent, HelloComponent],
 })
 export class HomeModule {}

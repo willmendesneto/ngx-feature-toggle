@@ -1,12 +1,14 @@
-import { Component, NgZone } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
 import { FeatureTogglePredicate } from 'ngx-feature-toggle';
 
 @Component({
   selector: 'ngx-app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
+  standalone: false,
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit, OnDestroy {
   featureToggleData: {
     enableFirstText: boolean;
     enableSecondText: boolean;
@@ -15,22 +17,27 @@ export class HomeComponent {
     enableSecondText: true,
   };
 
-  myFn: FeatureTogglePredicate<{ enableFirstText: boolean; enableSecondText: boolean }> = ({ isOn }) =>
-    isOn('enableFirstText') || isOn('enableSecondText');
+  myFn: FeatureTogglePredicate = ({ isOn }) => isOn('enableFirstText') || isOn('enableSecondText');
 
-  constructor(private zone: NgZone) {
-    // Required because Protractor current behavior
-    // More details in https://github.com/angular/protractor/blob/master/docs/timeouts.md#waiting-for-angular
-    this.zone.runOutsideAngular(() => {
-      setInterval(() => {
-        this.zone.run(() => {
-          (Object.keys(this.featureToggleData) as Array<keyof typeof this.featureToggleData>).forEach(
-            key => (this.featureToggleData[key] = !this.featureToggleData[key]),
-          );
-        });
-        // increase/decrease this number to see the
-        // current feature toggle component behavior
-      }, 5000);
-    });
+  intervalId: number | undefined;
+
+  constructor(@Inject(PLATFORM_ID) private platformId: object) {}
+
+  ngOnInit(): void {
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
+
+    this.intervalId = window.setInterval(() => {
+      (Object.keys(this.featureToggleData) as Array<keyof typeof this.featureToggleData>).forEach(
+        key => (this.featureToggleData[key] = !this.featureToggleData[key]),
+      );
+    }, 5000);
+  }
+
+  ngOnDestroy(): void {
+    if (this.intervalId) {
+      clearInterval(this.intervalId);
+    }
   }
 }

@@ -6,7 +6,7 @@
 [![NPM](https://nodei.co/npm/ngx-feature-toggle.png?downloads=true&downloadRank=true&stars=true)](https://npmjs.org/ngx-feature-toggle)
 [![NPM](https://nodei.co/npm-dl/ngx-feature-toggle.png?height=3&months=3)](https://npmjs.org/ngx-feature-toggle)
 
-[![Build Status](https://circleci.com/gh/willmendesneto/ngx-feature-toggle.svg?style=shield)](https://circleci.com/gh/willmendesneto/ngx-feature-toggle)
+[![CI](https://github.com/willmendesneto/ngx-feature-toggle/actions/workflows/ci.yml/badge.svg)](https://github.com/willmendesneto/ngx-feature-toggle/actions/workflows/ci.yml)
 [![Coverage Status](https://coveralls.io/repos/willmendesneto/ngx-feature-toggle/badge.svg?branch=master)](https://coveralls.io/r/willmendesneto/ngx-feature-toggle?branch=master)
 [![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/ngx-feature-toggle.svg)](https://bundlephobia.com/result?p=ngx-feature-toggle)
 [![npm](https://img.shields.io/npm/l/express.svg?maxAge=2592000)](/LICENSE)
@@ -208,7 +208,7 @@ Import only from `ngx-feature-toggle`:
 | `setFeatureToggles()` | Bootstrap / SSR flag configuration |
 | `FeatureToggleServiceConfig` | Type your flag map |
 | `FeatureTogglePredicate` | Type callback predicates for routes and `*featureToggle` |
-| `NgxFeatureToggleRouteGuard` | Route `canActivate` / `canLoad` / `canActivateChild` |
+| `NgxFeatureToggleRouteGuard` | Route `canActivate` / `canMatch` / `canActivateChild` |
 
 Evaluation logic is internal to the library — configure `featureToggle` as a string, array, or callback on routes and templates.
 
@@ -412,7 +412,7 @@ export const routes: Routes = [
   {
     path: 'customer',
     component: CustomerComponent,
-    canLoad: [NgxFeatureToggleRouteGuard],
+    canMatch: [NgxFeatureToggleRouteGuard],
     canActivate: [NgxFeatureToggleRouteGuard],
     canActivateChild: [NgxFeatureToggleRouteGuard],
     // This is the featureToggle configuration for

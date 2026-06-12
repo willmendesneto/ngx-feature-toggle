@@ -21,12 +21,7 @@ import { RestrictPageDueFeatureToggleComponent } from './restrict-page-due-featu
     CallbackDemoComponent,
     RestrictPageDueFeatureToggleComponent,
   ],
-  imports: [
-    BrowserModule.withServerTransition({ appId: 'ngx-feature-toggle-demo' }),
-    FeatureToggleModule,
-    AppRoutingModule,
-    HomeModule,
-  ],
+  imports: [BrowserModule, FeatureToggleModule, AppRoutingModule, HomeModule],
   providers: [],
   bootstrap: [AppComponent],
 })
