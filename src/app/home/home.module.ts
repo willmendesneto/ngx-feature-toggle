@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { HomeComponent } from './home.component';
 
-import { FeatureToggleModule } from '../../../projects/ngx-feature-toggle/src/public-api';
+import { FeatureToggleModule } from 'ngx-feature-toggle';
 import { HelloComponent } from '../hello.component';
 
 @NgModule({

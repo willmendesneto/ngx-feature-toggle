@@ -130,6 +130,88 @@ export class ComponentDocsComponent {
 }
 ```
 
+#### Callback predicate on `*featureToggle`
+
+`*featureToggle` also accepts a **callback predicate** for OR, mixed AND/OR, or any custom rule. Bind a stable component method reference (avoid inline template lambdas):
+
+```typescript
+import { Component } from '@angular/core';
+import { FeatureTogglePredicate } from 'ngx-feature-toggle';
+
+@Component({
+  selector: 'component-docs',
+  template: `
+    <feature-toggle-provider [features]="featureToggleData">
+      <div *featureToggle="myFn">
+        <p>Renders when enableFirstText OR enableSecondText is enabled.</p>
+      </div>
+    </feature-toggle-provider>
+  `,
+})
+export class ComponentDocsComponent {
+  public featureToggleData = {
+    enableFirstText: false,
+    enableSecondText: true,
+  };
+
+  myFn: FeatureTogglePredicate<typeof this.featureToggleData> = ({ isOn }) =>
+    isOn('enableFirstText') || isOn('enableSecondText');
+}
+```
+
+| `featureToggle` input | Semantics |
+|-----------------------|-----------|
+| `string` | Single toggle (`!` prefix for negation) |
+| `string[]` | **AND** — all toggles must match |
+| `callback` | Custom logic — OR, mixed, or any rule |
+
+#### Typed `isOn` in callbacks
+
+Use `FeatureTogglePredicate<T>` so `isOn` only accepts keys from your feature-flag map at **compile time**:
+
+```typescript
+export const listOfToggles = { A: true, C: false } as const;
+type AppFeatureFlags = typeof listOfToggles;
+
+myFn: FeatureTogglePredicate<AppFeatureFlags> = ({ isOn }) =>
+  isOn('A') && isOn('C');
+  // isOn('B') ← TypeScript error
+```
+
+| Call | Configured? | Value | Result |
+|------|-------------|-------|--------|
+| `isOn('A')` | Yes | `true` | `true` |
+| `isOn('C')` | Yes | `false` | `false` |
+| `isOn('B')` | No | — | `false` |
+
+Use `!isOn('key')` for negation in callbacks, or `isToggleOn('!key')` for parity with string/array `!` prefix syntax.
+
+### Configure feature toggles (`setFeatureToggles`)
+
+Use `setFeatureToggles()` from `ngx-feature-toggle` instead of importing `set()` from `feature-toggle-service` directly:
+
+```typescript
+import { setFeatureToggles } from 'ngx-feature-toggle';
+
+setFeatureToggles({ A: true, C: false });
+```
+
+`feature-toggle-provider` calls `setFeatureToggles()` internally when `[features]` is set.
+
+### Public API
+
+Import only from `ngx-feature-toggle`:
+
+| Export | Consumer use |
+|--------|----------------|
+| `FeatureToggleModule` | App module imports |
+| `setFeatureToggles()` | Bootstrap / SSR flag configuration |
+| `FeatureToggleServiceConfig` | Type your flag map |
+| `FeatureTogglePredicate` | Type callback predicates for routes and `*featureToggle` |
+| `NgxFeatureToggleRouteGuard` | Route `canActivate` / `canLoad` / `canActivateChild` |
+
+Evaluation logic is internal to the library — configure `featureToggle` as a string, array, or callback on routes and templates.
+
 ### Route Guards
 
 In some scenarios when you need to prevent the route to be loaded, you can use `NgxFeatureToggleCanLoadGuard`, by passing the class and configuration of the feature toggle to be checked in your route data.
@@ -234,6 +316,40 @@ export const routes: Routes = [
 ```
 
 In this case, we are combining the checks. So the component will be activated if `enableSecondText` is configured as `true` AND `enableFirstText` is configured as `false`. With that configuration you can have all the flexibility to cover different scenarios in your app.
+
+#### Callback predicate on route `data.featureToggle`
+
+Route guards also accept a callback on `featureToggle` for OR or mixed logic. Configure flags with `setFeatureToggles()` before navigation:
+
+```typescript
+import { setFeatureToggles } from 'ngx-feature-toggle';
+
+setFeatureToggles({
+  enableFirstText: true,
+  enableSecondText: false,
+});
+
+export const routes: Routes = [
+  {
+    path: 'callback-demo',
+    component: CallbackDemoComponent,
+    canActivate: [NgxFeatureToggleRouteGuard],
+    data: {
+      featureToggle: ({ isOn }) => isOn('enableFirstText') || isOn('enableSecondText'),
+      redirectTo: '/error',
+    },
+  },
+];
+```
+
+For reusable predicates, extract a typed function:
+
+```typescript
+import { FeatureTogglePredicate } from 'ngx-feature-toggle';
+
+export const canAccessCallbackRoute: FeatureTogglePredicate = ({ isOn }) =>
+  isOn('enableFirstText') || isOn('enableSecondText');
+```
 
 Use `NgxFeatureToggleRouteGuard` to control when the child component of a specific component can be activate via routing. It can be passed as an array of items.
 

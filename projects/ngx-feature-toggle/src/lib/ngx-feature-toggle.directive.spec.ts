@@ -2,7 +2,7 @@ import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { FeatureToggleDirective } from './ngx-feature-toggle.directive';
 import { FeatureToggleProviderComponent } from './ngx-feature-toggle-provider.component';
-import { set } from 'feature-toggle-service';
+import { FeatureTogglePredicate, setFeatureToggles } from './ngx-feature-toggle.util';
 
 @Component({
   selector: 'kp-container',
@@ -65,7 +65,7 @@ describe('Component: FeatureToggle', () => {
   let fixture: any;
 
   beforeEach(async () => {
-    set({ enableFirstText: true });
+    setFeatureToggles({ enableFirstText: true });
 
     fixture = TestBed.configureTestingModule({
       declarations: [
@@ -79,7 +79,7 @@ describe('Component: FeatureToggle', () => {
   });
 
   afterEach(() => {
-    set({ enableFirstText: false });
+    setFeatureToggles({ enableFirstText: false });
   });
 
   describe('When featureToggle is enabled', () => {
@@ -110,7 +110,7 @@ describe('Component: FeatureToggle', () => {
         fixture.nativeElement.querySelector('.feature-toggle-enabled').innerText
       ).not.toEqual(null);
 
-      set({ enableFirstText: false });
+      setFeatureToggles({ enableFirstText: false });
       fixture.detectChanges();
 
       expect(
@@ -148,6 +148,61 @@ describe('Component: FeatureToggle', () => {
           '.combined-feature-toggles-with-falsy-option'
         )
       ).toEqual(null);
+    });
+  });
+});
+
+@Component({
+  selector: 'kp-callback-container',
+  template: `
+    <div class="feature-toggle-callback-or" *featureToggle="myFn">
+      <p>Callback OR feature toggle enabled</p>
+    </div>
+  `,
+})
+class CallbackContainerComponent {
+  myFn: FeatureTogglePredicate<{ enableFirstText: boolean; enableSecondText: boolean }> = ({ isOn }) =>
+    isOn('enableFirstText') || isOn('enableSecondText');
+}
+
+describe('Component: FeatureToggle callback', () => {
+  let fixture: any;
+
+  beforeEach(async () => {
+    setFeatureToggles({ enableFirstText: true, enableSecondText: false });
+
+    fixture = TestBed.configureTestingModule({
+      declarations: [CallbackContainerComponent, FeatureToggleDirective, FeatureToggleProviderComponent],
+      schemas: [NO_ERRORS_SCHEMA],
+    }).createComponent(CallbackContainerComponent);
+    fixture.detectChanges();
+  });
+
+  afterEach(() => {
+    setFeatureToggles({ enableFirstText: false, enableSecondText: false });
+  });
+
+  describe('When featureToggle receives a callback', () => {
+    it('should render the component content when callback returns true', () => {
+      expect(fixture.nativeElement.querySelector('.feature-toggle-callback-or').innerText).toContain(
+        'Callback OR feature toggle enabled',
+      );
+    });
+
+    it('should NOT render the component content when callback returns false', () => {
+      setFeatureToggles({ enableFirstText: false, enableSecondText: false });
+      fixture.detectChanges();
+
+      expect(fixture.nativeElement.querySelector('.feature-toggle-callback-or')).toEqual(null);
+    });
+
+    it('should update when feature toggle data changes', () => {
+      expect(fixture.nativeElement.querySelector('.feature-toggle-callback-or')).not.toEqual(null);
+
+      setFeatureToggles({ enableFirstText: false, enableSecondText: false });
+      fixture.detectChanges();
+
+      expect(fixture.nativeElement.querySelector('.feature-toggle-callback-or')).toEqual(null);
     });
   });
 });

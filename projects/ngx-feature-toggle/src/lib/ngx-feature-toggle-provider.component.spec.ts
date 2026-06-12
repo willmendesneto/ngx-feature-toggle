@@ -2,7 +2,11 @@ import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
 import { TestBed, waitForAsync as asyncMethod } from '@angular/core/testing';
 import { FeatureToggleProviderComponent } from './ngx-feature-toggle-provider.component';
 import { FeatureToggleDirective } from './ngx-feature-toggle.directive';
-import { set, FeatureToggleServiceConfig } from 'feature-toggle-service';
+import {
+  createFeatureToggleContext,
+  FeatureToggleServiceConfig,
+  setFeatureToggles,
+} from './ngx-feature-toggle.util';
 
 @Component({
   selector: 'kp-container',
@@ -31,7 +35,7 @@ describe('Component: FeatureToggleProviderComponent', () => {
 
   beforeEach(
     asyncMethod(() => {
-      set({ enableFirstText: true });
+      setFeatureToggles({ enableFirstText: true });
 
       fixture = TestBed.configureTestingModule({
         declarations: [ContainerComponent, FeatureToggleProviderComponent, FeatureToggleDirective],
@@ -43,7 +47,7 @@ describe('Component: FeatureToggleProviderComponent', () => {
   );
 
   afterEach(() => {
-    set({ enableFirstText: false });
+    setFeatureToggles({ enableFirstText: false });
   });
 
   it('should render the enabled children content', () => {
@@ -54,5 +58,14 @@ describe('Component: FeatureToggleProviderComponent', () => {
   it('should NOT render the disabled content', () => {
     const elementText = fixture.nativeElement.querySelectorAll('.feature-toggle-component')[0].innerText;
     expect(elementText).not.toContain('Disabled content');
+  });
+
+  it('should apply feature toggles when provider initializes', () => {
+    setFeatureToggles({});
+    fixture.detectChanges();
+
+    const context = createFeatureToggleContext();
+    expect(context.isOn('enableFirstText')).toBeTruthy();
+    expect(context.isOn('enableSecondText')).toBeFalsy();
   });
 });

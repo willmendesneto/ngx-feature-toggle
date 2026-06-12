@@ -15,6 +15,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 
 - Adding typescript types validation on pipeline
+- `featureToggle` callback support on `*featureToggle` directive and `NgxFeatureToggleRouteGuard` for OR, mixed AND/OR, and custom rules
+- `setFeatureToggles()` and typed `FeatureTogglePredicate` for callback predicates on routes and `*featureToggle`
+- `FeatureToggleServiceConfig` type exported from `ngx-feature-toggle` public API
+- Curated public API — internal utilities (`evaluateFeatureToggle`, etc.) are not exported to consumers
+- Demo routes and templates showcasing callback predicates alongside existing string/array examples
+
+### Updated
+
+- Bundle size limit adjusted to `2.2KB` (gzipped fesm2020) to accommodate the shared evaluator utility
+
+#### Breaking Change
+
+- Use `setFeatureToggles()` from `ngx-feature-toggle` instead of `set()` from `feature-toggle-service` directly. Import feature-toggle types and utilities from `ngx-feature-toggle` public API.
 
 ## [12.0.0][] - 2023-02-20
 
