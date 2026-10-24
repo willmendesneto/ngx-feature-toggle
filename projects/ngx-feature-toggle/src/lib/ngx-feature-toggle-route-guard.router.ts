@@ -1,4 +1,4 @@
-import { Injectable, isDevMode } from '@angular/core';
+import { Injectable, isDevMode, Optional } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
   Route,
@@ -7,11 +7,17 @@ import {
   CanMatch,
   CanActivate,
 } from '@angular/router';
+import { FeatureToggleService } from './ngx-feature-toggle.service';
 import { evaluateFeatureToggle, isValidFeatureToggleConfig } from './ngx-feature-toggle.util';
 
 @Injectable({ providedIn: 'root' })
 export class NgxFeatureToggleRouteGuard implements CanActivateChild, CanMatch, CanActivate {
-  constructor(private router: Router) {}
+  // `service` is optional to keep supporting `new NgxFeatureToggleRouteGuard(router)`,
+  // which falls back to the toggles set via `setFeatureToggles()`
+  constructor(
+    private router: Router,
+    @Optional() private service?: FeatureToggleService,
+  ) {}
 
   isDevMode() {
     return isDevMode();
@@ -27,7 +33,9 @@ export class NgxFeatureToggleRouteGuard implements CanActivateChild, CanMatch, C
       return false;
     }
 
-    const hasTogglesOn = evaluateFeatureToggle(route.data.featureToggle);
+    const hasTogglesOn = this.service
+      ? this.service.isOn(route.data.featureToggle)
+      : evaluateFeatureToggle(route.data.featureToggle);
 
     if (!hasTogglesOn && route.data.redirectTo !== null && route.data.redirectTo !== undefined) {
       this.router.navigate([].concat(route.data.redirectTo));

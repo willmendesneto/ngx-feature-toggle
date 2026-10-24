@@ -1,4 +1,4 @@
-import { isOn as serviceIsOn, set, FeatureToggleServiceConfig } from 'feature-toggle-service';
+import { createFeatureToggleService, FeatureToggleServiceConfig } from 'feature-toggle-service';
 
 export type { FeatureToggleServiceConfig };
 
@@ -13,52 +13,57 @@ export type FeatureTogglePredicate<T extends FeatureToggleServiceConfig = Featur
 
 export type FeatureToggleConfig = string | string[] | FeatureTogglePredicate;
 
+type IsOn = (key: string) => boolean;
+
+// Toggles set via `setFeatureToggles()`, shared by every application. Each application
+// keeps its own toggles in `FeatureToggleService`, which starts from and follows these ones.
+export const globalFeatureToggles = createFeatureToggleService();
+
+/**
+ * Sets the feature toggles of every application.
+ *
+ * @deprecated Use `provideFeatureToggles()` or `FeatureToggleService.set()`, which keep the
+ * toggles per application (e.g. per server-side rendering request).
+ */
 export function setFeatureToggles(config: FeatureToggleServiceConfig): void {
-  set(config);
+  globalFeatureToggles.set(config);
 }
 
 export function isOn(key: string): boolean {
-  return serviceIsOn(key);
+  return globalFeatureToggles.isOn(key);
 }
 
-export function isFeatureToggleOn(toggle: string): boolean {
-  const key = toggle[0] === '!' ? toggle.slice(1) : toggle;
-
-  return toggle[0] === '!' ? !serviceIsOn(key) : serviceIsOn(key);
+export function isFeatureToggleOn(toggle: string, isOnFn: IsOn = isOn): boolean {
+  return toggle[0] === '!' ? !isOnFn(toggle.slice(1)) : isOnFn(toggle);
 }
 
-export function createFeatureToggleContext<
-  T extends FeatureToggleServiceConfig = FeatureToggleServiceConfig,
->(): FeatureToggleCheckContext<T> {
+export function createFeatureToggleContext<T extends FeatureToggleServiceConfig = FeatureToggleServiceConfig>(
+  isOnFn: IsOn = isOn,
+): FeatureToggleCheckContext<T> {
   return {
-    isOn: (key: Extract<keyof T, string>) => serviceIsOn(key),
-    isToggleOn: isFeatureToggleOn,
+    isOn: (key: Extract<keyof T, string>) => isOnFn(key),
+    isToggleOn: (toggle: string) => isFeatureToggleOn(toggle, isOnFn),
   };
 }
 
 export function isValidFeatureToggleConfig(config: unknown): config is FeatureToggleConfig {
-  return (
-    typeof config === 'string' ||
-    Array.isArray(config) ||
-    typeof config === 'function'
-  );
+  return typeof config === 'string' || Array.isArray(config) || typeof config === 'function';
 }
 
-export function evaluateFeatureToggle(config: FeatureToggleConfig | undefined | null): boolean {
-  if (config === undefined || config === null) {
-    return false;
-  }
-
+export function evaluateFeatureToggle(
+  config: FeatureToggleConfig | undefined | null,
+  isOnFn: IsOn = isOn,
+): boolean {
   if (typeof config === 'string') {
-    return isFeatureToggleOn(config);
+    return isFeatureToggleOn(config, isOnFn);
   }
 
   if (Array.isArray(config)) {
-    return (config as string[]).every(isFeatureToggleOn);
+    return config.every(toggle => isFeatureToggleOn(toggle, isOnFn));
   }
 
   if (typeof config === 'function') {
-    return config(createFeatureToggleContext());
+    return config(createFeatureToggleContext(isOnFn));
   }
 
   return false;
