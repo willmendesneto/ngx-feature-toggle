@@ -7,6 +7,39 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][]
 
+### Added
+
+- Adding `FeatureToggleService`: each application (e.g. each server-side rendering request) keeps its own feature toggles, exposed as a signal, so they don't leak between requests
+- Adding `provideFeatureToggles(config)` to set the feature toggles when bootstrapping
+- Adding the functional `featureToggleGuard` for `canMatch`, `canActivate` and `canActivateChild`. It redirects by returning a `UrlTree`
+- Adding CI checks for the SSR server (`test:ssr`) and for the minimum Angular peer dependency (`check:min-peer`)
+
+### Fixed
+
+- `<feature-toggle-provider>` applied the feature toggles on every change detection cycle, discarding toggles changed elsewhere
+- `*featureToggle` didn't update when the toggles changed outside change detection, e.g. in `OnPush` components (the default since Angular 22) and zoneless applications
+- Demo SSR server answered `400` to every request, since `localhost` wasn't an allowed host
+- README documented `*featureToggleWhenDisabled` and `NgxFeatureToggleCanLoadGuard`, which don't exist
+
+### Updated
+
+- Upgrading `feature-toggle-service` to `^8.0.0` (ESM, no dependencies): applications using the package are smaller, since CommonJS dependencies caused optimization bailouts
+- `*featureToggle` uses `input()`, `inject()`, `computed()` and `effect()`
+- Migrating the demo app to standalone APIs and zoneless change detection
+- CI aligned with `ngx-skeleton-loader`: composite setup action, actions pinned by commit SHA (updated by Dependabot) and least-privilege permissions
+- Marking the root `package.json` (demo app) as private
+
+### Deprecated
+
+- `setFeatureToggles()`: use `provideFeatureToggles()` or `FeatureToggleService`
+- `FeatureToggleProviderComponent` (`<feature-toggle-provider>`): use `provideFeatureToggles()`
+- `FeatureToggleModule`: import the standalone `FeatureToggleDirective`
+- `NgxFeatureToggleRouteGuard`: use `featureToggleGuard`
+
+### Security
+
+- Removing `.coveralls.yml`, which contained the Coveralls repo token
+
 ## [13.0.0][] - 2026-06-12
 
 ### Updated
