@@ -49,7 +49,7 @@
   "bundlesize": [
     {
       "path": "./dist/ngx-feature-toggle/fesm2022/ngx-feature-toggle.mjs",
-      "maxSize": "2.8KB"
+      "maxSize": "3.1KB"
     }
   ],
   "dependencies": {

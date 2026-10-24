@@ -2,10 +2,12 @@ import { Component, Input, OnInit, DoCheck, inject } from '@angular/core';
 import { FeatureToggleService } from './ngx-feature-toggle.service';
 import { FeatureToggleServiceConfig } from './ngx-feature-toggle.util';
 
+/**
+ * @deprecated Use `provideFeatureToggles()` when bootstrapping, or `FeatureToggleService.set()`.
+ */
 @Component({
   selector: 'feature-toggle-provider',
   template: '<ng-content></ng-content>',
-  standalone: true,
 })
 export class FeatureToggleProviderComponent implements DoCheck, OnInit {
   @Input()
