@@ -1,4 +1,4 @@
-import { ApplicationRef, Component } from '@angular/core';
+import { ApplicationRef, ChangeDetectorRef, Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FeatureToggleModule } from './ngx-feature-toggle.module';
 import {
@@ -65,5 +65,37 @@ describe('Component: FeatureToggleProviderComponent', () => {
     const context = createFeatureToggleContext();
     expect(context.isOn('enableFirstText')).toBeTruthy();
     expect(context.isOn('enableSecondText')).toBeFalsy();
+  });
+
+  describe('change detection', () => {
+    // Components are `OnPush` by default since Angular 22, so mark the container as changed
+    const runChangeDetection = () => {
+      fixture.componentRef.injector.get(ChangeDetectorRef).markForCheck();
+      fixture.detectChanges();
+    };
+
+    it('should not apply the feature toggles again on every change detection', () => {
+      // Changed somewhere else in the app
+      setFeatureToggles({ enableSecondText: true });
+
+      runChangeDetection();
+      runChangeDetection();
+
+      expect(createFeatureToggleContext().isOn('enableSecondText')).toBe(true);
+    });
+
+    it('should apply the feature toggles when a new object with different values is passed', () => {
+      fixture.componentInstance.featureToggleData = { enableFirstText: true, enableSecondText: true };
+      runChangeDetection();
+
+      expect(fixture.nativeElement.textContent).toContain('Disabled content');
+    });
+
+    it('should apply the feature toggles when the same object is mutated', () => {
+      (fixture.componentInstance.featureToggleData as { enableSecondText: boolean }).enableSecondText = true;
+      runChangeDetection();
+
+      expect(createFeatureToggleContext().isOn('enableSecondText')).toBe(true);
+    });
   });
 });

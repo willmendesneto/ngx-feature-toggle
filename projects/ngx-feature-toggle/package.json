@@ -16,7 +16,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/willmendesneto/ngx-feature-toggle.git"
+    "url": "git+https://github.com/willmendesneto/ngx-feature-toggle.git"
   },
   "bugs": {
     "url": "https://github.com/willmendesneto/ngx-feature-toggle/issues"

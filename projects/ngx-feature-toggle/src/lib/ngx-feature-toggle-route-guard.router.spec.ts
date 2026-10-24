@@ -57,7 +57,7 @@ describe('Component: NgxFeatureToggleRouteGuard', () => {
 
         expect(result).toBeFalsy();
         expect(console.error).toHaveBeenCalledWith(
-          '`NgxFeatureToggleRouteGuard` need to receive `featureToggle` as data as an array or string in your route configuration.',
+          '`NgxFeatureToggleRouteGuard` need to receive `featureToggle` as data as a string, an array or a function in your route configuration.',
         );
       });
 
@@ -72,7 +72,7 @@ describe('Component: NgxFeatureToggleRouteGuard', () => {
 
         expect(result).toBeFalsy();
         expect(console.error).toHaveBeenCalledWith(
-          '`NgxFeatureToggleRouteGuard` need to receive `featureToggle` as data as an array or string in your route configuration.',
+          '`NgxFeatureToggleRouteGuard` need to receive `featureToggle` as data as a string, an array or a function in your route configuration.',
         );
       });
 
