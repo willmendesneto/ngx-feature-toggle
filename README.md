@@ -7,7 +7,7 @@
 [![NPM](https://nodei.co/npm-dl/ngx-feature-toggle.png?height=3&months=3)](https://npmjs.org/ngx-feature-toggle)
 
 [![CI](https://github.com/willmendesneto/ngx-feature-toggle/actions/workflows/ci.yml/badge.svg)](https://github.com/willmendesneto/ngx-feature-toggle/actions/workflows/ci.yml)
-[![Coverage Status](https://coveralls.io/repos/willmendesneto/ngx-feature-toggle/badge.svg?branch=master)](https://coveralls.io/r/willmendesneto/ngx-feature-toggle?branch=master)
+[![Coverage Status](https://coveralls.io/repos/willmendesneto/ngx-feature-toggle/badge.svg?branch=main)](https://coveralls.io/r/willmendesneto/ngx-feature-toggle?branch=main)
 [![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/ngx-feature-toggle.svg)](https://bundlephobia.com/result?p=ngx-feature-toggle)
 [![npm](https://img.shields.io/npm/l/express.svg?maxAge=2592000)](/LICENSE)
 
@@ -465,7 +465,7 @@ this project is using `np` package to publish, which makes things straightforwar
 
 ## Contribute
 
-For any type of contribution, please follow the instructions in [CONTRIBUTING.md](https://github.com/willmendesneto/ngx-feature-toggle/blob/master/CONTRIBUTING.md) and read [CODE_OF_CONDUCT.md](https://github.com/willmendesneto/ngx-feature-toggle/blob/master/CODE_OF_CONDUCT.md) files.
+For any type of contribution, please follow the instructions in [CONTRIBUTING.md](https://github.com/willmendesneto/ngx-feature-toggle/blob/main/CONTRIBUTING.md) and read [CODE_OF_CONDUCT.md](https://github.com/willmendesneto/ngx-feature-toggle/blob/main/CODE_OF_CONDUCT.md) files.
 
 ## Author
 
