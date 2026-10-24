@@ -1,43 +1,35 @@
-import { isPlatformBrowser } from '@angular/common';
-import { Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
-import { FeatureTogglePredicate } from 'ngx-feature-toggle';
+import { isPlatformBrowser, JsonPipe } from '@angular/common';
+import { Component, DestroyRef, inject, PLATFORM_ID } from '@angular/core';
+import { FeatureToggleDirective, FeatureTogglePredicate, FeatureToggleService } from 'ngx-feature-toggle';
+import { HelloComponent } from '../hello.component';
 
 @Component({
   selector: 'ngx-app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
-  standalone: false,
+  imports: [FeatureToggleDirective, HelloComponent, JsonPipe],
 })
-export class HomeComponent implements OnInit, OnDestroy {
-  featureToggleData: {
-    enableFirstText: boolean;
-    enableSecondText: boolean;
-  } = {
-    enableFirstText: false,
-    enableSecondText: true,
-  };
+export class HomeComponent {
+  readonly featureToggles = inject(FeatureToggleService);
 
   myFn: FeatureTogglePredicate = ({ isOn }) => isOn('enableFirstText') || isOn('enableSecondText');
 
-  intervalId: number | undefined;
+  constructor() {
+    this.featureToggles.set({ enableFirstText: false, enableSecondText: true });
 
-  constructor(@Inject(PLATFORM_ID) private platformId: object) {}
-
-  ngOnInit(): void {
-    if (!isPlatformBrowser(this.platformId)) {
+    if (!isPlatformBrowser(inject(PLATFORM_ID))) {
       return;
     }
 
-    this.intervalId = window.setInterval(() => {
-      (Object.keys(this.featureToggleData) as Array<keyof typeof this.featureToggleData>).forEach(
-        key => (this.featureToggleData[key] = !this.featureToggleData[key]),
-      );
-    }, 5000);
-  }
-
-  ngOnDestroy(): void {
-    if (this.intervalId) {
-      clearInterval(this.intervalId);
-    }
+    // `*featureToggle` updates when the toggles change, no zone.js needed
+    const intervalId = setInterval(
+      () =>
+        this.featureToggles.set({
+          enableFirstText: !this.featureToggles.isOn('enableFirstText'),
+          enableSecondText: !this.featureToggles.isOn('enableSecondText'),
+        }),
+      5000,
+    );
+    inject(DestroyRef).onDestroy(() => clearInterval(intervalId));
   }
 }
