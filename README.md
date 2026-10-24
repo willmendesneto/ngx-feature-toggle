@@ -48,86 +48,69 @@ npm install ngx-feature-toggle --save
 
 ## Setup
 
-You'll need to add `FeatureToggleModule` to your application module. So that, the `featureToggle` components will be accessible in your application.
+Set your feature toggles with `provideFeatureToggles()` when bootstrapping your application, and import the standalone `FeatureToggleDirective` in the components that use `*featureToggle`:
 
 ```typescript
-...
-import { FeatureToggleModule } from 'ngx-feature-toggle';
-...
-@NgModule({
-  declarations: [
-    YourAppComponent
-  ],
-  imports: [
-    ...
-    FeatureToggleModule,
-    ...
-  ],
-  providers: [],
-  bootstrap: [YourAppComponent]
-})
+import { bootstrapApplication } from '@angular/platform-browser';
+import { provideFeatureToggles } from 'ngx-feature-toggle';
 
-export class YourAppComponent {}
-
+bootstrapApplication(AppComponent, {
+  providers: [
+    provideFeatureToggles({
+      enableFirstText: false,
+      enableSecondText: true,
+    }),
+  ],
+});
 ```
 
-Now you just need to add a configuration in your application root component. Your feature toggle configuration can be added using different approaches, such as:
+Your feature toggle configuration can come from different sources, such as an HTTP request, RxJS streams, CQRS events or files. To change it at runtime, use `FeatureToggleService` (see [Change feature toggles at runtime](#change-feature-toggles-at-runtime)).
 
-- RXJS subscribe information;
-- HTTP Request;
-- CQRS event data;
-- File information;
-- etc;
-
-After that, you can use the `featureToggle` components and directives in your templates, passing the string based on the feature toggle configuration data.
+Each application keeps its own feature toggles, so with server-side rendering they don't leak between requests. `*featureToggle` updates when the toggles change, also in `OnPush` components (the default since Angular 22) and zoneless applications.
 
 ## Module
 
 ### Components and Directives
 
-- `feature-toggle-provider`: Handle with feature toggle configuration in your application. It adds the default values of your enabled/disabled features;
-- `*featureToggle`: Directive that handles with feature toggle check. So that, the component will be rendered/removed based on the feature toggle configuration is enabled;
-- `*featureToggleWhenDisabled`: Directive that handles with feature toggle check. So that, the component will be rendered/removed when the feature toggle configuration is disabled;
+- `*featureToggle` (`FeatureToggleDirective`): renders the content when the feature toggle configuration is enabled. It receives a toggle name (prefix it with `!` to check that it's disabled), a list of names that must all be enabled, or a callback;
+- `provideFeatureToggles(config)`: sets the feature toggles of the application;
+- `FeatureToggleService`: reads and changes the feature toggles at runtime;
+- `featureToggleGuard`: route guard for `canMatch`, `canActivate` and `canActivateChild`;
 
 ```typescript
 import { Component } from '@angular/core';
+import { FeatureToggleDirective } from 'ngx-feature-toggle';
 
 @Component({
   selector: 'component-docs',
+  imports: [FeatureToggleDirective],
   template: `
-    <feature-toggle-provider [features]="featureToggleData">
-      <div *featureToggle="'enableSecondText'">
-        <p>condition is true and "featureToggle" is enabled.</p>
-      </div>
-      <div *featureToggle="'enableFirstText'">
-        <p>condition is false and "featureToggle" is disabled. In that case this content should not be rendered.</p>
-      </div>
-      <div *featureToggle="'!enableFirstText'">
-        <p>
-          condition is false and "featureToggle" is disabled
-          <b>but it has "!" as a prefix of the feature toggle to be checked.</b>
-          In that case this content should be rendered.
-        </p>
-      </div>
-      <div
-        class="combined-feature-toggles-with-truthly-option"
-        *featureToggle="['!enableFirstText', 'enableSecondText']"
-      >
-        <p>
-          This is a combined condition. It shows if <b>enableSecondText</b> is true and <b>enableFirstText</b> is falsy,
-          but it has "!" as a prefix. If both cases are correct, then the "featureToggle" is enabled and rendering this
-          component.
-        </p>
-      </div>
-    </feature-toggle-provider>
+    <div *featureToggle="'enableSecondText'">
+      <p>condition is true and "featureToggle" is enabled.</p>
+    </div>
+    <div *featureToggle="'enableFirstText'">
+      <p>condition is false and "featureToggle" is disabled. In that case this content should not be rendered.</p>
+    </div>
+    <div *featureToggle="'!enableFirstText'">
+      <p>
+        condition is false and "featureToggle" is disabled
+        <b>but it has "!" as a prefix of the feature toggle to be checked.</b>
+        In that case this content should be rendered.
+      </p>
+    </div>
+    <div
+      class="combined-feature-toggles-with-truthly-option"
+      *featureToggle="['!enableFirstText', 'enableSecondText']"
+    >
+      <p>
+        This is a combined condition. It shows if <b>enableSecondText</b> is true and <b>enableFirstText</b> is falsy,
+        but it has "!" as a prefix. If both cases are correct, then the "featureToggle" is enabled and rendering this
+        component.
+      </p>
+    </div>
   `,
 })
-export class ComponentDocsComponent {
-  public featureToggleData: any = {
-    enableFirstText: false,
-    enableSecondText: true,
-  };
-}
+export class ComponentDocsComponent {}
 ```
 
 #### Callback predicate on `*featureToggle`
@@ -136,26 +119,24 @@ export class ComponentDocsComponent {
 
 ```typescript
 import { Component } from '@angular/core';
-import { FeatureTogglePredicate } from 'ngx-feature-toggle';
+import { FeatureToggleDirective, FeatureTogglePredicate } from 'ngx-feature-toggle';
+
+type AppFeatureToggles = {
+  enableFirstText: boolean;
+  enableSecondText: boolean;
+};
 
 @Component({
   selector: 'component-docs',
+  imports: [FeatureToggleDirective],
   template: `
-    <feature-toggle-provider [features]="featureToggleData">
-      <div *featureToggle="myFn">
-        <p>Renders when enableFirstText OR enableSecondText is enabled.</p>
-      </div>
-    </feature-toggle-provider>
+    <div *featureToggle="myFn">
+      <p>Renders when enableFirstText OR enableSecondText is enabled.</p>
+    </div>
   `,
 })
 export class ComponentDocsComponent {
-  public featureToggleData = {
-    enableFirstText: false,
-    enableSecondText: true,
-  };
-
-  myFn: FeatureTogglePredicate<typeof this.featureToggleData> = ({ isOn }) =>
-    isOn('enableFirstText') || isOn('enableSecondText');
+  myFn: FeatureTogglePredicate<AppFeatureToggles> = ({ isOn }) => isOn('enableFirstText') || isOn('enableSecondText');
 }
 ```
 
@@ -186,17 +167,37 @@ myFn: FeatureTogglePredicate<AppFeatureFlags> = ({ isOn }) =>
 
 Use `!isOn('key')` for negation in callbacks, or `isToggleOn('!key')` for parity with string/array `!` prefix syntax.
 
-### Configure feature toggles (`setFeatureToggles`)
+### Change feature toggles at runtime
 
-Use `setFeatureToggles()` from `ngx-feature-toggle` instead of importing `set()` from `feature-toggle-service` directly:
+Inject `FeatureToggleService` to read or change the feature toggles of the application. New values are merged with the current ones, and every `*featureToggle` updates:
 
 ```typescript
-import { setFeatureToggles } from 'ngx-feature-toggle';
+import { JsonPipe } from '@angular/common';
+import { Component, inject } from '@angular/core';
+import { FeatureToggleService } from 'ngx-feature-toggle';
 
-setFeatureToggles({ A: true, C: false });
+@Component({
+  selector: 'beta-opt-in',
+  template: `
+    <button (click)="enableBeta()">Try the beta</button>
+    <pre>{{ featureToggles.toggles() | json }}</pre>
+  `,
+  imports: [JsonPipe],
+})
+export class BetaOptInComponent {
+  readonly featureToggles = inject(FeatureToggleService);
+
+  enableBeta() {
+    this.featureToggles.set({ enableBeta: true });
+  }
+}
 ```
 
-`feature-toggle-provider` calls `setFeatureToggles()` internally when `[features]` is set.
+| Member | Description |
+| ------ | ----------- |
+| `toggles` | Current feature toggles, as a signal |
+| `set(config)` | Merges `config` with the current feature toggles |
+| `isOn(config)` | Checks a toggle name, a list of names or a callback. It tracks the toggles in reactive contexts (e.g. `computed()`) |
 
 ### Public API
 
@@ -204,17 +205,20 @@ Import only from `ngx-feature-toggle`:
 
 | Export | Consumer use |
 |--------|----------------|
-| `FeatureToggleModule` | App module imports |
-| `setFeatureToggles()` | Bootstrap / SSR flag configuration |
+| `provideFeatureToggles()` | Set the feature toggles when bootstrapping |
+| `FeatureToggleService` | Read and change the feature toggles at runtime |
+| `FeatureToggleDirective` | `*featureToggle` in templates |
+| `featureToggleGuard` | Route `canMatch` / `canActivate` / `canActivateChild` |
 | `FeatureToggleServiceConfig` | Type your flag map |
 | `FeatureTogglePredicate` | Type callback predicates for routes and `*featureToggle` |
-| `NgxFeatureToggleRouteGuard` | Route `canActivate` / `canMatch` / `canActivateChild` |
+
+Deprecated, but still available: `setFeatureToggles()` (use `provideFeatureToggles()` or `FeatureToggleService`; it sets the toggles of every application), `FeatureToggleProviderComponent` (`<feature-toggle-provider>`, use `provideFeatureToggles()`), `FeatureToggleModule` (import `FeatureToggleDirective`) and `NgxFeatureToggleRouteGuard` (use `featureToggleGuard`).
 
 Evaluation logic is internal to the library — configure `featureToggle` as a string, array, or callback on routes and templates.
 
 ### Route Guards
 
-In some scenarios when you need to prevent the route to be loaded, you can use `NgxFeatureToggleCanLoadGuard`, by passing the class and configuration of the feature toggle to be checked in your route data.
+In some scenarios when you need to prevent the route to be loaded, you can use `featureToggleGuard` as `canMatch`, by passing the configuration of the feature toggle to be checked in your route data.
 
 ```js
 ...
@@ -223,7 +227,7 @@ export const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
-    canActivate: [NgxFeatureToggleCanLoadGuard],
+    canActivate: [featureToggleGuard],
     data: {
       // Using array as configuration
       featureToggle: [
@@ -238,7 +242,7 @@ export const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
-    canActivate: [NgxFeatureToggleCanLoadGuard],
+    canActivate: [featureToggleGuard],
     data: {
       // Using string as configuration
       featureToggle: 'enableSecondText',
@@ -248,7 +252,7 @@ export const routes: Routes = [
 ...
 ```
 
-Also, you can use `NgxFeatureToggleRouteGuard` to check if the route should be activated or not by passing the class and configuration of the feature toggle to be checked in your route data.
+Also, you can use `featureToggleGuard` as `canActivate` to check if the route should be activated or not by passing the configuration of the feature toggle to be checked in your route data.
 
 ```js
 ...
@@ -257,7 +261,7 @@ export const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
-    canActivate: [NgxFeatureToggleRouteGuard],
+    canActivate: [featureToggleGuard],
     data: {
       // Using array as configuration
       featureToggle: [
@@ -272,7 +276,7 @@ export const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
-    canActivate: [NgxFeatureToggleRouteGuard],
+    canActivate: [featureToggleGuard],
     data: {
       // Using string as configuration
       featureToggle: 'enableSecondText',
@@ -290,7 +294,7 @@ export const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
-    canActivate: [NgxFeatureToggleRouteGuard],
+    canActivate: [featureToggleGuard],
     data: {
       // Using array as configuration
       featureToggle: [
@@ -305,7 +309,7 @@ export const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
-    canActivate: [NgxFeatureToggleRouteGuard],
+    canActivate: [featureToggleGuard],
     data: {
       // Using string as configuration
       featureToggle: 'enableSecondText',
@@ -319,21 +323,16 @@ In this case, we are combining the checks. So the component will be activated if
 
 #### Callback predicate on route `data.featureToggle`
 
-Route guards also accept a callback on `featureToggle` for OR or mixed logic. Configure flags with `setFeatureToggles()` before navigation:
+Route guards also accept a callback on `featureToggle` for OR or mixed logic:
 
 ```typescript
-import { setFeatureToggles } from 'ngx-feature-toggle';
-
-setFeatureToggles({
-  enableFirstText: true,
-  enableSecondText: false,
-});
+import { featureToggleGuard } from 'ngx-feature-toggle';
 
 export const routes: Routes = [
   {
     path: 'callback-demo',
     component: CallbackDemoComponent,
-    canActivate: [NgxFeatureToggleRouteGuard],
+    canActivate: [featureToggleGuard],
     data: {
       featureToggle: ({ isOn }) => isOn('enableFirstText') || isOn('enableSecondText'),
       redirectTo: '/error',
@@ -351,7 +350,7 @@ export const canAccessCallbackRoute: FeatureTogglePredicate = ({ isOn }) =>
   isOn('enableFirstText') || isOn('enableSecondText');
 ```
 
-Use `NgxFeatureToggleRouteGuard` to control when the child component of a specific component can be activate via routing. It can be passed as an array of items.
+Use `featureToggleGuard` as `canActivateChild` to control when the child component of a specific component can be activated via routing.
 
 ```js
 ...
@@ -359,7 +358,7 @@ export const routes: Routes = [
   {
     path: 'customer',
     component: CustomerComponent,
-    canActivateChild: [NgxFeatureToggleRouteGuard],
+    canActivateChild: [featureToggleGuard],
     children: [
       {
         path: ':id',
@@ -381,7 +380,7 @@ export const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
-    canActivateChild: [NgxFeatureToggleRouteGuard],
+    canActivateChild: [featureToggleGuard],
     children: [
       {
         path: ':id',
@@ -402,7 +401,7 @@ export const routes: Routes = [
 
 #### Redirects
 
-You might have some specific requirements that you should redirect a user to a specific route in case of a feature flag is disabled. For that, you can use `redirectTo` as a mechanism to redirect a user in a specific route when it tries to access in a route with a CanActivate/CanActivateChild/CanLoad Feature Toggle Guard and the feature toggle is disabled.
+You might have some specific requirements that you should redirect a user to a specific route in case of a feature flag is disabled. For that, you can use `redirectTo` as a mechanism to redirect a user in a specific route when it tries to access in a route with `featureToggleGuard` and the feature toggle is disabled. The guard redirects by returning a `UrlTree`, so the router handles the redirect.
 
 For advanced scenarios you can use a combination of route guards AND redirects. E.G.
 
@@ -412,9 +411,9 @@ export const routes: Routes = [
   {
     path: 'customer',
     component: CustomerComponent,
-    canMatch: [NgxFeatureToggleRouteGuard],
-    canActivate: [NgxFeatureToggleRouteGuard],
-    canActivateChild: [NgxFeatureToggleRouteGuard],
+    canMatch: [featureToggleGuard],
+    canActivate: [featureToggleGuard],
+    canActivateChild: [featureToggleGuard],
     // This is the featureToggle configuration for
     // the parent component
     data: {
@@ -451,6 +450,12 @@ export const routes: Routes = [
 ### Run tests
 
 1. Run `npm test` for run tests. In case you want to test using watch, please use `npm run tdd`
+
+### Other checks
+
+- `npm run build:ssr && npm run test:ssr`: builds the demo with server-side rendering, starts the server and checks the rendered pages
+- `npm run check:min-peer`: builds the package and compiles an app using the minimum Angular version supported (`integration/angular-min-peer`)
+- `npm run build:pkg && npm run bundlesize`: checks the package bundle size
 
 ### Publish
 
