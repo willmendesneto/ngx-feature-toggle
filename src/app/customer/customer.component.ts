@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit, inject } from '@angular/core';
+import { Router, RouterLinkActive, RouterLink, RouterOutlet } from '@angular/router';
 
 interface Customer {
   id: number;
@@ -8,27 +8,29 @@ interface Customer {
 
 @Component({
   selector: 'app-customer',
-  standalone: false,
   styleUrls: ['./customer.component.css'],
   template: `
     <p>Customer List</p>
     <ul>
-      <li *ngFor="let customer of customers">
-        <a
-          [routerLink]="['/customer', customer.id]"
-          [routerLinkActiveOptions]="{ exact: true }"
-          routerLinkActive="active"
-          >{{ customer.name }}</a
-        >
-      </li>
+      @for (customer of customers; track customer) {
+        <li>
+          <a
+            [routerLink]="['/customer', customer.id]"
+            [routerLinkActiveOptions]="{ exact: true }"
+            routerLinkActive="active"
+            >{{ customer.name }}</a
+          >
+        </li>
+      }
     </ul>
     <router-outlet></router-outlet>
   `,
+  imports: [RouterLinkActive, RouterLink, RouterOutlet],
 })
 export class CustomerComponent implements OnInit {
-  customers: Customer[] = [];
+  private router = inject(Router);
 
-  constructor(private router: Router) {}
+  customers: Customer[] = [];
 
   ngOnInit() {
     this.customers = [
