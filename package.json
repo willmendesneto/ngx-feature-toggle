@@ -33,6 +33,8 @@
     "lint": "ng lint ngx-feature-toggle-demo && ng lint ngx-feature-toggle",
     "lint:types": "tsc -p tsconfig.app.json --noEmit && tsc -p projects/ngx-feature-toggle/tsconfig.lib.json --noEmit",
     "bundlesize": "node ./scripts/check-bundle-size.js",
+    "test:ssr": "node scripts/check-ssr.mjs",
+    "check:min-peer": "./scripts/check-min-peer-dependency.sh",
     "build:pkg": "ng build ngx-feature-toggle --configuration production",
     "update-library-version": "node ./scripts/build.js && cp -f *.md dist/ngx-feature-toggle",
     "postversion": "git push && git push --tags",
