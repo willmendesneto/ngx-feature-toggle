@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][]
 
+## [13.1.0][] - 2026-10-24
+
 ### Added
 
 - Adding `FeatureToggleService`: each application (e.g. each server-side rendering request) keeps its own feature toggles, exposed as a signal, so they don't leak between requests
@@ -639,3 +641,7 @@ Now we can define the animation we want to use in `<ngx-feature-toggle>` compone
 [7.0.0]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v7.0.0
 [unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v12.0.0...HEAD
 [12.0.0]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v12.0.0
+
+
+[Unreleased]: https://github.com/willmendesneto/ngx-feature-toggle/compare/v13.1.0...HEAD
+[13.1.0]: https://github.com/willmendesneto/ngx-feature-toggle/tree/v13.1.0
