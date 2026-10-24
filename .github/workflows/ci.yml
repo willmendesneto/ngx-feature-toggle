@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [master]
+    branches: [main]
   pull_request:
   workflow_dispatch:
 
@@ -10,7 +10,7 @@ on:
 permissions:
   contents: read
 
-# Cancels outdated runs of the same pull request, keeping every run of `master`
+# Cancels outdated runs of the same pull request, keeping every run of `main`
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
