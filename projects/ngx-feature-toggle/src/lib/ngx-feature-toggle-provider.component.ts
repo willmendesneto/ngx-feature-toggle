@@ -10,7 +10,9 @@ export class FeatureToggleProviderComponent implements DoCheck, OnInit {
   @Input()
   features: FeatureToggleServiceConfig = {};
 
-  private currentConfig: FeatureToggleServiceConfig = {};
+  // Serialized `features` applied last time, so `ngDoCheck` only calls `set()`
+  // when the values change, including mutations of the same object
+  private appliedFeatures: string | undefined;
 
   ngOnInit() {
     if (typeof this.features !== 'object') {
@@ -24,11 +26,9 @@ export class FeatureToggleProviderComponent implements DoCheck, OnInit {
   }
 
   private applyFeatureToggles() {
-    if (this.currentConfig !== this.features) {
-      // Using `Object.assign()` method for bundle size decreasing purposes
-      // It's required since it needs a new memory reference
-      // for the new object value
-      this.currentConfig = Object.assign({}, this.features);
+    const features = JSON.stringify(this.features);
+    if (this.appliedFeatures !== features) {
+      this.appliedFeatures = features;
       setFeatureToggles(this.features);
     }
   }

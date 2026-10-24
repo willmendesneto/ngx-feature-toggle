@@ -21,7 +21,7 @@ export class NgxFeatureToggleRouteGuard implements CanActivateChild, CanMatch, C
     if (!route || !route.data || !isValidFeatureToggleConfig(route.data.featureToggle)) {
       if (this.isDevMode()) {
         console.error(
-          '`NgxFeatureToggleRouteGuard` need to receive `featureToggle` as data as an array or string in your route configuration.',
+          '`NgxFeatureToggleRouteGuard` need to receive `featureToggle` as data as a string, an array or a function in your route configuration.',
         );
       }
       return false;
