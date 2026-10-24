@@ -1,36 +1,41 @@
-import { Directive, Input, OnInit, TemplateRef, ViewContainerRef, DoCheck, isDevMode } from '@angular/core';
-
-import { evaluateFeatureToggle, FeatureToggleConfig, isValidFeatureToggleConfig } from './ngx-feature-toggle.util';
+import {
+  computed,
+  Directive,
+  effect,
+  inject,
+  input,
+  isDevMode,
+  OnInit,
+  TemplateRef,
+  ViewContainerRef,
+} from '@angular/core';
+import { FeatureToggleService } from './ngx-feature-toggle.service';
+import { FeatureToggleConfig, isValidFeatureToggleConfig } from './ngx-feature-toggle.util';
 
 @Directive({
-  // tslint:disable-next-line: directive-selector
   selector: '[featureToggle]',
-  standalone: true,
 })
-export class FeatureToggleDirective implements OnInit, DoCheck {
-  @Input() public featureToggle: FeatureToggleConfig | undefined;
-  private isOn = false;
+export class FeatureToggleDirective implements OnInit {
+  readonly featureToggle = input<FeatureToggleConfig | undefined>();
 
-  constructor(private templateRef: TemplateRef<any>, private viewContainer: ViewContainerRef) {}
+  readonly #service = inject(FeatureToggleService);
+  readonly #templateRef = inject(TemplateRef);
+  readonly #viewContainer = inject(ViewContainerRef);
+  // Recomputed when the input or the feature toggles change, so it works with `OnPush` and zoneless
+  readonly #isOn = computed(() => this.isOnCheck(this.featureToggle()));
+
+  constructor() {
+    effect(() => {
+      this.#viewContainer.clear();
+      if (this.#isOn()) {
+        this.#viewContainer.createEmbeddedView(this.#templateRef);
+      }
+    });
+  }
 
   ngOnInit() {
-    if (!this.featureToggle) {
+    if (!this.featureToggle()) {
       throw new Error('Attribute `featureToggle` should not be null or empty');
-    }
-    this.shouldRender();
-  }
-
-  ngDoCheck() {
-    if (this.isOn !== this.isOnCheck(this.featureToggle)) {
-      this.shouldRender();
-    }
-  }
-
-  private shouldRender() {
-    this.viewContainer.clear();
-    this.isOn = this.isOnCheck(this.featureToggle);
-    if (this.isOn) {
-      this.viewContainer.createEmbeddedView(this.templateRef);
     }
   }
 
@@ -44,6 +49,6 @@ export class FeatureToggleDirective implements OnInit, DoCheck {
       return false;
     }
 
-    return evaluateFeatureToggle(featureToggle);
+    return this.#service.isOn(featureToggle);
   }
 }
