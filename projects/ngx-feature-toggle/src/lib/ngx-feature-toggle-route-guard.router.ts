@@ -10,6 +10,9 @@ import {
 import { FeatureToggleService } from './ngx-feature-toggle.service';
 import { evaluateFeatureToggle, isValidFeatureToggleConfig } from './ngx-feature-toggle.util';
 
+/**
+ * @deprecated Use the functional `featureToggleGuard`, which redirects by returning a `UrlTree`.
+ */
 @Injectable({ providedIn: 'root' })
 export class NgxFeatureToggleRouteGuard implements CanActivateChild, CanMatch, CanActivate {
   // `service` is optional to keep supporting `new NgxFeatureToggleRouteGuard(router)`,
