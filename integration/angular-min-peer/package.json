@@ -1,0 +1,23 @@
+{
+  "name": "ngx-feature-toggle-angular-min-peer",
+  "description": "Angular app using the minimum `peerDependencies` version, to check the published package compatibility",
+  "private": true,
+  "scripts": {
+    "build": "ng build"
+  },
+  "dependencies": {
+    "@angular/common": "~22.0.0",
+    "@angular/compiler": "~22.0.0",
+    "@angular/core": "~22.0.0",
+    "@angular/platform-browser": "~22.0.0",
+    "@angular/router": "~22.0.0",
+    "rxjs": "~7.8.0",
+    "tslib": "^2.8.1"
+  },
+  "devDependencies": {
+    "@angular/build": "~22.0.0",
+    "@angular/cli": "~22.0.0",
+    "@angular/compiler-cli": "~22.0.0",
+    "typescript": "~6.0.0"
+  }
+}
